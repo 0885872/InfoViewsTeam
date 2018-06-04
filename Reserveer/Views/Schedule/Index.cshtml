@@ -1,0 +1,61 @@
+﻿<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: </h1>
+
+@*TIM ZET JE CALENDER DIV ID HIER!!!!!!!!!!!!!*@
+
+
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Overview Reservations:
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
+                <div class="row">
+
+                    @*Zet dit achter url en zie magic---> ?NumTimes=3 *@
+                    @for (int i = 0; i < (int)ViewData["NumTimes"]; i++)
+                    {
+                        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                            <div class="caption">
+                                <div class="col-sm-3">
+                                    USERNAME
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Time
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Date
+                                </div>
+                                <div class="col-sm-3">
+                                    Room Number
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                            <div class="caption">
+                                <div class="col-sm-3">
+                                    USERNAME
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Time
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Date
+                                </div>
+                                <div class="col-sm-3">
+                                    Room Number
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+

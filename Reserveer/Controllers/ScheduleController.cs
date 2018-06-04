@@ -12,9 +12,10 @@ namespace InfoView.Controllers
     // 
     // GET: /Groups/
 
-    public IActionResult Index()
+    public IActionResult Index(int numTimes = 1)
     {
-      return View();
+        ViewData["NumTimes"] = numTimes;
+        return View();
     }
 
     // 
