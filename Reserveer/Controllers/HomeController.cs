@@ -20,15 +20,6 @@ namespace Reserveer.Controllers
             _context = context;
         }
 
-        public IActionResult Nieuw()
-        {
-            var results = from p in _context.user 
-                orderby p.user_name
-                          select p;
-   
-            return View(results.ToList());
-        }
-
         public IActionResult Index()
         {
             return View();
@@ -51,8 +42,6 @@ namespace Reserveer.Controllers
             {
                 if (IsValid(user.user_mail, user.user_password))
                 {
-
-                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -83,17 +72,15 @@ namespace Reserveer.Controllers
                 MySqlCommand command = new MySqlCommand(sql, conn);
                 command.ExecuteNonQuery();
                 conn.Close();
-      }
-      return View();
-    }
+            }
+            return View();
+        }
 
         private bool IsValid(string email, string password)
         {
             bool isValid = false;
-
             var user = _context.user.FirstOrDefault(u => u.user_mail == email);
 
-  
             if (user != null)
             {
                 if (user.user_password == password)
@@ -101,24 +88,6 @@ namespace Reserveer.Controllers
                     isValid = true;
                 }
             }
-
-            return isValid;
-        }
-
-        private bool IsvalidRegister(string name, string email)
-        {
-            bool isValid = false;
-
-            var userRegister = _context.user.FirstOrDefault(u => u.user_name == name);
-
-            if (userRegister == null)
-            {
-                if (userRegister.user_mail != email)
-                {
-                    isValid = true;
-                }
-            }
-
             return isValid;
         }
 
