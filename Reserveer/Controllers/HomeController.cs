@@ -64,6 +64,7 @@ namespace Reserveer.Controllers
             using (MySqlConnection conn = new MySqlConnection())
             {
                 conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+
                 conn.Open();
                 String sql =
                     "INSERT INTO user (group_id,user_name, user_mail, user_password, user_role, active) VALUES (" +
@@ -91,7 +92,19 @@ namespace Reserveer.Controllers
             return isValid;
         }
 
-        public ActionResult LogOut()
+        private bool IsRegisterValid(string name)
+        {
+          bool isValid = true;
+          var user = _context.user.FirstOrDefault(u => u.user_name == name);
+
+          if (user != null)
+          {
+              isValid = true;
+          }
+          return (isValid = false);
+        }
+
+    public ActionResult LogOut()
         {
             SignOut();
             return RedirectToAction("Index", "Home");

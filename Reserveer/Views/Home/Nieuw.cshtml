@@ -1,0 +1,20 @@
+﻿@model IEnumerable<User>
+
+@if (Model == null)
+{
+    <span>
+        no items
+    </span>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <li>
+            @item.group_id
+            @item.user_mail
+            @item.user_name
+            @item.user_password
+        </li>
+    }
+}
