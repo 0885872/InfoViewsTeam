@@ -28,10 +28,7 @@ namespace InfoView.Controllers
       return View();
     }
 
-    public IActionResult Edit(string name, int numTimes = 7)
-    {
-      return View();
-    }
+    
 
 
 

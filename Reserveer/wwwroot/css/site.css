@@ -85,6 +85,11 @@ body, html {
   }
 }
 
+.domains_admin {
+    padding: 5px;
+    border-radius: 4px;
+}
+
 .cwhite {
   color: white !important;
 }

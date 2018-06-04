@@ -19,8 +19,13 @@ namespace InfoView.Controllers
 
       return View();
     }
+    public IActionResult AddRoom()
+    {
 
-    public IActionResult Profile()
+        return View();
+    }
+
+        public IActionResult Profile()
     {
       return View();
     }
