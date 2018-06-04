@@ -61,14 +61,17 @@ namespace Reserveer.Controllers
         public IActionResult Registration(UserRegistration user)
         {
             int groupid = 1;
+            var crypto = new SimpleCrypto.PBKDF2();
+            var encryPass = crypto.Compute(user.Password);
+
             using (MySqlConnection conn = new MySqlConnection())
             {
                 conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
                 conn.Open();
                 String sql =
-                    "INSERT INTO user (group_id,user_name, user_mail, user_password, user_role, active) VALUES (" +
-                    groupid + ",'" + user.Name + "','" + user.Mail + "','" + user.Password +
+                    "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
+                    groupid + ",'" + user.Name + "','" + user.Mail + "','" + encryPass + "','" + crypto.Salt +
                     "', 'user', 0);";
                 MySqlCommand command = new MySqlCommand(sql, conn);
                 command.ExecuteNonQuery();
@@ -79,12 +82,13 @@ namespace Reserveer.Controllers
 
         private bool IsValid(string email, string password)
         {
+            var crypto = new SimpleCrypto.PBKDF2();
             bool isValid = false;
             var user = _context.user.FirstOrDefault(u => u.user_mail == email);
 
             if (user != null)
             {
-                if (user.user_password == password)
+                if (user.user_password == crypto.Compute(password, user.user_password))
                 {
                     isValid = true;
                 }
