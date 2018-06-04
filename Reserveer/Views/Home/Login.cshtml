@@ -1,0 +1,32 @@
+﻿@model Reserveer.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+}
+<h2>@ViewData["Title"]</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Login failed. Check your login details.");
+    <div>
+        <fieldset>
+            <legend>Login Form</legend>
+            <div>@Html.LabelFor(u => u.user_mail)</div>
+
+            <div>
+                @Html.TextBoxFor(u => u.user_mail)
+            @Html.ValidationMessageFor(u => u.user_mail)
+        </div>
+
+        <div>@Html.LabelFor(u => u.user_password)</div>
+
+        <div>
+            @Html.PasswordFor(u => u.user_password)
+        @Html.ValidationMessageFor(u => u.user_password)
+    </div>
+    <input type="submit" value="Log In" />
+
+</fieldset>
+</div>
+}

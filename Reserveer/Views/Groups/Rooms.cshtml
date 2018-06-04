@@ -1,0 +1,26 @@
+﻿
+@{
+  ViewData["Title"] = "Rooms";
+}
+<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Choose a room</h1>
+<div class="opacityWhitebg">
+  <br><br>
+  <div class="row">
+    <ul>
+      @for (int i = 0; i < (int)ViewData["NumTimes"]; i++)
+      {
+        <div class="col-sm-4">
+          <a class="card-link" href="...">
+            <div class="thumbnail ">
+              <div class="caption">
+                <h4 class="card-title text-center themeColor">WD 0002</h4>
+                <p class="text-center">Avaible</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      }
+    </ul>
+  </div>
+  <hr>
+</div>
