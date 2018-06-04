@@ -13460,11 +13460,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tommy\\Downloads\\ReserveerLoginRegister\\Reserveer\\Reserveer\\Reserveer.csproj",
+      "projectUniqueName": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam3\\Reserveer\\Reserveer.csproj",
       "projectName": "Reserveer",
-      "projectPath": "C:\\Users\\Tommy\\Downloads\\ReserveerLoginRegister\\Reserveer\\Reserveer\\Reserveer.csproj",
+      "projectPath": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam3\\Reserveer\\Reserveer.csproj",
       "packagesPath": "C:\\Users\\Tommy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tommy\\Downloads\\ReserveerLoginRegister\\Reserveer\\Reserveer\\obj\\",
+      "outputPath": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam3\\Reserveer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
