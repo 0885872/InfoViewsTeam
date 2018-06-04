@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using InfoViewsProject.Models;
 using Newtonsoft.Json;
-using InfoViewsProject.Controllers;
+using Reserveer.Controllers;
 
 namespace InfoViewsProject.Models
 {
