@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using InfoViewsProject.Models;
+using Reserveer.Models;
 using Newtonsoft.Json;
 using Reserveer.Controllers;
 
-namespace InfoViewsProject.Models
+namespace Reserveer.Models
 {
 
     public class ReservationModel

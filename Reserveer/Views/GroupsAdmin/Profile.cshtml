@@ -1,0 +1,282 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h1 class="text-center">Profile</h1>
+
+<div class="panel-group" id="Group" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Group" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Group Info
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in " style="padding:40px;" role="tabpanel" aria-labelledby="headingOne">
+
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div>
+                            <img class="card-img-top" src="https://dummyimage.com/300x200/000/17a2b8 " alt="Card image cap" 
+                                 style="height: 200px;  display: block; border: 2px #27A2A7 solid; padding: 2px;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="radio-inline"><input type="radio" name="optradio" class="selected active" selected="selected">Active</label>
+                        <label class="radio-inline"><input type="radio" name="optradio">Inactive</label>
+                    </div>
+
+                </div>
+                <div class="col-sm-8">
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="basic-addon1">Group Name</span>
+                        <input type="text" class="form-control" placeholder="Group Name" aria-describedby="basic-addon1">
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;">Save</button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="panel-group" id="Domains" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Domains" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                    Domains
+                </a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading2">
+
+            <div class="row">
+                <ul>
+                    <div class="col-sm-4 thumbnail">
+                        <div class="col-sm-7">
+                            <h4 class="card-title text-center themeColor">Domain.nl</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-lg btn-danger btn-block  center-block">Delete</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-4 thumbnail">
+                        <div class="col-sm-7">
+                            <h4 class="card-title text-center themeColor">Domain.nl</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-lg btn-danger btn-block  center-block">Delete</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-4 thumbnail">
+                        <div class="col-sm-7">
+                            <h4 class="card-title text-center themeColor">Domain.nl</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-lg btn-danger btn-block  center-block">Delete</button>
+
+                        </div>
+
+                    </div>
+
+                </ul>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <h3 class="text-center">Add New Domain</h3>
+                <div class="col-sm-6">
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="basic-addon1">Domain </span>
+                        <input type="text" class="form-control" placeholder="Domain.nl" aria-describedby="basic-addon1">
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="basic-addon1">Verification Mail</span>
+                        <input type="text" class="form-control" placeholder="email with domain" aria-describedby="basic-addon1">
+                    </div>
+
+                </div> 
+
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-lg btn-primary  center-block" style="margin-top:10px;">Save</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="panel-group" id="Rooms" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Rooms" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                    Rooms
+                </a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
+            <div class="row">
+                <ul>
+                    <div class="col-sm-4 thumbnail">
+                        <div class="col-sm-7">
+                            <h4 class="card-title text-center themeColor">WD 2002</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-lg btn-danger btn-block  center-block">Edit</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-4 thumbnail">
+                        <div class="col-sm-7">
+                            <h4 class="card-title text-center themeColor">WD 2002</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-lg btn-danger btn-block  center-block">Edit</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-4 thumbnail">
+                        <div class="col-sm-7">
+                            <h4 class="card-title text-center themeColor">WD 2002</h4>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-lg btn-danger btn-block  center-block">Edit</button>
+
+                        </div>
+
+                    </div>
+
+                </ul>
+            </div>
+
+            <hr />
+
+            <button type="submit" class="btn btn-lg btn-danger btn-block  center-block">Add Room</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel-group" id="Users" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading4">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Users" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                    Users
+                </a>
+            </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading4">
+            <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+
+                <div class="caption">
+                    <div class="col-sm-3">
+                        USERNAME
+                    </div>
+                    <div class="col-sm-3">
+                        USER EMAIL
+                    </div>
+                    <div class="col-sm-3">
+                        USER ACTIVE
+                    </div>
+                    <div class="col-sm-3">
+                        USER GROUP
+                    </div>
+                </div>
+            </div>
+            <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+
+                <div class="caption">
+                    <div class="col-sm-3">
+                        USERNAME
+                    </div>
+                    <div class="col-sm-3">
+                        USER EMAIL
+                    </div>
+                    <div class="col-sm-3">
+                        USER ACTIVE
+                    </div>
+                    <div class="col-sm-3">
+                        USER GROUP
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+<div class="panel-group" id="Reservations" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading5">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                    Reservations
+                </a>
+            </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading5">
+
+            <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                <div class="caption">
+                    <div class="col-sm-3">
+                        USERNAME
+                    </div>
+                    <div class="col-sm-3">
+                        Reservation Time
+                    </div>
+                    <div class="col-sm-3">
+                        Reservation Date
+                    </div>
+                    <div class="col-sm-3">
+                        Room Number
+                    </div>
+                </div>
+            </div>
+            <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                <div class="caption">
+                    <div class="col-sm-3">
+                        USERNAME
+                    </div>
+                    <div class="col-sm-3">
+                        Reservation Time
+                    </div>
+                    <div class="col-sm-3">
+                        Reservation Date
+                    </div>
+                    <div class="col-sm-3">
+                        Room Number
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
