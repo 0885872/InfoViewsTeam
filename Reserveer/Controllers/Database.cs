@@ -91,6 +91,44 @@ namespace Reserveer.Controllers
             }
             return result;
         }
+
+        public string getDomainCheck(string domain)
+        {
+            string[] res = new string[1];
+            string result;
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    cmdd.CommandText = "SELECT group_id FROM domain WHERE domain_name = '" + domain + "';";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                            res[0] = reader["group_id"].ToString();
+                        }
+                    }
+                }
+                connMysql.Close();
+                if(res[0] == null)
+                {
+                    result = null;
+                }
+                else
+                {
+                    result = res[0];
+                }
+                return result;
+            }
+        }
     }
 }
     }

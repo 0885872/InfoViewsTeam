@@ -96,18 +96,6 @@ namespace Reserveer.Controllers
             return isValid;
         }
 
-        private bool IsRegisterValid(string name)
-        {
-          bool isValid = true;
-          var user = _context.user.FirstOrDefault(u => u.user_name == name);
-
-          if (user != null)
-          {
-              isValid = true;
-          }
-          return (isValid = false);
-        }
-
     public ActionResult LogOut()
         {
             SignOut();
