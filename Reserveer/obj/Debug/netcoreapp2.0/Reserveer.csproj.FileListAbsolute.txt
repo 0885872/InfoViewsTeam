@@ -63,7 +63,6 @@ D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer
 D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
 D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
 D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb
-D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csprojAssemblyReference.cache
 C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.deps.json
 C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.json
 C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.dev.json
