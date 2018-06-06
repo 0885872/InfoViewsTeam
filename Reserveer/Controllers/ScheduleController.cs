@@ -13,8 +13,9 @@ namespace Reserveer.Controllers
   {
         //Reservaties ophalen
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int numTimes = 1)
         {
+            ViewData["NumTimes"] = numTimes;
             Database db = new Database();
             List<string[]> results = db.getReservations();
             var json = JsonConvert.SerializeObject(results);
@@ -40,7 +41,7 @@ namespace Reserveer.Controllers
         //// 
         //// GET: /Groups/
 
-        //public IActionResult Index(int numTimes = 1)
+        //public IActionResult Index()
         //{
         //    ViewData["NumTimes"] = numTimes;
         //    return View();
