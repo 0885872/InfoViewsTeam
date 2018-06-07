@@ -62,7 +62,6 @@ namespace Reserveer.Controllers
         {
 
 
-            int groupid = 1;
             var crypto = new SimpleCrypto.PBKDF2();
             var encryPass = crypto.Compute(user.Password);
 
@@ -89,7 +88,7 @@ namespace Reserveer.Controllers
                         conn.Open();
                         String sql =
                             "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
-                            groupid + ",'" + user.Name + "','" + user.Mail + "','" + encryPass + "','" + crypto.Salt +
+                            group_id + ",'" + user.Name + "','" + user.Mail + "','" + encryPass + "','" + crypto.Salt +
                             "', 'user', 0);";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
