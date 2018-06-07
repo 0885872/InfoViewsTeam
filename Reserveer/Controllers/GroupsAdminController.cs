@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace InfoView.Controllers
+namespace Reserveer.Controllers
 {
   public class GroupsAdminController : Controller
   {
