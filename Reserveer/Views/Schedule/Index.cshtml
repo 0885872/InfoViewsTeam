@@ -1,0 +1,186 @@
+﻿<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: </h1>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            eventArray = [];
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+            var hours = today.getHours();
+            var minutes = today.getMinutes();
+            var seconds = today.getSeconds
+
+
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+
+            var events = (@Html.Raw(ViewData["results"]));
+            x = 0;
+            while (events[x] != null) {
+                eventArray[x] = events[x];
+                x++;
+            }
+
+            var collectionString = "["
+            var events = new Array();
+            for (var i = 0, len = eventArray.length; i < len; i++) {
+                events[i] = { 'id': eventArray[i][0], 'title': eventArray[i][1], 'start': eventArray[i][2], 'end': eventArray[i][3] };
+                }
+
+
+            $('#calendar').fullCalendar({
+                minTime: "08:00:00",
+                maxTime: "18:00:00",
+                displayEventTime: false,
+                disableResizing: false,
+                eventStartEditable: false,
+                timeFormat: 'H(:mm)',
+                slotLabelFormat: "HH:mm",
+                header: false,
+                defaultView: 'agendaWeek',
+                eventOverlap: false,
+                businessHours:
+                    {
+                        dow: [1, 2, 3, 4, 5],
+
+                        start: '8:00', // a start time
+                        end: '18:00', // an end time
+                    },
+                defaultDate: today,
+                navLinks: false, // can click day/week names to navigate views
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    startdate = start.clone();
+                    enddate = end.clone();
+                    isWeekend = false;
+
+                    if (startdate.isoWeekday() == 6 || startdate.isoWeekday() == 7 || enddate.isoWeekday() == 6 || enddate.isoWeekday() == 7) {
+                        isWeekend = true;
+                        alert("You can not book a room on Saturday or Sunday.")
+                        $('#calendar').fullCalendar('unselect');
+                    }
+                    if (isWeekend == false) {
+                        var confirmed = confirm("Do you really want to book this room from " + moment(start).format('YYYY/MM/DD HH:mm') + " till " + moment(end).format('YYYY/MM/DD HH:mm') + "?");
+                        if (confirmed) {
+                            var title = "userId";
+                            var eventData;
+                            if (title) {
+                                eventData = {
+                                    title: title,
+                                    start: start,
+                                    end: end
+                                };
+                                var startFormat = moment(start).format('YYYY/MM/DD HH:mm');
+                                var endFormat = moment(end).format('YYYY/MM/DD HH:mm');
+
+                                var reservation = new Object();
+                                reservation.title = title;
+                                reservation.start = startFormat;
+                                reservation.end = endFormat;
+
+
+                                $.ajax({
+                                    url: '/Home/SetReservation',
+                                    type: 'POST',
+                                    dataType: "json",
+                                    contentType: "application/json; charset=utf-8",
+                                    data: JSON.stringify(reservation),
+                                    success: function (data) {
+                                        alert(data);
+                                    },
+                                    failure: function (errMsg) {
+                                        alert(errMsg);
+                                    }
+
+                                });
+
+                                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                            }
+                            $('#calendar').fullCalendar('unselect');
+                        }
+
+                    }
+
+                },
+                editable: true,
+                eventLimit: true,
+                events: events,
+            });
+
+
+        });
+</script>
+
+
+
+@*TIM ZET JE CALENDER DIV ID HIER!!!!!!!!!!!!!*@
+
+<div id="calendar" class="opacityWhitebg"></div>
+
+
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Overview Reservations:
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
+                <div class="row">
+
+                    @*Zet dit achter url en zie magic---> ?NumTimes=3 *@
+                    @for (int i = 0; i < (int)ViewData["NumTimes"]; i++)
+                    {
+                        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                            <div class="caption">
+                                <div class="col-sm-3">
+                                    USERNAME
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Time
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Date
+                                </div>
+                                <div class="col-sm-3">
+                                    Room Number
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                            <div class="caption">
+                                <div class="col-sm-3">
+                                    USERNAME
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Time
+                                </div>
+                                <div class="col-sm-3">
+                                    Reservation Date
+                                </div>
+                                <div class="col-sm-3">
+                                    Room Number
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+

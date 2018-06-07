@@ -1,45 +1,30 @@
-﻿<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Groups</h1>
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        AdminGroupsArray = new Array();
+        AdminGroupsArray = @Html.Raw(ViewData["results"]);
+
+
+        console.log(AdminGroupsArray);
+
+        var arrayLength = AdminGroupsArray.length;
+        for (var i = 0; i < arrayLength; i++) {
+            $("#AdminGroupsCollapse").append(
+
+                '<a href="GroupsAdmin/Profile?GroupId='+AdminGroupsArray[i][0]+'"><div class="col-sm-4"><div class="thumbnail "><img class="card-img-top " src="https://dummyimage.com/180x100/000/17a2b8 " alt="Card image cap" style="height: 200px; width: 100%; display: block;"/><div class= "caption" > <h3 class="card-title text-center">'+AdminGroupsArray[i][1]+'</h3> <h6 class="text-center">DOMAINS</h6> <div class="row"><div class="col-sm-4 "><span class="themeBGColor domains_admin">'+AdminGroupsArray[i][2]+'</span></div></div ><hr/><a href="GroupsAdmin/Profile?GroupId='+AdminGroupsArray[i][0]+'" class="btn btn-dark  center-block" style="margin-top:10px;">Profile</a></div><div class="footer themeBGColor" style="border-radius:5px;"><div style="padding:20px;" class="text-center">'+AdminGroupsArray[i][3]+' Users</div></div></div></div></a>'
+
+            );
+        }
+
+
+    });
+
+</script>
+<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Groups</h1>
 <div class="opacityWhitebgr" style="padding:50px; border-radius:10px;">
 
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="thumbnail ">
-        <a class="card-link" href="groups/rooms">
-          <img class="card-img-top " src="https://dummyimage.com/180x100/000/17a2b8 " alt="Card image cap" style="height: 200px; width: 100%; display: block;">
-        </a>
-        <div class="caption">
-          <h3 class="card-title text-center">HR Capelle</h3>
-          <h6>DOMAINS</h6>
-          <ul>
-            <div class="col-sm-6">
-              <a class="card-link" href="...">
-                <div class="thumbnail ">
-                  <div class="caption">
-                    <h6 class="card-title text-center themeColor">WD 0002</h6>
-                    <p class="text-center">Avaible</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-sm-6">
-              <a class="card-link" href="...">
-                <div class="thumbnail ">
-                  <div class="caption">
-                    <h4 class="card-title text-center themeColor">WD 0002</h4>
-                    <p class="text-center">Avaible</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </ul>
-          <button type="submit" class="btn btn-primary center-block">View Schedule</button>
-        </div>
-        <hr>
-        <div class="footer themeBGColor" style="border-radius:5px;">
-          test
-        </div>
-      </div>
-    </div>
+  <div id="AdminGroupsCollapse" class="row">
+      
   </div>
 
 </div>

@@ -1,26 +1,35 @@
-﻿
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        UserRoomsArray = new Array();
+        UserRoomsArray = @Html.Raw(ViewData["results"]);
+
+
+        console.log(UserRoomsArray);
+
+        var arrayLength = UserRoomsArray.length;
+        for (var i = 0; i < arrayLength; i++) {
+            $("#UserRoomsCollapse").append(
+
+                '<div class="col-sm-4"><a class= "card-link" href ="../schedule?RoomId='+UserRoomsArray[i][0]+'"><div class="thumbnail "><div class="caption"><h4 class="card-title text-center themeColor">'+UserRoomsArray[i][1]+'</h4><p class="text-center">'+UserRoomsArray[i][2]+'</p></div></div></a></div>'
+            );
+        }
+
+
+    });
+
+</script>
+
 @{
-  ViewData["Title"] = "Rooms";
+    ViewData["Title"] = "Rooms";
 }
 <h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Choose a room</h1>
 <div class="opacityWhitebg">
-  <br><br>
-  <div class="row">
-    <ul>
-      @for (int i = 0; i < (int)ViewData["NumTimes"]; i++)
-      {
-        <div class="col-sm-4">
-          <a class="card-link" href="...">
-            <div class="thumbnail ">
-              <div class="caption">
-                <h4 class="card-title text-center themeColor">WD 0002</h4>
-                <p class="text-center">Avaible</p>
-              </div>
-            </div>
-          </a>
-        </div>
-      }
-    </ul>
-  </div>
-  <hr>
+    <br><br>
+    <div class="row">
+        <ul id="UserRoomsCollapse">
+
+        </ul>
+    </div>
+    <hr>
 </div>

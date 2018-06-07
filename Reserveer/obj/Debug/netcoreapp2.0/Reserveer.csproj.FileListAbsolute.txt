@@ -52,3 +52,25 @@ C:\Users\Tim\Source\Repos\InfoViewsTeam\Reserveer\obj\Debug\netcoreapp2.0\Reserv
 C:\Users\Tim\Source\Repos\InfoViewsTeam\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
 C:\Users\Tim\Source\Repos\InfoViewsTeam\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
 C:\Users\Tim\Source\Repos\InfoViewsTeam\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.deps.json
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.json
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.dev.json
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.dll
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.pdb
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csproj.CoreCompileInputs.cache
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfoInputs.cache
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csprojAssemblyReference.cache
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.deps.json
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.json
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.dev.json
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.dll
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.pdb
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csprojResolveAssemblyReference.cache
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csproj.CoreCompileInputs.cache
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfoInputs.cache
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
+C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb

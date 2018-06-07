@@ -1,14 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace InfoView.Controllers
+namespace Reserveer.Controllers
 {
   public class GroupsAdminController : Controller
   {
     // 
     // GET: /Groups/
-    public IActionResult Index()
+    public IActionResult Index(int numTimes = 1)
     {
+      Database db = new Database();
+      List<string[]> results = db.getGroupAdmin();
+      var json = JsonConvert.SerializeObject(results);
+      ViewData["results"] = json;
+      ViewData["NumTimes"] = numTimes;
       return View();
     }
 
@@ -19,8 +26,13 @@ namespace InfoView.Controllers
 
       return View();
     }
+    public IActionResult AddRoom()
+    {
 
-    public IActionResult Profile()
+        return View();
+    }
+
+        public IActionResult Profile()
     {
       return View();
     }

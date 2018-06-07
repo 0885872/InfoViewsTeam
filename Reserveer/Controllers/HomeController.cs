@@ -60,23 +60,48 @@ namespace Reserveer.Controllers
         [HttpPost]
         public IActionResult Registration(UserRegistration user)
         {
-            int groupid = 1;
+
+
             var crypto = new SimpleCrypto.PBKDF2();
             var encryPass = crypto.Compute(user.Password);
 
-            using (MySqlConnection conn = new MySqlConnection())
+            Database db = new Database();
+            string[] result = db.FindDuplicates(user);
+            string domain = user.Mail.ToString();
+            string[] domainArray = domain.Split("@");
+            string domainExists = domainArray[1];
+            string group_id = db.getDomainCheck(domainExists);
+
+            if (group_id == "null")
             {
-                conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-                conn.Open();
-                String sql =
-                    "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
-                    groupid + ",'" + user.Name + "','" + user.Mail + "','" + encryPass + "','" + crypto.Salt +
-                    "', 'user', 0);";
-                MySqlCommand command = new MySqlCommand(sql, conn);
-                command.ExecuteNonQuery();
-                conn.Close();
+                ModelState.AddModelError("Mail", "There is no group allocated to this email. Contact your administrator for more information.");
+                return View();
             }
-            return View();
+            else
+            {
+                if (result[0] == "0")
+                {
+                    using (MySqlConnection conn = new MySqlConnection())
+                    {
+                        conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+
+                        conn.Open();
+                        String sql =
+                            "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
+                            group_id + ",'" + user.Name + "','" + user.Mail + "','" + encryPass + "','" + crypto.Salt +
+                            "', 'user', 0);";
+                        MySqlCommand command = new MySqlCommand(sql, conn);
+                        command.ExecuteNonQuery();
+                        conn.Close();
+                        return View();
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("Mail", "Email is already taken");
+                    return View();
+                }
+            }
         }
 
         private bool IsValid(string email, string password)
