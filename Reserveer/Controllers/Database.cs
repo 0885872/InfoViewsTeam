@@ -198,6 +198,63 @@ namespace Reserveer.Controllers
                 return GroupRooms;
             }
         }
+
+        public List<string[]> getGroupAdmin()
+        {
+          List<string[]> AdminGroup = new List<string[]>();
+          String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+          using (MySqlConnection connMysql = new MySqlConnection(connString))
+          {
+            string[] group_id = new string[1];
+            using (MySqlCommand cmdd = connMysql.CreateCommand())
+            {
+              string userID = "1";
+              cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';";
+              cmdd.CommandType = System.Data.CommandType.Text;
+              //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
+              cmdd.Connection = connMysql;
+
+              connMysql.Open();
+
+              using (MySqlDataReader reader = cmdd.ExecuteReader())
+              {
+                while (reader.Read())
+                {
+                  string[] res = new string[1];
+                  group_id[0] = reader["group_id"].ToString();
+                }
+              }
+              connMysql.Close();
+            }
+
+            using (MySqlCommand cmdd = connMysql.CreateCommand())
+            {
+
+              cmdd.CommandText = "SELECT group.group_id, group.group_name, domain.domain_name, COUNT(user.user_name) AS user_amount FROM `group`, `user`, `domain` where user.group_id = group.group_id and group.group_id = domain.group_id AND group.group_id = '" + group_id[0] + "';";
+              cmdd.CommandType = System.Data.CommandType.Text;
+              //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
+              cmdd.Connection = connMysql;
+
+              connMysql.Open();
+
+              using (MySqlDataReader reader = cmdd.ExecuteReader())
+              {
+                while (reader.Read())
+                {
+                  string[] res = new string[4];
+                  res[0] = reader["group_id"].ToString();
+                  res[1] = reader["group_name"].ToString();
+                  res[2] = reader["domain_name"].ToString();
+                  res[3] = reader["user_amount"].ToString();
+                  AdminGroup.Add(res);
+                }
+              }
+              connMysql.Close();
+            }
+
+            return AdminGroup;
+          }
+        }
     }
 }
     

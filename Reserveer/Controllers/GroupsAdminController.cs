@@ -7,8 +7,13 @@ namespace InfoView.Controllers
   {
     // 
     // GET: /Groups/
-    public IActionResult Index()
+    public IActionResult Index(int numTimes = 1)
     {
+      Database db = new Database();
+      List<string[]> results = db.getGroupAdmin();
+      var json = JsonConvert.SerializeObject(results);
+      ViewData["results"] = json;
+      ViewData["NumTimes"] = numTimes;
       return View();
     }
 
