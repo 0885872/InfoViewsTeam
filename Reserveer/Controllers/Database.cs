@@ -33,7 +33,7 @@ namespace Reserveer.Controllers
                             string[] res = new string[5];
                             res[0] = reader["reservation_id"].ToString();
                             res[1] = reader["room_id"].ToString();
-                            res[2] = reader["start"].ToString(); 
+                            res[2] = reader["start"].ToString();
                             res[3] = reader["end"].ToString();
                             res[4] = reader["valid"].ToString();
                             res[2] = Convert.ToDateTime(res[2]).ToString("yyyy/MM/dd HH:mm");
@@ -101,6 +101,7 @@ namespace Reserveer.Controllers
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
+
                     cmdd.CommandText = "SELECT group_id FROM domain WHERE domain_name = '" + domain + "';";
                     cmdd.CommandType = System.Data.CommandType.Text;
 
@@ -112,23 +113,24 @@ namespace Reserveer.Controllers
                     {
                         while (reader.Read())
                         {
-                            
+
                             res[0] = reader["group_id"].ToString();
                         }
                     }
+                    connMysql.Close();
                 }
-                connMysql.Close();
-                if(res[0] == null)
-                {
-                    result = null;
+                    
+                    if (res[0] == null)
+                    {
+                        result = "null";
+                    }
+                    else
+                    {
+                        result = res[0];
+                    }
+                    return result;
                 }
-                else
-                {
-                    result = res[0];
-                }
-                return result;
             }
         }
     }
-}
     
