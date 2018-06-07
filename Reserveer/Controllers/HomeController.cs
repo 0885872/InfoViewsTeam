@@ -57,51 +57,54 @@ namespace Reserveer.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Registration(UserRegistration user)
+    [HttpPost]
+    public IActionResult Registration(UserRegistration user)
+    {
+      int groupid = 1;
+      var crypto = new SimpleCrypto.PBKDF2();
+      var encryPass = crypto.Compute(user.Password);
+
+      Database db = new Database();
+      string[] result = db.FindDuplicates(user);
+      if (result[0] == "0")
+      {
+        using (MySqlConnection conn = new MySqlConnection())
         {
-            int groupid = 1;
-            var crypto = new SimpleCrypto.PBKDF2();
-            var encryPass = crypto.Compute(user.Password);
+          conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
-            Database db = new Database();
-            string[] result = db.FindDuplicates(user);
-          if (result[0] == "0")
-          {
-            using (MySqlConnection conn = new MySqlConnection())
-            {
-              conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-
-              conn.Open();
-              String sql =
-                  "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
-                  groupid + ",'" + user.Name + "','" + user.Mail + "','" + encryPass + "','" + crypto.Salt +
-                  "', 'user', 0);";
-              MySqlCommand command = new MySqlCommand(sql, conn);
-              command.ExecuteNonQuery();
-              conn.Close();
-              return RedirectToAction("Index", "Home");
-            }
-          }
-          ModelState.AddModelError("Mail", "Email is already taken");
+          conn.Open();
+          String sql =
+              "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
+              groupid + ",'" + user.Name + "','" + user.Mail + "','" + encryPass + "','" + crypto.Salt +
+              "', 'user', 0);";
+          MySqlCommand command = new MySqlCommand(sql, conn);
+          command.ExecuteNonQuery();
+          conn.Close();
           return View();
         }
+      }
+      else
+      {
+          ModelState.AddModelError("Mail", "Email is already taken");
+          return View();
+      }
+    }
 
-        private bool IsValid(string email, string password)
+    private bool IsValid(string email, string password)
+    {
+        var crypto = new SimpleCrypto.PBKDF2();
+        bool isValid = false;
+        var user = _context.user.FirstOrDefault(u => u.user_mail == email);
+
+        if (user != null)
         {
-            var crypto = new SimpleCrypto.PBKDF2();
-            bool isValid = false;
-            var user = _context.user.FirstOrDefault(u => u.user_mail == email);
-
-            if (user != null)
+            if (user.user_password == crypto.Compute(password, user.user_password))
             {
-                if (user.user_password == crypto.Compute(password, user.user_password))
-                {
-                    isValid = true;
-                }
+                isValid = true;
             }
-            return isValid;
         }
+        return isValid;
+    }
 
     public ActionResult LogOut()
         {
