@@ -18,6 +18,7 @@ namespace Reserveer.Controllers
                 List<string[]> results = db.getUserGroup();
                 var json = JsonConvert.SerializeObject(results);
                 ViewData["results"] = json;
+
                 ViewData["NumTimes"] = numTimes;
                 return View();
             }
@@ -26,10 +27,16 @@ namespace Reserveer.Controllers
             // GET: /Groups/Welcome/  
             public IActionResult Rooms(string name, int numTimes = 7)
             {
-              ViewData["Message"] = "Hello " + name;
-              ViewData["NumTimes"] = numTimes;
 
-              return View();
+                Database db = new Database();
+                List<string[]> results = db.getGroupRooms();
+                var json = JsonConvert.SerializeObject(results);
+                ViewData["results"] = json;
+
+                ViewData["Message"] = "Hello " + name;
+                ViewData["NumTimes"] = numTimes;
+
+                return View();
             }
 
             

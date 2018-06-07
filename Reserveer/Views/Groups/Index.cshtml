@@ -1,4 +1,26 @@
-﻿
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        UserGroupsArray = new Array();
+        UserGroupsArray = @Html.Raw(ViewData["results"]);
+
+
+        console.log(UserGroupsArray);
+
+        var arrayLength = UserGroupsArray.length;
+        for (var i = 0; i < arrayLength; i++) {
+            $("#UserGroupsCollapse").append(
+
+                '<div class="col-sm-4"><div class="thumbnail "><a class="card-link" href="groups/rooms?GroupId='+UserGroupsArray[i][0]+'"><img class="card-img-top" src="https://dummyimage.com/180x100/000/17a2b8 " alt="Card image cap" style="height: 200px; width: 100%; display: block;"/></a><div class="caption"><a class="card-link" href="groups/rooms?roomid='+UserGroupsArray[i][0]+'"><h3 class="card-title text-center">' + UserGroupsArray[i][1] + '</h3></a><a href="groups/rooms?GroupId='+ UserGroupsArray[i][0]+'" class="btn btn-primary center-block">View Rooms</a></div></div></div>'
+
+            );
+        }
+
+
+    });
+
+</script>
+
 @{ ViewData["Title"] = "Signed Groups"; }
 
 <h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Groups</h1>
@@ -6,88 +28,70 @@
 
 
 
-  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-      <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-        <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Signed Groups
-          </a>
-        </h4>
-      </div>
-      <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
-        <div class="row">
-
-          @for (int i = 0; i
-         < (int)ViewData["NumTimes"]; i++)
-          {<div class="col-sm-4">
-              <div class="thumbnail ">
-                <a class="card-link" href="groups/rooms">
-                  <img class="card-img-top" src="https://dummyimage.com/180x100/000/17a2b8 " alt="Card image cap" style="height: 200px; width: 100%; display: block;">
-                </a>
-                <div class="caption">
-                  <a class="card-link" href="groups/rooms">
-                    <h3 class="card-title text-center">HR Capelle</h3>
-                  </a>
-                  <button type="submit" class="btn btn-primary center-block">View Rooms</button>
-                </div>
-              </div>
-
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Signed Groups
+                    </a>
+                </h4>
             </div>
-          }
-            <span>@ViewData["results"]</span>
+            <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
+                <div id="UserGroupsCollapse" class="row"> 
+
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <hr>
+    <hr>
 
-  <div class="panel-group" id="Info" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-      <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
-        <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#Info" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-            Info: Elvin Carvalho
-          </a>
-        </h4>
-      </div>
-      <div id="collapse2" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="heading2">
-        <div class="panel-body">
-          <form class="">
-            <div class="row">
-              <div class=" col-sm-6">
-                <label class="sr-only" for="inlineFormInput">Username</label>
-                <input type="text" class="form-control col-sm-6" id="inlineFormInput" placeholder="Username">
+    <div class="panel-group" id="Info" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#Info" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                        Info: Elvin Carvalho
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="heading2">
+                <div class="panel-body">
+                    <form class="">
+                        <div class="row">
+                            <div class=" col-sm-6">
+                                <label class="sr-only" for="inlineFormInput">Username</label>
+                                <input type="text" class="form-control col-sm-6" id="inlineFormInput" placeholder="Username">
 
-              </div>
-              <div class=" col-sm-6">
-                <label class="sr-only" for="inlineFormInput">Email</label>
-                <input type="text" class="form-control col-sm-6" id="inlineFormInput" placeholder="Email">
+                            </div>
+                            <div class=" col-sm-6">
+                                <label class="sr-only" for="inlineFormInput">Email</label>
+                                <input type="text" class="form-control col-sm-6" id="inlineFormInput" placeholder="Email">
 
-              </div>
+                            </div>
 
-            </div><br>
-            <div class="row">
+                        </div><br>
+                        <div class="row">
 
-              <div class=" col-sm-6">
-                <label class="sr-only" for="inlineFormInput">Password</label>
-                <input type="password" class="form-control col-sm-6" id="inlineFormInput" placeholder="Password">
+                            <div class=" col-sm-6">
+                                <label class="sr-only" for="inlineFormInput">Password</label>
+                                <input type="password" class="form-control col-sm-6" id="inlineFormInput" placeholder="Password">
 
-              </div>
-              <div class=" col-sm-6">
-                <label class="sr-only" for="inlineFormInput">Repeat Password</label>
-                <input type="password" class="form-control col-sm-6" id="inlineFormInput" placeholder="Repeat Password">
+                            </div>
+                            <div class=" col-sm-6">
+                                <label class="sr-only" for="inlineFormInput">Repeat Password</label>
+                                <input type="password" class="form-control col-sm-6" id="inlineFormInput" placeholder="Repeat Password">
 
-              </div>
-            </div><br>
+                            </div>
+                        </div><br>
 
 
-            <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
-          </form>
+                        <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
 </div>
