@@ -119,19 +119,19 @@ namespace Reserveer.Controllers
                     }
                     connMysql.Close();
                 }
-                    
-                    if (res[0] == null)
-                    {
-                        result = "null";
-                    }
-                    else
-                    {
-                        result = res[0];
-                    }
-                    return result;
+
+                if (res[0] == null)
+                {
+                    result = "null";
                 }
+                else
+                {
+                    result = res[0];
+                }
+                return result;
             }
         }
+
 
 
         public List<string[]> getUserGroup()
@@ -143,7 +143,7 @@ namespace Reserveer.Controllers
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
                     int userID = 27;
-                    cmdd.CommandText = "SELECT group.group_id, group.group_name FROM `group`, `user` where "+ userID + " = `user_id` and user.group_id = group.group_id;";
+                    cmdd.CommandText = "SELECT group.group_id, group.group_name FROM `group`, `user` where " + userID + " = `user_id` and user.group_id = group.group_id;";
                     cmdd.CommandType = System.Data.CommandType.Text;
                     //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                     cmdd.Connection = connMysql;
@@ -175,7 +175,7 @@ namespace Reserveer.Controllers
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
                     int groupID = 1;
-                    cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "+ groupID+" = rooms.group_id";
+                    cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where " + groupID + " = rooms.group_id";
                     cmdd.CommandType = System.Data.CommandType.Text;
                     //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                     cmdd.Connection = connMysql;
@@ -198,7 +198,6 @@ namespace Reserveer.Controllers
                 return GroupRooms;
             }
         }
-
-
     }
+}
     
