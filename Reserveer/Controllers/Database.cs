@@ -132,5 +132,73 @@ namespace Reserveer.Controllers
                 }
             }
         }
+
+
+        public List<string[]> getUserGroup()
+        {
+            List<string[]> UserGroup = new List<string[]>();
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    int userID = 27;
+                    cmdd.CommandText = "SELECT group.group_id, group.group_name FROM `group`, `user` where "+ userID + " = `user_id` and user.group_id = group.group_id;";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string[] res = new string[2];
+                            res[0] = reader["group_id"].ToString();
+                            res[1] = reader["group_name"].ToString();
+                            UserGroup.Add(res);
+                        }
+                    }
+                }
+                connMysql.Close();
+                return UserGroup;
+            }
+        }
+
+        public List<string[]> getGroupRooms()
+        {
+            List<string[]> GroupRooms = new List<string[]>();
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    int groupID = 1;
+                    cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "+ groupID+" = rooms.group_id";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string[] res = new string[3];
+                            res[0] = reader["room_id"].ToString();
+                            res[1] = reader["room_name"].ToString();
+                            res[2] = reader["available"].ToString();
+                            GroupRooms.Add(res);
+                        }
+                    }
+                }
+                connMysql.Close();
+                return GroupRooms;
+            }
+        }
+
+
     }
     
