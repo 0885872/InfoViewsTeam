@@ -17,18 +17,12 @@ namespace Reserveer.Controllers
     public class HomeController : Controller
     {
         private readonly DutchContext _context;
-
         public string UserName;
 
         public HomeController(DutchContext context)
         {
             _context = context;
         }
-
-  //      public IActionResult Index()
-    //    {
-   //         return View();
-   //     }
 
         public IActionResult Error()
         {
@@ -43,6 +37,10 @@ namespace Reserveer.Controllers
         [HttpPost]
         public IActionResult Registration(UserRegistration user)
         {
+
+            var crypto = new SimpleCrypto.PBKDF2();
+            var encrypass = crypto.Compute(user.Password);
+
             Database db = new Database();
             string[] result = db.FindDuplicates(user);
             string domain = user.Mail.ToString();
@@ -66,7 +64,7 @@ namespace Reserveer.Controllers
                         conn.Open();
                         String sql =
                             "INSERT INTO user (group_id,user_name, user_mail, user_password, user_role, active) VALUES (" +
-                            group_id + ",'" + user.Name + "','" + user.Mail + "','" + user.Password +
+                            group_id + ",'" + user.Name + "','" + user.Mail + "','" + encrypass + "','" + crypto.Salt +
                             "', 'user', 0);";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
@@ -96,7 +94,7 @@ namespace Reserveer.Controllers
                 {
                         List<Claim> claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Name, user.user_mail),
+                            new Claim(ClaimTypes.Name, user.user_mail)
                         };
                         var userIdentity =
                             new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -105,34 +103,40 @@ namespace Reserveer.Controllers
                         UserName = principal.Identity.Name;
 
                         return RedirectToAction("Index", "Groups");
-                    }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Login Data is incorrect");
                 }
+            }
             return View();
-        }
-
-        public async Task <IActionResult> LogOut()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
         }
 
         private bool IsValid(string email, string password)
         {
+            var crypto = new SimpleCrypto.PBKDF2();
             bool isValid = false;
             var user = _context.user.FirstOrDefault(u => u.user_mail == email);
+            string toCompare = crypto.Compute(password, user.password_salt);
+            var groupid = user.group_id;
+            int amount = user.user_password.Length;
+            string passwordSaltFixed = toCompare.Substring(0, amount);
+            string compareString = user.user_password.Substring(0, amount);
 
             if (user != null)
             {
-                if (user.user_password == password)
+                if (passwordSaltFixed == compareString)
                 {
                     isValid = true;
                 }
             }
             return isValid;
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

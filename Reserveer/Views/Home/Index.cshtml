@@ -38,7 +38,7 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true, "Login failed. Check your login details.");
-    <div>
+    <div class="opacityWhitebg" style="border-radius: 10px;">
         <fieldset>
             <legend>Login Form</legend>
             <div>@Html.LabelFor(u => u.user_mail)</div>

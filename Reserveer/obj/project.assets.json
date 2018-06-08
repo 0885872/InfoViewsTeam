@@ -13482,11 +13482,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
+      "projectUniqueName": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam3\\Reserveer\\Reserveer.csproj",
       "projectName": "Reserveer",
-      "projectPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
+      "projectPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam3\\Reserveer\\Reserveer.csproj",
       "packagesPath": "C:\\Users\\vboz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\obj\\",
+      "outputPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam3\\Reserveer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
