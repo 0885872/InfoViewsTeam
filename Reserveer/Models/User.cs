@@ -23,5 +23,7 @@ namespace Reserveer.Models
         [StringLength(150)]
         [Display(Name = "Email adress: ")]
         public string user_mail { get; set; }
+
+        public string user_role { get; set; }
     }
 }

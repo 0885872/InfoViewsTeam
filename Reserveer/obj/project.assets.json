@@ -6255,17 +6255,17 @@
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
-      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "sha512": "DH1ytct+Ck2E5a+QxAL5xD6d7BL88QdMhbMuUwceiIRjrVaw3Q/MwVzzUmZO1+puetl1cWKlhBbTsvevalT49Q==",
       "type": "package",
       "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "files": [
-        "Microsoft.CodeAnalysis.Analyzers.1.1.0.nupkg.sha512",
-        "Microsoft.CodeAnalysis.Analyzers.nuspec",
         "ThirdPartyNotices.rtf",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.Analyzers.dll",
+        "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
+        "microsoft.codeanalysis.analyzers.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
       ]
@@ -7142,7 +7142,7 @@
       ]
     },
     "Microsoft.Extensions.PlatformAbstractions/1.1.0": {
-      "sha512": "UMlN++q5qqzQ2HH+uOrKxN5fmBXMQDhrYkSaPJxhmyzfJaFPirrVr1raim/Ocq1psAZoB9+7JSAf0GDAX35wUg==",
+      "sha512": "H6ZsQzxYw/6k2DfEQRXdC+vQ6obd6Uba3uGJrnJ2vG4PRXjQZ7seB13JdCfE72abp8E6Fk3gGgDzfJiLZi5ZpQ==",
       "type": "package",
       "path": "microsoft.extensions.platformabstractions/1.1.0",
       "files": [
@@ -8279,7 +8279,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
+      "sha512": "/OI3X7oW4779V0qKL4BhBJXfvrsKoUW/XTgMNXXhETNjBYQNXzedb7K7BQpMPLXN8tTD9dG/2In6dkkgh6kVbg==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -10475,12 +10475,10 @@
       ]
     },
     "System.Linq.Queryable/4.0.1": {
-      "sha512": "Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
+      "sha512": "BdS+NyRdScaWeMfIqBWSfk8QGGuRzWdi+Vevns+uJVNYoEZ0zlo7Is/KsfqA6tL3mz29SizJKoehV4AqSm5xQw==",
       "type": "package",
       "path": "system.linq.queryable/4.0.1",
       "files": [
-        "System.Linq.Queryable.4.0.1.nupkg.sha512",
-        "System.Linq.Queryable.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/monoandroid10/_._",
@@ -10528,7 +10526,9 @@
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._"
+        "ref/xamarinwatchos10/_._",
+        "system.linq.queryable.4.0.1.nupkg.sha512",
+        "system.linq.queryable.nuspec"
       ]
     },
     "System.Net.Http/4.3.0": {
@@ -13476,23 +13476,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cabo_\\.nuget\\packages\\": {},
+    "C:\\Users\\vboz\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\Reserveer.csproj",
+      "projectUniqueName": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
       "projectName": "Reserveer",
-      "projectPath": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\Reserveer.csproj",
-      "packagesPath": "C:\\Users\\cabo_\\.nuget\\packages\\",
-      "outputPath": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\obj\\",
+      "projectPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
+      "packagesPath": "C:\\Users\\vboz\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\cabo_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vboz\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

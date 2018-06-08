@@ -74,3 +74,4 @@ C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Res
 C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
 C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
 C:\Users\Tommy\Source\Repos\InfoViewsTeam3\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb
+C:\Users\vboz\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csprojResolveAssemblyReference.cache
