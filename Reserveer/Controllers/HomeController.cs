@@ -63,7 +63,7 @@ namespace Reserveer.Controllers
 
                         conn.Open();
                         String sql =
-                            "INSERT INTO user (group_id,user_name, user_mail, user_password, user_role, active) VALUES (" +
+                            "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
                             group_id + ",'" + user.Name + "','" + user.Mail + "','" + encrypass + "','" + crypto.Salt +
                             "', 'user', 0);";
                         MySqlCommand command = new MySqlCommand(sql, conn);
