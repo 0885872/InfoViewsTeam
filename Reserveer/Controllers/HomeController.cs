@@ -11,6 +11,7 @@ using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using Reserveer.Data;
 using Reserveer.Models;
+using System.Net.Mail;
 
 namespace Reserveer.Controllers
 {
@@ -69,6 +70,18 @@ namespace Reserveer.Controllers
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
                         conn.Close();
+                        MailMessage msg = new MailMessage();
+                        SmtpClient smtp = new SmtpClient();
+
+                        string verifyLink = "http://testtest";
+                        msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
+                        msg.To.Add(user.Mail);
+                        msg.Subject = "E-mail verification";
+                        msg.Body = "Hi there, click the following link to activate your account: " + verifyLink;
+
+                        var client = new SmtpClient("smtp.hro.nl", 25);
+                        client.Send(msg);
+
                         return View();
                     }
                 }
