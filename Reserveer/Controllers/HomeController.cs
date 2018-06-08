@@ -19,6 +19,7 @@ namespace Reserveer.Controllers
     {
         private readonly DutchContext _context;
         public string UserName;
+        private static Random random = new Random();
 
         public HomeController(DutchContext context)
         {
@@ -60,6 +61,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
+                        //Set user in database
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
                         conn.Open();
@@ -70,10 +72,38 @@ namespace Reserveer.Controllers
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
                         conn.Close();
+
+                        //get user_id from database
+                        conn.Open();
+                        String iDsql =
+                            "SELECT user_id from user where user_mail = '" + user.Mail + "';" ;
+                        MySqlCommand uIdcmd = new MySqlCommand(iDsql, conn);
+
+                        string[] res = new string[1];
+                        using (MySqlDataReader reader = uIdcmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                res[0] = reader["user_id"].ToString();
+                            }
+                        }
+                        conn.Close();
+
+                        //Set verification key in database
+                        conn.Open();
+                        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                        string rrandom = new string(Enumerable.Repeat(chars, 15)
+                          .Select(s => s[random.Next(s.Length)]).ToArray());
+
+                        string insertVerStr = "INSERT INTO registration_validation (user_id, registration_key) VALUES (" + res[0] + ", '" + rrandom + "');";
+                        MySqlCommand verSqlstring = new MySqlCommand(insertVerStr, conn);
+                        verSqlstring.ExecuteNonQuery();
+                        conn.Close();
+
                         MailMessage msg = new MailMessage();
                         SmtpClient smtp = new SmtpClient();
 
-                        string verifyLink = "http://testtest";
+                        string verifyLink = "http://infoviews.drakonit.nl/Register/?mail=" + user.Mail + "&number=" + rrandom;
                         msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
                         msg.To.Add(user.Mail);
                         msg.Subject = "E-mail verification";
