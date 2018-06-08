@@ -6,12 +6,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using Reserveer.Data;
 using Reserveer.Models;
+using System.Net.Mail;
 
 namespace Reserveer.Controllers
 {
@@ -19,9 +19,7 @@ namespace Reserveer.Controllers
     {
         private readonly DutchContext _context;
         public string UserName;
-        public string UserRole;
-        public int UserId;
-        public string Username;
+        private static Random random = new Random();
 
         public HomeController(DutchContext context)
         {
@@ -33,16 +31,15 @@ namespace Reserveer.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [AllowAnonymous]
         public IActionResult Registration()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult Registration(UserRegistration user)
         {
+
             var crypto = new SimpleCrypto.PBKDF2();
             var encrypass = crypto.Compute(user.Password);
 
@@ -64,6 +61,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
+                        //Set user in database
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
                         conn.Open();
@@ -74,6 +72,46 @@ namespace Reserveer.Controllers
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
                         conn.Close();
+
+                        //get user_id from database
+                        conn.Open();
+                        String iDsql =
+                            "SELECT user_id from user where user_mail = '" + user.Mail + "';" ;
+                        MySqlCommand uIdcmd = new MySqlCommand(iDsql, conn);
+
+                        string[] res = new string[1];
+                        using (MySqlDataReader reader = uIdcmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                res[0] = reader["user_id"].ToString();
+                            }
+                        }
+                        conn.Close();
+
+                        //Set verification key in database
+                        conn.Open();
+                        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                        string rrandom = new string(Enumerable.Repeat(chars, 15)
+                          .Select(s => s[random.Next(s.Length)]).ToArray());
+
+                        string insertVerStr = "INSERT INTO registration_validation (user_id, registration_key) VALUES (" + res[0] + ", '" + rrandom + "');";
+                        MySqlCommand verSqlstring = new MySqlCommand(insertVerStr, conn);
+                        verSqlstring.ExecuteNonQuery();
+                        conn.Close();
+
+                        MailMessage msg = new MailMessage();
+                        SmtpClient smtp = new SmtpClient();
+
+                        string verifyLink = "http://infoviews.drakonit.nl/Register/?mail=" + user.Mail + "&number=" + rrandom;
+                        msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
+                        msg.To.Add(user.Mail);
+                        msg.Subject = "E-mail verification";
+                        msg.Body = "Hi there, click the following link to activate your account: " + verifyLink;
+
+                        var client = new SmtpClient("smtp.hro.nl", 25);
+                        client.Send(msg);
+
                         return View();
                     }
                 }
@@ -99,23 +137,15 @@ namespace Reserveer.Controllers
                 {
                         List<Claim> claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Name, Username),
-                            new Claim(ClaimTypes.Role, UserRole)
+                            new Claim(ClaimTypes.Name, user.user_mail)
                         };
-                        var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var userIdentity =
+                            new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                         await HttpContext.SignInAsync(principal);
-                        Username = principal.Identity.Name;
+                        UserName = principal.Identity.Name;
 
-                    if (principal.IsInRole("user"))
-                    {
                         return RedirectToAction("Index", "Groups");
-                    }
-
-                    if (principal.IsInRole("admin"))
-                    {
-                        return RedirectToAction("Index", "GroupsAdmin");
-                    }
                 }
                 else
                 {
@@ -125,24 +155,13 @@ namespace Reserveer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> LogOut()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
-        }
-
         private bool IsValid(string email, string password)
         {
             var crypto = new SimpleCrypto.PBKDF2();
             bool isValid = false;
-            
             var user = _context.user.FirstOrDefault(u => u.user_mail == email);
             string toCompare = crypto.Compute(password, user.password_salt);
-            UserRole = user.user_role;
-            UserId = user.user_id;
-
-            Username = user.user_name;
-
+            var groupid = user.group_id;
             int amount = user.user_password.Length;
             string passwordSaltFixed = toCompare.Substring(0, amount);
             string compareString = user.user_password.Substring(0, amount);
@@ -156,5 +175,27 @@ namespace Reserveer.Controllers
             }
             return isValid;
         }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
+
+    public IActionResult UpdateRoom()
+    {
+      using (MySqlConnection conn = new MySqlConnection())
+      {
+        conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+
+        conn.Open();
+        String sql =
+            "UPDATE rooms SET room_id = , room_number = ,  room_floor = , room_name = , available = , room_comment = ";
+        MySqlCommand command = new MySqlCommand(sql, conn);
+        command.ExecuteNonQuery();
+        conn.Close();
+        return View();
+      }
     }
+  }
 }
