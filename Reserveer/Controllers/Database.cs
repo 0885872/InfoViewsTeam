@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using MySql.Data.MySqlClient;
 using Reserveer.Models;
+using Reserveer.Controllers;
 
 namespace Reserveer.Controllers
 {
     public class Database
     {
+
         public List<string[]> getReservations()
         {
             List<string[]> reservations = new List<string[]>();
