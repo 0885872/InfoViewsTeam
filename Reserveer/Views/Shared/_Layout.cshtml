@@ -39,9 +39,31 @@
           <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand cwhite">InfoView Reservation</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a asp-area="" asp-controller="Home" asp-action="Index" class="cwhite">Home</a></li>
-          </ul>
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="cwhite">Home</a></li>
+                @if (User.IsInRole("user"))
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+
+                        <li><a>Welkom @User.Identity.Name</a></li>
+                        <li><a href="@Url.Action("LogOut", "Home")">Logout</a></li>
+
+                    }
+                }
+
+                @if (User.IsInRole("admin"))
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        
+                        <li><a>Welkom @User.Identity.Name</a></li>
+                        <li><a href="@Url.Action("LogOut", "Home")">Logout</a></li>
+                     
+                    
+                    }
+                }
+            </ul>
         </div>
       </div>
     </nav>

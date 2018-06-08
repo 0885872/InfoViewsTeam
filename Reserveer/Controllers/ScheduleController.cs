@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reserveer.Models;
 using Newtonsoft.Json;
 
 namespace Reserveer.Controllers
 {
+    [Authorize(Roles = "admin,user")]
   public class ScheduleController : Controller
   {
         //Reservaties ophalen

@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MySql.Data.MySqlClient;
 using Reserveer.Models;
-using Reserveer.Controllers;
 
 namespace Reserveer.Controllers
 {
     public class Database
     {
-
         public List<string[]> getReservations()
         {
             List<string[]> reservations = new List<string[]>();
@@ -135,8 +133,6 @@ namespace Reserveer.Controllers
             }
         }
 
-
-
         public List<string[]> getUserGroup()
         {
             List<string[]> UserGroup = new List<string[]>();
@@ -211,7 +207,7 @@ namespace Reserveer.Controllers
             string[] group_id = new string[1];
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
-              string userID = "1";
+              int userID = 1;
               cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';";
               cmdd.CommandType = System.Data.CommandType.Text;
               //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;

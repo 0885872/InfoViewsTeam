@@ -11,6 +11,8 @@ namespace Reserveer.Models
         [Key]
         public int group_id { get; set; }
 
+        public int user_id { get; set; }
+
         public string user_name { get; set; }
 
         [Required]
