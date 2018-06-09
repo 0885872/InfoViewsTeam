@@ -3,9 +3,23 @@
     ViewData["Title"] = "Home Page";
 }
 
+@if (ViewBag.verified != null)
+{
+    if (ViewBag.verified == true)
+    {
+        string msg = "You have successfully registered your account, you now can log in.";
+        @Html.Raw(msg);
+    }
+    else if (ViewBag.verified == false)
+    {
+        string msg = "Something went terribly wrong. Please try again later.";
+        @Html.Raw(msg);
+    }
 
+}
 
 <div class="jumbotron Whitebg" style="margin-top:20px;">
+    <div id="validationmsg"></div>
     <h1 class="display-4 text-info">InfoViews!</h1>
     <p class="lead">Lorem ipsum dolor sit amet, pretty girl sits on a plane wondering where to fly. Plane goes down, pretty girl jumps off. Get your Tesla 3 right and maybe get it in 2020 kappa. Lizard people rule the world. The earth is flat</p>
     <hr class="my-4">
@@ -59,3 +73,4 @@
         </fieldset>
     </div>
 }
+

@@ -13,6 +13,7 @@ using Reserveer.Data;
 using Reserveer.Models;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
 
 namespace Reserveer.Controllers
 {
@@ -34,6 +35,22 @@ namespace Reserveer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            string mail = Request.Query["mail"];
+            string token = Request.Query["number"];
+
+            if(mail != null && token != null)
+            {
+                Database database = new Database();
+                bool verified = database.VerifyMail(mail, token);
+                ViewBag.verified = verified;
+            }
+            return View();
+        }
+                
 
         public IActionResult Registration()
         {
@@ -107,7 +124,7 @@ namespace Reserveer.Controllers
                         MailMessage msg = new MailMessage();
                         SmtpClient smtp = new SmtpClient();
 
-                        string verifyLink = "http://infoviews.drakonit.nl/Register/?mail=" + user.Mail + "&number=" + rrandom;
+                        string verifyLink = "http://infoviews.drakonit.nl/?mail=" + user.Mail + "&number=" + rrandom;
                         msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
                         msg.To.Add(user.Mail);
                         msg.Subject = "E-mail verification";
@@ -125,11 +142,6 @@ namespace Reserveer.Controllers
                     return View();
                 }
             }
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
 
         [HttpPost]
