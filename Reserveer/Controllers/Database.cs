@@ -12,7 +12,7 @@ namespace Reserveer.Controllers
 {
     public class Database
     {
-        public List<string[]> getReservations()
+        public List<string[]> getReservations(string room)
         {
             List<string[]> reservations = new List<string[]>();
             String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
@@ -20,7 +20,7 @@ namespace Reserveer.Controllers
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
-                    cmdd.CommandText = "SELECT * FROM reservations";
+                    cmdd.CommandText = "SELECT * FROM reservations where room_id = " + room + ";";
                     cmdd.CommandType = System.Data.CommandType.Text;
 
                     cmdd.Connection = connMysql;
@@ -134,7 +134,7 @@ namespace Reserveer.Controllers
             string localDate = dateTime.ToString("yyyy/MM/dd HH:mm");
             conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             conn.Open();
-            string sql = "INSERT INTO reservations (room_id,start,end,reservation_date,valid) VALUES (1,'" + reservation.start + "','" + reservation.end + "','" + localDate + "', 1);";
+            string sql = "INSERT INTO reservations (room_id,start,end,reservation_date,valid) VALUES (" + reservation.roomid + ",'" + reservation.start + "','" + reservation.end + "','" + localDate + "', 1);";
             MySqlCommand command = new MySqlCommand(sql, conn);
             command.ExecuteNonQuery();
             conn.Close();

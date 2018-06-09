@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reserveer.Models;
 using Newtonsoft.Json;
+using System.Net.Mail;
 
 namespace Reserveer.Controllers
 {
@@ -17,9 +18,10 @@ namespace Reserveer.Controllers
         [HttpGet]
         public ActionResult Index(int numTimes = 1)
         {
+            string room = Request.Query["RoomId"];
             ViewData["NumTimes"] = numTimes;
             Database db = new Database();
-            List<string[]> results = db.getReservations();
+            List<string[]> results = db.getReservations(room);
             var json = JsonConvert.SerializeObject(results);
             ViewData["results"] = json;
             return View();
@@ -29,15 +31,30 @@ namespace Reserveer.Controllers
         [HttpPost]
         public ActionResult SetReservation([FromBody]ReservationModel reservation)
         {
+            string room = Request.Query["RoomId"];
             ReservationModel reservations = new ReservationModel
             {
                 title = reservation.title,
                 start = reservation.start,
-                end = reservation.end
+                end = reservation.end,
+                roomid = room
+
 
             };
             Database db = new Database();
             db.setReservations(reservations);
+
+            MailMessage msg = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+
+            msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
+            msg.To.Add("0885872@hr.nl");
+            msg.Subject = "Confirmation of reservation";
+            msg.Body = "Hi there, We would like to inform you: We've saved your reservation! start: " + reservation.start + ", end: " + reservation.end + ", room: " + reservation.roomid + ". Thanks for using InfoViews!";
+
+            var client = new SmtpClient("smtp.hro.nl", 25);
+            client.Send(msg);
+
             return View("Index");
         }
         //// 
