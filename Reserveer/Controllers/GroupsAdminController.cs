@@ -100,12 +100,12 @@ namespace Reserveer.Controllers
       }
     }
 
-    public IActionResult DeleteReservation()
+    public IActionResult DeleteReservation(string test)
     {
       using (MySqlConnection conn = new MySqlConnection())
       {
         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-        string test123 = "1";
+        //string test123 = "1";
         conn.Open();
         String sql =
           "UPDATE user SET user.availability = '1' WHERE user.user_id = '" + test123 + "';";
