@@ -1,135 +1,140 @@
-﻿
-@{
-    ViewData["Title"] = "AddRoom";
-}
+﻿@model Reserveer.Models.RoomInfo
+
+@{ ViewData["Title"] = "Add Room"; 
+  }
 
 <h2 class="text-center">Add New Room</h2>
 
 <div class="panel-group" id="Group" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default opacityWhitebg">
-        <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-            <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#Group" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Room Info
-                </a>
-            </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in " style="padding:40px;" role="tabpanel" aria-labelledby="headingOne">
-
-            <div class="row"> 
-                <div class="col-sm-6">
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="basic-addon1">Domain </span>
-                        <input type="text" class="form-control" placeholder="Domain.nl" aria-describedby="basic-addon1">
-                    </div>
-
-                </div>
-                <div class="col-sm-6">
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="basic-addon1">Verification Mail</span>
-                        <input type="text" class="form-control" placeholder="email with domain" aria-describedby="basic-addon1">
-                    </div>
-
-                </div>
-
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="basic-addon1">Domain </span>
-                        <input type="text" class="form-control" placeholder="Domain.nl" aria-describedby="basic-addon1">
-                    </div>
-
-                </div>
-                <div class="col-sm-6">
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="basic-addon1">Verification Mail</span>
-                        <input type="text" class="form-control" placeholder="email with domain" aria-describedby="basic-addon1">
-                    </div>
-
-                </div>
-
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3>Room avaibility</h3>
-                    <label class="radio-inline"><input type="radio" name="optradio" class="selected active" selected="selected">Active</label>
-                    <label class="radio-inline"><input type="radio" name="optradio">Inactive</label>
-
-
-                </div>
-                <div class="col-sm-6"> 
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">Comment</span>
-                        <textarea class="form-control" rows="4" id="comment"></textarea>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-                <button type="submit" class="btn btn-lg btn-primary  center-block" style="margin-top:10px;">Save</button>
-
-            </div>
-
-        </div>
+  <div class="panel panel-default opacityWhitebg">
+    <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#Group" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Room Info
+        </a>
+      </h4>
     </div>
+    <div id="collapseOne" class="panel-collapse collapse in " style="padding:40px;" role="tabpanel" aria-labelledby="headingOne">
+      <form asp-action="AddRoomInfo">
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="input-group ">
+              <span class="input-group-addon" id="basic-addon1">Room name </span>
+              <input asp-for="RoomName" placeholder="Room Name" class="form-control" required>
+              <span asp-validation-for="RoomName" class="text-danger"></span>
+            </div>
+
+          </div>
+          <div class="col-sm-6">
+            <div class="input-group ">
+              <span class="input-group-addon" id="basic-addon1">Room Number</span>
+              <input asp-for="RoomNumber" placeholder="Room Number" class="form-control" required>
+              <span asp-validation-for="RoomNumber" class="text-danger"></span>
+            </div>
+
+          </div>
+
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="input-group ">
+              <span class="input-group-addon" id="basic-addon1">Room Floor </span>
+              <input asp-for="RoomFloor" placeholder="Room Floor" class="form-control" required>
+              <span asp-validation-for="RoomFloor" class="text-danger"></span>
+            </div>
+
+          </div>
+          <div class="col-sm-6">
+            <div class="input-group ">
+              <span class="input-group-addon" id="basic-addon1">Room Facility</span>
+              <input asp-for="RoomFacility" placeholder="Room Facility" class="form-control" required>
+              <span asp-validation-for="RoomFacility" class="text-danger"></span>
+            </div>
+
+          </div>
+
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-sm-6">
+            <h3>Room avaibility</h3>
+            <label class="radio-inline"><input type="radio" name="optradio" class="selected active" selected="selected">Active</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Inactive</label>
+
+
+          </div>
+          <div class="col-sm-6">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Comment</span>
+              <textarea asp-for="RoomComment" Facility class="form-control" rows="4"></textarea>
+              <span asp-validation-for="RoomComment" class="text-danger"></span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+          <input type="submit" value="Submit" class="btn btn-lg btn-primary  center-block" style="margin-top:10px;">
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 
 <div class="panel-group" id="Domains" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default opacityWhitebg">
-        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
-            <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#Domains" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                    InfoViews
-                </a>
-            </h4>
-        </div>
-        <div id="collapse2" class="panel-collapse collapse in " style="padding:20px;" role="tabpanel" aria-labelledby="heading2">
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="basic-addon1">Room ID </span>
-                        <input type="text" class="form-control" value="1234" aria-describedby="basic-addon1" disabled>
-                    </div>
-
-                </div>
-                <div class="col-sm-6"> 
-                    <div class="input-group"> 
-                        <select class="form-control" id="sel1">
-                            <option>Avaible InfoViews</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
+  <div class="panel panel-default opacityWhitebg">
+    <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#Domains" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+          InfoViews
+        </a>
+      </h4>
     </div>
+    <div id="collapse2" class="panel-collapse collapse in " style="padding:20px;" role="tabpanel" aria-labelledby="heading2">
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="input-group ">
+            <span class="input-group-addon" id="basic-addon1">Room ID </span>
+            <input type="text" class="form-control" value="1234" aria-describedby="basic-addon1" disabled>
+          </div>
+
+        </div>
+        <div class="col-sm-6">
+          <div class="input-group">
+            <select class="form-control" id="sel1">
+              <option>Avaible InfoViews</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
 
 @*<div class="panel-group" id="Rooms" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default opacityWhitebg">
-        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
-            <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#Rooms" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                    Room Reservation
-                </a>
-            </h4>
-        </div>
-        <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
+      <div class="panel panel-default opacityWhitebg">
+          <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
+              <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#Rooms" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                      Room Reservation
+                  </a>
+              </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
 
 
-        </div>
-    </div>
-</div>*@
+          </div>
+      </div>
+  </div>*@

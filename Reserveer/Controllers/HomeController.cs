@@ -198,21 +198,5 @@ namespace Reserveer.Controllers
             }
             return isValid;
         }
-
-        public IActionResult UpdateRoom()
-    {
-      using (MySqlConnection conn = new MySqlConnection())
-      {
-        conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-
-        conn.Open();
-        String sql =
-            "UPDATE rooms SET room_id = , room_number = ,  room_floor = , room_name = , available = , room_comment = ";
-        MySqlCommand command = new MySqlCommand(sql, conn);
-        command.ExecuteNonQuery();
-        conn.Close();
-        return View();
-      }
-    }
   }
 }
