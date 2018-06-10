@@ -12,6 +12,64 @@ namespace Reserveer.Controllers
 {
     public class Database
     {
+        public string getUserMail(string id)
+        {
+            string[] res = new string[1];
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    cmdd.CommandText = "SELECT user_mail FROM user where user_id = " + id + ";";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                            res[0] = reader["user_mail"].ToString();
+                        }
+                    }
+                }
+                connMysql.Close();
+                return res[0];
+            }
+        }
+
+        public string getRoomName(string id)
+        {
+            string[] res = new string[1];
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    cmdd.CommandText = "SELECT room_name FROM rooms where room_id = " + id + ";";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            res[0] = reader["room_name"].ToString();
+                        }
+                    }
+                }
+                connMysql.Close();
+                return res[0];
+            }
+        }
+
         public List<string[]> getReservations(string room)
         {
             List<string[]> reservations = new List<string[]>();
@@ -126,122 +184,162 @@ namespace Reserveer.Controllers
             }
         }
 
-    public void setReservations(ReservationModel reservation)
-    {
-        using (MySqlConnection conn = new MySqlConnection())
+        public void setReservations(ReservationModel reservation)
         {
-            DateTime dateTime = DateTime.Now;
-            string localDate = dateTime.ToString("yyyy/MM/dd HH:mm");
-            conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-            conn.Open();
-            string sql = "INSERT INTO reservations (room_id,start,end,reservation_date,valid) VALUES (" + reservation.roomid + ",'" + reservation.start + "','" + reservation.end + "','" + localDate + "', 1);";
-            MySqlCommand command = new MySqlCommand(sql, conn);
-            command.ExecuteNonQuery();
-            conn.Close();
-        }
-    }
-
-    public string[] FindDuplicates(UserRegistration user)
-    {
-        string[] result = new string[1];
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-        using (MySqlConnection connMysql = new MySqlConnection(connString))
-        {
-            using (MySqlCommand cmdd = connMysql.CreateCommand())
+            //Save reservation to database
+            using (MySqlConnection conn = new MySqlConnection())
             {
+                DateTime dateTime = DateTime.Now;
+                string localDate = dateTime.ToString("yyyy/MM/dd HH:mm");
+                conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+                conn.Open();
+                string sql = "INSERT INTO reservations (room_id,start,end,reservation_date,valid) VALUES (" + reservation.roomid + ",'" + reservation.start + "','" + reservation.end + "','" + localDate + "', 1);";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
 
-                cmdd.CommandText = "SELECT COUNT(user_mail) AS res FROM user WHERE user_mail = '" + user.Mail + "';";
-                cmdd.CommandType = System.Data.CommandType.Text;
-
-                cmdd.Connection = connMysql;
-
-                connMysql.Open();
-
-                using (MySqlDataReader reader = cmdd.ExecuteReader())
+            //Get reservation id for next step
+            string[] result = new string[1];
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
-                    while (reader.Read())
+
+                    cmdd.CommandText = "SELECT reservation_id FROM reservations WHERE room_id = " + reservation.roomid + " AND start = '" + reservation.start + "' AND end = '" + reservation.end + "';";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
                     {
+                        while (reader.Read())
+                        {
 
-                        result[0] = reader["res"].ToString();
+                            result[0] = reader["reservation_id"].ToString();
 
+                        }
                     }
                 }
             }
-        }
-        return result;
-    }
 
-    public string getDomainCheck(string domain)
-    {
-        string[] res = new string[1];
-        string result;
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-        using (MySqlConnection connMysql = new MySqlConnection(connString))
-        {
-            using (MySqlCommand cmdd = connMysql.CreateCommand())
+
+            //user-resevation assignment
+            using (MySqlConnection connn = new MySqlConnection())
             {
+                connn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+                connn.Open();
+                string sql = "INSERT INTO user_has_reservations (user_id,reservation_id) VALUES (" + reservation.userid + "," + result[0] + ");";
+                MySqlCommand command = new MySqlCommand(sql, connn);
+                command.ExecuteNonQuery();
+                connn.Close();
+            }
+        }
 
-                cmdd.CommandText = "SELECT group_id FROM domain WHERE domain_name = '" + domain + "';";
-                cmdd.CommandType = System.Data.CommandType.Text;
-
-                cmdd.Connection = connMysql;
-
-                connMysql.Open();
-
-                using (MySqlDataReader reader = cmdd.ExecuteReader())
+        public string[] FindDuplicates(UserRegistration user)
+        {
+            string[] result = new string[1];
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
-                    while (reader.Read())
-                    {
 
-                        res[0] = reader["group_id"].ToString();
+                    cmdd.CommandText = "SELECT COUNT(user_mail) AS res FROM user WHERE user_mail = '" + user.Mail + "';";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            result[0] = reader["res"].ToString();
+
+                        }
                     }
                 }
-                connMysql.Close();
-            }
-
-            if (res[0] == null)
-            {
-                result = "null";
-            }
-            else
-            {
-                result = res[0];
             }
             return result;
         }
-    }
 
-    public List<string[]> getUserGroup()
-    {
-        List<string[]> UserGroup = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-        using (MySqlConnection connMysql = new MySqlConnection(connString))
+        public string getDomainCheck(string domain)
         {
-            using (MySqlCommand cmdd = connMysql.CreateCommand())
+            string[] res = new string[1];
+            string result;
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
-                int userID = HomeController.UserId;
-                cmdd.CommandText = "SELECT group.group_id, group.group_name FROM `group`, `user` where " + userID + " = `user_id` and user.group_id = group.group_id;";
-                cmdd.CommandType = System.Data.CommandType.Text;
-                //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
-                cmdd.Connection = connMysql;
-
-                connMysql.Open();
-
-                using (MySqlDataReader reader = cmdd.ExecuteReader())
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
-                    while (reader.Read())
+
+                    cmdd.CommandText = "SELECT group_id FROM domain WHERE domain_name = '" + domain + "';";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
                     {
-                        string[] res = new string[2];
-                        res[0] = reader["group_id"].ToString();
-                        res[1] = reader["group_name"].ToString();
-                        UserGroup.Add(res);
+                        while (reader.Read())
+                        {
+
+                            res[0] = reader["group_id"].ToString();
+                        }
+                    }
+                    connMysql.Close();
+                }
+
+                if (res[0] == null)
+                {
+                    result = "null";
+                }
+                else
+                {
+                    result = res[0];
+                }
+                return result;
+            }
+        }
+
+        public List<string[]> getUserGroup()
+        {
+            List<string[]> UserGroup = new List<string[]>();
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    int userID = HomeController.UserId;
+                    cmdd.CommandText = "SELECT group.group_id, group.group_name FROM `group`, `user` where " + userID + " = `user_id` and user.group_id = group.group_id;";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string[] res = new string[2];
+                            res[0] = reader["group_id"].ToString();
+                            res[1] = reader["group_name"].ToString();
+                            UserGroup.Add(res);
+                        }
                     }
                 }
+                connMysql.Close();
+                return UserGroup;
             }
-            connMysql.Close();
-            return UserGroup;
         }
-    }
 
     public List<string[]> getGroupRooms()
     {
@@ -257,24 +355,24 @@ namespace Reserveer.Controllers
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
-                connMysql.Open();
+                    connMysql.Open();
 
-                using (MySqlDataReader reader = cmdd.ExecuteReader())
-                {
-                    while (reader.Read())
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
                     {
-                        string[] res = new string[3];
-                        res[0] = reader["room_id"].ToString();
-                        res[1] = reader["room_name"].ToString();
-                        res[2] = reader["available"].ToString();
-                        GroupRooms.Add(res);
+                        while (reader.Read())
+                        {
+                            string[] res = new string[3];
+                            res[0] = reader["room_id"].ToString();
+                            res[1] = reader["room_name"].ToString();
+                            res[2] = reader["available"].ToString();
+                            GroupRooms.Add(res);
+                        }
                     }
                 }
+                connMysql.Close();
+                return GroupRooms;
             }
-            connMysql.Close();
-            return GroupRooms;
         }
-    }
 
     public List<string[]> getGroupUser()
     {
@@ -290,7 +388,7 @@ namespace Reserveer.Controllers
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
-                connMysql.Open();
+                    connMysql.Open();
 
                 using (MySqlDataReader reader = cmdd.ExecuteReader())
                 {
@@ -326,7 +424,7 @@ namespace Reserveer.Controllers
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
-                connMysql.Open();
+                    connMysql.Open();
 
                 using (MySqlDataReader reader = cmdd.ExecuteReader())
                 {
@@ -495,7 +593,7 @@ namespace Reserveer.Controllers
                 cmdd.CommandType = System.Data.CommandType.Text;
                 cmdd.Connection = connMysql;
 
-                connMysql.Open();
+                    connMysql.Open();
 
                 using (MySqlDataReader reader = cmdd.ExecuteReader())
                 {
@@ -520,6 +618,5 @@ namespace Reserveer.Controllers
         }
     }
 
+    }
 }
-}
-    

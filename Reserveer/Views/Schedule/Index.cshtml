@@ -83,11 +83,14 @@
                                 var startFormat = moment(start).format('YYYY/MM/DD HH:mm');
                                 var endFormat = moment(end).format('YYYY/MM/DD HH:mm');
 
+                                var urlParams = new URLSearchParams(window.location.search);
+                                var roomid = urlParams.get('RoomId');
+
                                 var reservation = new Object();
                                 reservation.title = title;
                                 reservation.start = startFormat;
                                 reservation.end = endFormat;
-                                reservation.roomid = 
+                                reservation.roomid = roomid
 
 
                                 $.ajax({
