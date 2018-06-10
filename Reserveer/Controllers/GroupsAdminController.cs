@@ -100,8 +100,9 @@ namespace Reserveer.Controllers
         return RedirectToAction("Index", "GroupsAdmin");
       }
     }
+        
 
-    public IActionResult DeactivateUser(string userId, string groupId)
+        public IActionResult DeactivateUser(string userId, string groupId)
     {
       using (MySqlConnection conn = new MySqlConnection())
       {
