@@ -22,7 +22,7 @@ namespace Reserveer.Controllers
         private readonly DutchContext _context;
         public string UserName;
         public string UserRole;
-        public int UserId;
+        public static int UserId;
         public string Username;
         private static Random random = new Random();
 
@@ -194,7 +194,6 @@ namespace Reserveer.Controllers
             string toCompare = crypto.Compute(password, user.password_salt);
             UserRole = user.user_role;
             UserId = user.user_id;
-
             Username = user.user_name;
 
             int amount = user.user_password.Length;

@@ -96,3 +96,14 @@ C:\Users\Tommy\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Res
 C:\Users\Tommy\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csproj.CoreCompileInputs.cache
 C:\Users\Tommy\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfoInputs.cache
 C:\Users\Tommy\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csprojResolveAssemblyReference.cache
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csproj.CoreCompileInputs.cache
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfoInputs.cache
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.deps.json
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.json
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.dev.json
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.dll
+C:\Users\vboz\Source\Repos\InfoViewsTeam4\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.pdb

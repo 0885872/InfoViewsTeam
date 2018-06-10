@@ -18,6 +18,7 @@ namespace Reserveer.Controllers
         [HttpGet]
         public ActionResult Index(int numTimes = 1)
         {
+            int userid = HomeController.UserId;
             string room = Request.Query["RoomId"];
             ViewData["NumTimes"] = numTimes;
             Database db = new Database();
@@ -31,6 +32,7 @@ namespace Reserveer.Controllers
         [HttpPost]
         public ActionResult SetReservation([FromBody]ReservationModel reservation)
         {
+            int userid = HomeController.UserId;
             string room = Request.Query["RoomId"];
             ReservationModel reservations = new ReservationModel
             {

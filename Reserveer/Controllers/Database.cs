@@ -219,7 +219,7 @@ namespace Reserveer.Controllers
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
-                int userID = 1;
+                int userID = HomeController.UserId;
                 cmdd.CommandText = "SELECT group.group_id, group.group_name FROM `group`, `user` where " + userID + " = `user_id` and user.group_id = group.group_id;";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
@@ -319,7 +319,7 @@ namespace Reserveer.Controllers
             string[] group_id = new string[1];
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
-                int userID = 1;
+                int userID = HomeController.UserId;
                 cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
