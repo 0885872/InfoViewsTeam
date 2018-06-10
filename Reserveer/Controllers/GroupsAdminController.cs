@@ -108,7 +108,7 @@ namespace Reserveer.Controllers
         //string test123 = "1";
         conn.Open();
         String sql =
-          "UPDATE user SET user.availability = '1' WHERE user.user_id = '" + test123 + "';";
+          "UPDATE user SET user.availability = '1' WHERE user.user_id = '" + test + "';";
           MySqlCommand command = new MySqlCommand(sql, conn);
         command.ExecuteNonQuery();
         conn.Close();

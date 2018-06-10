@@ -19,7 +19,7 @@ namespace Reserveer.Controllers
         public ActionResult Index(int numTimes = 1)
         {
             int userid = HomeController.UserId;
-            string room = Request.Query["RoomId"];
+            string room = Request.Query["roomid"];
             ViewData["NumTimes"] = numTimes;
             Database db = new Database();
             List<string[]> results = db.getReservations(room);
@@ -33,7 +33,7 @@ namespace Reserveer.Controllers
         public ActionResult SetReservation([FromBody]ReservationModel reservation)
         {
             int userid = HomeController.UserId;
-            string room = Request.Query["RoomId"];
+            string room = Request.Query["roomid"];
             ReservationModel reservations = new ReservationModel
             {
                 title = reservation.title,
