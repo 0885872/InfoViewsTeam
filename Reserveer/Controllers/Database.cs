@@ -252,7 +252,7 @@ namespace Reserveer.Controllers
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
                 int groupID = 1;
-                cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where " + groupID + " = rooms.group_id";
+                cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms` where " + groupID + " = rooms.group_id";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
@@ -285,7 +285,7 @@ namespace Reserveer.Controllers
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
                 int groupID = 1;
-                cmdd.CommandText = "SELECT user.user_id, user.user_name, user.user_mail, user.active FROM `user`, `group` WHERE user.group_id = " + groupID + "";
+                cmdd.CommandText = "SELECT user.user_id, user.user_name, user.user_mail, user.active, user.group_id FROM `user` WHERE user.group_id = " + groupID + " AND user.active = 0";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
@@ -296,11 +296,12 @@ namespace Reserveer.Controllers
                 {
                     while (reader.Read())
                     {
-                        string[] res = new string[4];
+                        string[] res = new string[5];
                         res[0] = reader["user_id"].ToString();
                         res[1] = reader["user_name"].ToString();
                         res[2] = reader["user_mail"].ToString();
                         res[3] = reader["active"].ToString();
+                        res[4] = reader["group_id"].ToString();
                         GroupUser.Add(res);
                     }
                 }
@@ -490,7 +491,7 @@ namespace Reserveer.Controllers
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
                 int group_id = 1;
-                cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name,  reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id =" + group_id + ";";
+                cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name,  reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name, rooms.group_id FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id =" + group_id + " AND reservations.valid = 0;";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 cmdd.Connection = connMysql;
 
@@ -500,7 +501,7 @@ namespace Reserveer.Controllers
                 {
                     while (reader.Read())
                     {
-                        string[] res = new string[8];
+                        string[] res = new string[9];
                         res[0] = reader["reservation_id"].ToString();
                         res[1] = reader["user_name"].ToString();
                         res[2] = reader["start"].ToString();
@@ -509,6 +510,7 @@ namespace Reserveer.Controllers
                         res[5] = reader["valid"].ToString();
                         res[6] = reader["room_id"].ToString();
                         res[7] = reader["room_name"].ToString();
+                        res[8] = reader["group_id"].ToString();
                         GroupRoomReservation.Add(res);
                     }
                 }

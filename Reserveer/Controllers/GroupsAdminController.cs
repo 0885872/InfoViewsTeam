@@ -101,7 +101,7 @@ namespace Reserveer.Controllers
       }
     }
 
-    public IActionResult DeleteReservation(string test)
+    public IActionResult DeactivateUser(string userId, string groupId)
     {
       using (MySqlConnection conn = new MySqlConnection())
       {
@@ -109,27 +109,27 @@ namespace Reserveer.Controllers
         //string test123 = "1";
         conn.Open();
         String sql =
-          "UPDATE user SET user.availability = '1' WHERE user.user_id = '" + test + "';";
+          "UPDATE user SET user.active = '1' WHERE user.user_id = '" + userId + "';";
           MySqlCommand command = new MySqlCommand(sql, conn);
         command.ExecuteNonQuery();
         conn.Close();
-        return RedirectToAction("Index", "GroupsAdmin");
+        return RedirectToAction("Profile", "GroupsAdmin", groupId);
       }
     }
 
-    public IActionResult DeactivateUser()
+    public IActionResult DeleteReservation(string reservationId, string groupId)
     {
       using (MySqlConnection conn = new MySqlConnection())
       {
         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-        string test123 = "1";
+        //string test123 = "1";
         conn.Open();
         String sql =
-          "DELETE FROM reservations WHERE reservations.id = " + test123 + ";";
+          "UPDATE reservations SET reservations.valid = '1'  WHERE reservations.reservation_id = " + reservationId + ";";
         MySqlCommand command = new MySqlCommand(sql, conn);
         command.ExecuteNonQuery();
         conn.Close();
-        return RedirectToAction("Index", "GroupsAdmin");
+        return RedirectToAction("Profile", "GroupsAdmin", groupId);
       }
     }
   }

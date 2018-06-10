@@ -26,20 +26,22 @@
       for (var i = 0; i < arrayLength2; i++) {
         $("#reservationI").append(
 
-          '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" ><div class= "col-sm-3" > ' + GroupReservationsArray[i][1] + '</div > <div class="col-sm-3">' + GroupReservationsArray[i][2] + ' - ' + GroupReservationsArray[i][3] + '</div><div class="col-sm-2">' + GroupReservationsArray[i][4] + '</div><div class="col-sm-2">' + GroupReservationsArray[i][7] + '</div><div class="col-sm-2"><a href="' + GroupReservationsArray[i][0] +'" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div ></div > '
+            '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" ><div class= "col-sm-3" > ' + GroupReservationsArray[i][1] + '</div > <div class="col-sm-3">' + GroupReservationsArray[i][2] + ' - ' + GroupReservationsArray[i][3] + '</div><div class="col-sm-2">' + GroupReservationsArray[i][4] + '</div><div class="col-sm-2">' + GroupReservationsArray[i][7] + '</div><div class="col-sm-2"><a href="DeleteReservation?reservationId=' + GroupReservationsArray[i][0] + '&groupId=' + GroupReservationsArray[i][8] +'" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div ></div > '
         );
       }
       GroupUserArray = new Array();
       GroupUserArray = @Html.Raw(ViewData["results3"]);
       var arrayLength3 = GroupUserArray.length;
       for (var i = 0; i < arrayLength3; i++) {
-        $("#userI").append(
+          $("#userI").append(
+              
 
-          '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" > <div class="col-sm-3">'+GroupUserArray[i][1]+'</div><div class="col-sm-3">'+GroupUserArray[i][2]+'</div><div class="col-sm-3">'+GroupUserArray[i][3]+'</div><div class="col-sm-3"><a href="'+GroupUserArray[i][3]+'" class="btn btn-sm btn-danger btn-block  center-block">Deactivate</a></div></div ></div >'
-        );
+              '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" > <div class="col-sm-3">' + GroupUserArray[i][1] + '</div><div class="col-sm-3">' + GroupUserArray[i][2] + '</div><div class="col-sm-3">' + GroupUserArray[i][3] + '</div><div class="col-sm-3"><a href="DeactivateUser?userId=' + GroupUserArray[i][0] + '&groupId=' + GroupUserArray[i][4]+'" class="btn btn-sm btn-danger btn-block  center-block">Deactivate</a>  </div></div ></div >'
+          );
+          console.log(typeof (GroupUserArray[i][0]))
       }
 
-
+        
 
     });
 
