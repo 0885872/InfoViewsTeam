@@ -1,0 +1,91 @@
+﻿<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: </h1>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            eventArray = [];
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+            var hours = today.getHours();
+            var minutes = today.getMinutes();
+            var seconds = today.getSeconds
+
+
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+
+            var events = (@Html.Raw(ViewData["results"]));
+            x = 0;
+            while (events[x] != null) {
+                eventArray[x] = events[x];
+                x++;
+            }
+
+            var collectionString = "["
+            var events = new Array();
+            for (var i = 0, len = eventArray.length; i < len; i++) {
+                events[i] = { 'id': eventArray[i][0], 'start': eventArray[i][2], 'end': eventArray[i][3] };
+                }
+
+
+            $('#calendar').fullCalendar({
+                minTime: "08:00:00",
+                maxTime: "18:00:00",
+                displayEventTime: false,
+                disableResizing: false,
+                eventStartEditable: false,
+                timeFormat: 'H(:mm)',
+                slotLabelFormat: "HH:mm",
+                header: false,
+                defaultView: 'agendaWeek',
+                eventOverlap: false,
+                businessHours:
+                    {
+                        dow: [1, 2, 3, 4, 5],
+
+                        start: '8:00', // a start time
+                        end: '18:00', // an end time
+                    },
+                defaultDate: today,
+                navLinks: false, // can click day/week names to navigate views
+                selectable: true,
+                selectHelper: true,
+                editable: true,
+                eventLimit: true,
+                events: events,
+            });
+
+
+        });
+</script>
+
+<div id="calendar" class="opacityWhitebg"></div>
+
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Overview Reservations:
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
+            <div class="row">
+            </div>
+        </div>
+    </div>
+</div>
+
+
