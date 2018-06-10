@@ -33,7 +33,7 @@
             var collectionString = "["
             var events = new Array();
             for (var i = 0, len = eventArray.length; i < len; i++) {
-                events[i] = { 'id': eventArray[i][0], 'title': eventArray[i][1], 'start': eventArray[i][2], 'end': eventArray[i][3] };
+                events[i] = { 'id': eventArray[i][0], 'start': eventArray[i][2], 'end': eventArray[i][3] };
                 }
 
 
@@ -87,6 +87,7 @@
                                 reservation.title = title;
                                 reservation.start = startFormat;
                                 reservation.end = endFormat;
+                                reservation.roomid = 
 
 
                                 $.ajax({

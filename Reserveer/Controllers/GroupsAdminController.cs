@@ -57,8 +57,9 @@ namespace Reserveer.Controllers
 
     public IActionResult RoomProfile()
     {
+      string roomid = Request.Query["roomid"];
       Database db = new Database();
-      List<string[]> results = db.getRoomProfileInfo();
+      List<string[]> results = db.getRoomProfileInfo(roomid);
       List<string[]> results2 = db.getRoomReservation();
       var json2 = JsonConvert.SerializeObject(results2);
       var json = JsonConvert.SerializeObject(results);

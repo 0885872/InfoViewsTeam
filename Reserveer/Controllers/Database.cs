@@ -407,7 +407,7 @@ namespace Reserveer.Controllers
 
 
 
-    public List<string[]> getRoomProfileInfo()
+    public List<string[]> getRoomProfileInfo(string room)
     {
         List<string[]> RoomProfileInfo = new List<string[]>();
         String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
@@ -415,7 +415,7 @@ namespace Reserveer.Controllers
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
-                int room_id = 1;
+                string room_id = room;
                 cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.room_floor, rooms.available, rooms.room_number, rooms.room_facilities, rooms.room_comment FROM `rooms` WHERE room_id = " + room_id + ";";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
