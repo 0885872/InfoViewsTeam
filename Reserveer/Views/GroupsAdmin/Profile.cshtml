@@ -81,9 +81,9 @@
                             @*<input id="groupI" type="text" class="form-control" placeholder="Group Name" aria-describedby="basic-addon1">*@
                             <input id="groupI" asp-for="GroupName" placeholder="GroupName" class="form-control" required>
                             <span asp-validation-for="GroupName" class="text-danger"></span>
-                            <input id="groupId" asp-for="GroupID" placeholder="GroupID" class="form-control" required>
+                            @*<input id="groupId" asp-for="GroupID" placeholder="GroupID" class="form-control" required>*@
                         </div>
-                        <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;">Save</button>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;" disabled>Save</button>
                         <br />
                         <div id="domainI" class="col-sm-4 thumbnail">
 

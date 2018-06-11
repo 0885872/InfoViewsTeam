@@ -61,15 +61,18 @@ namespace Reserveer.Controllers
       Database db = new Database();
       List<string[]> results = db.getRoomProfileInfo(roomid);
       List<string[]> results2 = db.getRoomReservation();
-      var json2 = JsonConvert.SerializeObject(results2);
+            List<string[]> results3 = db.getRoomSensors(roomid);
+            var json3 = JsonConvert.SerializeObject(results3);
+            var json2 = JsonConvert.SerializeObject(results2);
       var json = JsonConvert.SerializeObject(results);
       ViewData["results"] = json;
       ViewData["results2"] = json2;
-      return View();
+            ViewData["results3"] = json3;
+            return View();
     }
 
 
-    public IActionResult UpdateRoom(RoomInfo info)
+    public IActionResult UpdateRoom(RoomInfo info, GroupInfo test)
     {
       using (MySqlConnection conn = new MySqlConnection())
       {
@@ -81,11 +84,32 @@ namespace Reserveer.Controllers
         MySqlCommand command = new MySqlCommand(sql, conn);
         command.ExecuteNonQuery();
         conn.Close();
-        return RedirectToAction("Index", "GroupsAdmin");
+        return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
       }
     }
 
-    public IActionResult AddRoomInfo(RoomInfo info)
+        public IActionResult UpdateRoomSensor(RoomInfo info, GroupInfo test)
+        {
+            using (MySqlConnection conn = new MySqlConnection())
+            {
+                conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+
+                conn.Open();
+                String sql = "UPDATE sensors SET assigned = 1 WHERE sensor_id = "+info.SensorID+" ";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+                conn.Open();
+                String sql2 = "INSERT INTO `rooms_has_sensors` VALUES('1','" + info.SensorID + "') ";
+                MySqlCommand command2 = new MySqlCommand(sql2, conn);
+                command2.ExecuteNonQuery();
+                conn.Close();
+                
+                return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
+            }
+        }
+
+        public IActionResult AddRoomInfo(RoomInfo info)
     {
       using (MySqlConnection conn = new MySqlConnection())
       {
@@ -148,6 +172,8 @@ namespace Reserveer.Controllers
         return RedirectToAction("Profile", "GroupsAdmin", groupId);
       }
     }
+
+
   }
 }
 

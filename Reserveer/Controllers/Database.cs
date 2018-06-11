@@ -341,7 +341,42 @@ namespace Reserveer.Controllers
             }
         }
 
-    public List<string[]> getGroupRooms()
+
+        public List<string[]> getRoomSensors(string room)
+        {
+            List<string[]> RoomSensors = new List<string[]>();
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    //int userID = HomeController.UserId;
+                    
+                    cmdd.CommandText = "SELECT sensors.sensor_id, sensors.mac, rooms.group_id FROM `sensors`,rooms WHERE assigned = 0 AND rooms.room_id = "+ room +"";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string[] res = new string[3];
+                            res[0] = reader["sensor_id"].ToString();
+                            res[1] = reader["mac"].ToString();
+                            res[2] = reader["group_id"].ToString();
+                            RoomSensors.Add(res);
+                        }
+                    }
+                }
+                connMysql.Close();
+                return RoomSensors;
+            }
+        }
+
+        public List<string[]> getGroupRooms()
     {
         List<string[]> GroupRooms = new List<string[]>();
         String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
