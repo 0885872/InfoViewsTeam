@@ -126,7 +126,7 @@ namespace Reserveer.Controllers
                         MailMessage msg = new MailMessage();
                         SmtpClient smtp = new SmtpClient();
 
-                        string verifyLink = "http://infoviews.drakonit.nl/?mail=" + user.Mail + "&number=" + rrandom;
+                        string verifyLink = "http://145.24.222.130/?mail=" + user.Mail + "&number=" + rrandom;
                         msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
                         msg.To.Add(user.Mail);
                         msg.Subject = "E-mail verification";

@@ -33,7 +33,7 @@
             var collectionString = "["
             var events = new Array();
             for (var i = 0, len = eventArray.length; i < len; i++) {
-                events[i] = { 'id': eventArray[i][0], 'title': eventArray[i][1], 'start': eventArray[i][2], 'end': eventArray[i][3] };
+                events[i] = { 'id': eventArray[i][0], 'start': eventArray[i][2], 'end': eventArray[i][3] };
                 }
 
 
@@ -83,10 +83,14 @@
                                 var startFormat = moment(start).format('YYYY/MM/DD HH:mm');
                                 var endFormat = moment(end).format('YYYY/MM/DD HH:mm');
 
+                                var urlParams = new URLSearchParams(window.location.search);
+                                var roomid = urlParams.get('RoomId');
+
                                 var reservation = new Object();
                                 reservation.title = title;
                                 reservation.start = startFormat;
                                 reservation.end = endFormat;
+                                reservation.roomid = roomid
 
 
                                 $.ajax({

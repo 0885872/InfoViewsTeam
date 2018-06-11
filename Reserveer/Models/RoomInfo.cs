@@ -26,4 +26,9 @@ namespace Reserveer.Models
       [Required(ErrorMessage = "This field is required.")]
       public string RoomID { get; set; }
   }
+    public class GroupInfo
+    {
+        public string GroupName { get; set; }
+        public string GroupID { get; set; }
+    }
 }
