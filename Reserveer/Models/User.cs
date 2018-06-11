@@ -29,5 +29,7 @@ namespace Reserveer.Models
         public string password_salt { get; set; }
 
         public string user_role { get; set; }
+
+        public int active { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using Reserveer.Models;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace Reserveer.Controllers
 {
@@ -24,6 +25,7 @@ namespace Reserveer.Controllers
         public string UserRole;
         public static int UserId;
         public string Username;
+        public int active;
         private static Random random = new Random();
 
         public HomeController(DutchContext context)
@@ -145,18 +147,19 @@ namespace Reserveer.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> Index(User user)
+        public async Task<IActionResult> Index(User user)
         {
             if (ModelState.IsValid)
             {
-                if (IsValid(user.user_mail, user.user_password))
+                if (IsValid(user.user_mail, user.user_password) && active == 1)
                 {
                     List<Claim> claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, Username),
                         new Claim(ClaimTypes.Role, UserRole)
                     };
-                    var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var userIdentity =
+                        new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync(principal);
                     UserName = principal.Identity.Name;
@@ -170,6 +173,11 @@ namespace Reserveer.Controllers
                     {
                         return RedirectToAction("Index", "GroupsAdmin");
                     }
+                }
+
+                if (IsValid(user.user_mail, user.user_password) && active == 0)
+                {
+                    ModelState.AddModelError("", "User Account is not activated");
                 }
                 else
                 {
@@ -189,19 +197,33 @@ namespace Reserveer.Controllers
         {
             var crypto = new SimpleCrypto.PBKDF2();
             bool isValid = false;
-
             var user = _context.user.FirstOrDefault(u => u.user_mail == email);
-            string toCompare = crypto.Compute(password, user.password_salt);
-            UserRole = user.user_role;
-            UserId = user.user_id;
-            Username = user.user_name;
 
-            int amount = user.user_password.Length;
-            string passwordSaltFixed = toCompare.Substring(0, amount);
-            string compareString = user.user_password.Substring(0, amount);
-
-            if (user != null)
+            if (user != null && user.active != 0)
             {
+                UserRole = user.user_role;
+                UserId = user.user_id;
+                Username = user.user_name;
+                active = user.active;
+
+                string toCompare = crypto.Compute(password, user.password_salt);
+                int amount = user.user_password.Length;
+                string passwordSaltFixed = toCompare.Substring(0, amount);
+                string compareString = user.user_password.Substring(0, amount);
+
+                if (passwordSaltFixed == compareString)
+                {
+                    isValid = true;
+                }
+            }
+
+            else if (user != null && user.active == 0)
+            {
+                string toCompare = crypto.Compute(password, user.password_salt);
+                int amount = user.user_password.Length;
+                string passwordSaltFixed = toCompare.Substring(0, amount);
+                string compareString = user.user_password.Substring(0, amount);
+
                 if (passwordSaltFixed == compareString)
                 {
                     isValid = true;
@@ -209,5 +231,5 @@ namespace Reserveer.Controllers
             }
             return isValid;
         }
-  }
+    }
 }
