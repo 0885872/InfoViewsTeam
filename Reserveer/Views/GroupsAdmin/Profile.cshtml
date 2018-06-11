@@ -1,18 +1,20 @@
-﻿<script type="text/javascript">
+﻿@model Reserveer.Models.GroupInfo;
+<script type="text/javascript">
     $(document).ready(function () {
 
         GroupProfileArray = new Array();
       GroupProfileArray = @Html.Raw(ViewData["results"]);
         console.log(GroupProfileArray);
-      
-      
+
+
       $('#title').text(GroupProfileArray[0][1]);
-      $('#groupI').val(GroupProfileArray[0][1]);
+        $('#groupI').val(GroupProfileArray[0][1]);
+        $('#groupId').val(GroupProfileArray[0][0]);
         $('#domainI').append('<h4 id="' + GroupProfileArray[0][4] + '" class="card-title text-center themeColor">&#9993;' + GroupProfileArray[0][2]+'</h4> ');
       GroupRoomsArray = new Array();
-      GroupRoomsArray = @Html.Raw(ViewData["results2"]); 
+      GroupRoomsArray = @Html.Raw(ViewData["results2"]);
         var arrayLength = GroupRoomsArray.length;
-        
+
         for (var i = 0; i < arrayLength; i++) {
             $("#roomsI").append(
 
@@ -33,13 +35,13 @@
       GroupUserArray = @Html.Raw(ViewData["results3"]);
       var arrayLength3 = GroupUserArray.length;
       for (var i = 0; i < arrayLength3; i++) {
-          $("#userI").append( 
+          $("#userI").append(
 
               '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" > <div class="col-sm-3">' + GroupUserArray[i][1] + '</div><div class="col-sm-3">' + GroupUserArray[i][2] + '</div><div class="col-sm-3">' + GroupUserArray[i][3] + '</div><div class="col-sm-3"><a href="DeactivateUser?userId=' + GroupUserArray[i][0] + '&groupId=' + GroupUserArray[i][4]+'" class="btn btn-sm btn-danger btn-block  center-block">Deactivate</a>  </div></div ></div >'
-          ); 
+          );
       }
 
-        
+
 
     });
 
@@ -66,24 +68,29 @@
                 <div class="col-sm-4">
                     <div class="row">
                         <div>
-                            <img class="card-img-top" src="https://dummyimage.com/300x200/000/17a2b8 " alt="Card image cap" 
+                            <img class="card-img-top" src="https://dummyimage.com/300x200/000/17a2b8 " alt="Card image cap"
                                  style="height: 200px;  display: block; border: 2px #27A2A7 solid; padding: 2px;">
                         </div>
-                    </div> 
+                    </div>
 
                 </div>
-                <div class="col-sm-8">
-                  <div class="input-group ">
-                    <span class="input-group-addon" id="basic-addon1">Group Name</span>
-                    <input id="groupI" type="text" class="form-control" placeholder="Group Name" aria-describedby="basic-addon1">
-                  </div>
-                  <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;">Save</button>
-                  <br />
-                  <div id="domainI" class="col-sm-4 thumbnail"> 
-                      
+                <form asp-action="UpdateGroupName">
+                    <div class="col-sm-8">
+                        <div class="input-group ">
+                            <span class="input-group-addon" id="basic-addon1">Group Name</span>
+                            @*<input id="groupI" type="text" class="form-control" placeholder="Group Name" aria-describedby="basic-addon1">*@
+                            <input id="groupI" asp-for="GroupName" placeholder="GroupName" class="form-control" required>
+                            <span asp-validation-for="GroupName" class="text-danger"></span>
+                            <input id="groupId" asp-for="GroupID" placeholder="GroupID" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;">Save</button>
+                        <br />
+                        <div id="domainI" class="col-sm-4 thumbnail">
 
-                  </div>
-                </div>
+
+                        </div>
+                    </div>
+                    </form>
 
 
             </div>
@@ -104,12 +111,12 @@
             </h4>
         </div>
         <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
-          <div class="row">
-            <ul id="roomsI"></ul>
-          </div>
+            <div class="row">
+                <ul id="roomsI"></ul>
+            </div>
 
-          <hr />
-          <a class="btn btn-lg btn-danger btn-block  center-block" href="/Addroom" role="button">Add Room</a>
+            <hr />
+            <a class="btn btn-lg btn-danger btn-block  center-block" href="/Addroom" role="button">Add Room</a>
         </div>
     </div>
 </div>
@@ -125,7 +132,7 @@
             </h4>
         </div>
         <div id="userI" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading4">
-            
+
             <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
 
                 <div class="caption">
@@ -142,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
         </div>
     </div>
@@ -174,7 +181,7 @@
                         Room Number
                     </div>
                 </div>
-            </div> 
+            </div>
 
         </div>
     </div>
