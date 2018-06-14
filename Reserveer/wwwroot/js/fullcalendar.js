@@ -3205,7 +3205,10 @@ var Scroller = /** @class */ (function (_super) {
             'overflow-y': this.overflowY
         });
     };
-    // Causes any 'auto' overflow values to resolves to 'scroll' or 'hidden'.
+    // Causes any 'auto' overflow values to resolves to 'scroll' or '
+
+
+    '.
     // Useful for preserving scrollbar widths regardless of future resizes.
     // Can pass in scrollbarWidths for optimization.
     Scroller.prototype.lockOverflow = function (scrollbarWidths) {
