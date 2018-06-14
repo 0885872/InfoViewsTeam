@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 
 namespace Reserveer.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private readonly DutchContext _context;
