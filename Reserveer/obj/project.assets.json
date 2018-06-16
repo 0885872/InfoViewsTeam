@@ -2922,6 +2922,31 @@
           "lib/netstandard1.3/NuGet.Frameworks.dll": {}
         }
       },
+      "NWebsec.AspNetCore.Core/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Core.dll": {}
+        }
+      },
+      "NWebsec.AspNetCore.Middleware/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.0.2",
+          "NWebsec.AspNetCore.Core": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Middleware.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NWebsec.AspNetCore.Middleware.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -8278,6 +8303,28 @@
         "nuget.frameworks.nuspec"
       ]
     },
+    "NWebsec.AspNetCore.Core/2.0.0": {
+      "sha512": "rBzLHzTQx7X3vcLbhcHPVgNUALl1mb2zoiIqNw/M7z4lda7WkvMbsHrb4+hh1lZVgeYp4qZwDbO8gAoPdnXmrQ==",
+      "type": "package",
+      "path": "nwebsec.aspnetcore.core/2.0.0",
+      "files": [
+        "lib/netstandard2.0/NWebsec.AspNetCore.Core.dll",
+        "lib/netstandard2.0/NWebsec.AspNetCore.Core.xml",
+        "nwebsec.aspnetcore.core.2.0.0.nupkg.sha512",
+        "nwebsec.aspnetcore.core.nuspec"
+      ]
+    },
+    "NWebsec.AspNetCore.Middleware/2.0.0": {
+      "sha512": "5PN4h7BLS9b4Hz6own0L1DqVrhpDnUKQaHDJGgkZz2efvZ9YwfAPE1yW7hVCpzNjLBYG3EV3xXWwIg0M5mXZUA==",
+      "type": "package",
+      "path": "nwebsec.aspnetcore.middleware/2.0.0",
+      "files": [
+        "lib/netstandard2.0/NWebsec.AspNetCore.Middleware.dll",
+        "lib/netstandard2.0/NWebsec.AspNetCore.Middleware.xml",
+        "nwebsec.aspnetcore.middleware.2.0.0.nupkg.sha512",
+        "nwebsec.aspnetcore.middleware.nuspec"
+      ]
+    },
     "Remotion.Linq/2.1.1": {
       "sha512": "/OI3X7oW4779V0qKL4BhBJXfvrsKoUW/XTgMNXXhETNjBYQNXzedb7K7BQpMPLXN8tTD9dG/2In6dkkgh6kVbg==",
       "type": "package",
@@ -13472,6 +13519,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3",
       "MySql.Data >= 8.0.11",
       "MySql.Data.EntityFrameworkCore >= 8.0.11",
+      "NWebsec.AspNetCore.Core >= 2.0.0",
+      "NWebsec.AspNetCore.Middleware >= 2.0.0",
       "SimpleCrypto.NetCore >= 1.0.0"
     ]
   },
@@ -13540,6 +13589,14 @@
           "MySql.Data.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.11, )"
+          },
+          "NWebsec.AspNetCore.Core": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "NWebsec.AspNetCore.Middleware": {
+            "target": "Package",
+            "version": "[2.0.0, )"
           },
           "SimpleCrypto.NetCore": {
             "target": "Package",
