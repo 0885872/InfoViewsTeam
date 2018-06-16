@@ -30,24 +30,24 @@
     <nav class="cwhite navbar navbar-inverse navbar-fixed-top " style="background-color:#27a2a7; border-color:transparent;">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand cwhite">InfoView Reservation</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand cwhite">InfoView Reservation</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="cwhite">Home</a></li>
+               
                 @if (User.IsInRole("user"))
                 {
                     if (User.Identity.IsAuthenticated)
                     {
-
-                        <li><a>Welkom @User.Identity.Name</a></li>
-                        <li><a href="@Url.Action("LogOut", "Home")">Logout</a></li>
+                        <li><a asp-controller="Groups" asp-action="Index" class="cwhite">Home</a></li>
+                        <li><a class="cwhite">Welcome @User.Identity.Name</a></li>
+                        <li><a href="@Url.Action("LogOut", "Home")" class="cwhite">Logout</a></li>
 
                     }
                 }
@@ -56,9 +56,9 @@
                 {
                     if (User.Identity.IsAuthenticated)
                     {
-                        
-                        <li><a>Welkom @User.Identity.Name</a></li>
-                        <li><a href="@Url.Action("LogOut", "Home")">Logout</a></li>
+                        <li><a asp-controller="GroupsAdmin" asp-action="Index" class="cwhite">Home</a></li>
+                        <li><a class="cwhite">Welcome @User.Identity.Name</a></li>
+                        <li><a href="@Url.Action("LogOut", "Home")" class="cwhite">Logout</a></li>
                      
                     
                     }
