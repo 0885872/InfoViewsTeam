@@ -12,6 +12,36 @@ namespace Reserveer.Controllers
 {
     public class Database
     {
+        public string[] getLatestTemperature(string roomid)
+        {
+            string[] res = new string[2];
+            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    cmdd.CommandText = "SELECT sv.value, max(sv.datetime) as date FROM sensor_values sv, sensors s, rooms_has_sensors r WHERE sv.sensor_id = s.sensor_id AND s.sensor_id = r.sensor_id AND r.room_id = " + roomid + ";";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            res[0] = reader["value"].ToString();
+                            res[1] = reader["date"].ToString();
+                        }
+                    }
+                }
+                connMysql.Close();
+                return res;
+            }
+        }
+
         public string getUserMail(string id)
         {
             string[] res = new string[1];

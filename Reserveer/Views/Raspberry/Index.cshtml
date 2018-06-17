@@ -1,4 +1,5 @@
-﻿<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: </h1>
+﻿<meta http-equiv="refresh" content="60">
+<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: </h1>
 
 <script type="text/javascript">
         $(document).ready(function () {
@@ -63,9 +64,10 @@
                 eventLimit: true,
                 events: events,
             });
-
-
+            var temperatureData = (@Html.Raw(ViewData["temp"]));
+            document.getElementById("temp").innerHTML = "Temperature: " + temperatureData[0] + ", last updated: " + temperatureData[1];
         });
+
 </script>
 
 <div id="calendar" class="opacityWhitebg"></div>
@@ -75,10 +77,8 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
         <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-            <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Overview Reservations:
-                </a>
+            <h4 id ="temp" class="panel-title">
+                
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
