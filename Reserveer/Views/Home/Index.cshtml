@@ -23,35 +23,38 @@
     <h1 class="display-4 text-info">InfoViews!</h1>
     <p class="lead">Lorem ipsum dolor sit amet, pretty girl sits on a plane wondering where to fly. Plane goes down, pretty girl jumps off. Get your Tesla 3 right and maybe get it in 2020 kappa. Lizard people rule the world. The earth is flat</p>
     <hr class="my-4">
-    <p>Are you a new user? Register here!.</p>
+    <p>Are you a new user? Register here!</p>
     <p class="lead">
         <a class="btn btn-info btn-lg themeBGColor" href="Home/Registration" role="button">Register Now</a>
     </p>
 </div>
 <br>
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true, "Login failed. Check your login details.");
-    <div>
-        <fieldset>
-            <legend>Login Form</legend>
-            <div>@Html.LabelFor(u => u.user_mail)</div>
+<div class="opacityWhitebg form-signin" style="border-radius:10px;">
+    <h1 class="h3 mb-3 font-weight-normal text-center">Sign in for <span class="themeColor">InfoViews</span></h1>
 
-            <div>
-                @Html.TextBoxFor(u => u.user_mail)
-                @Html.ValidationMessageFor(u => u.user_mail)
-            </div>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Login failed. Check your login details.");
+        <div>
+            <fieldset>
+                <div>@Html.LabelFor(u => u.user_mail)</div>
 
-            <div>@Html.LabelFor(u => u.user_password)</div>
+                <div>
+                    @Html.TextBoxFor(u => u.user_mail, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(u => u.user_mail)
+                </div>
 
-            <div>
-                @Html.PasswordFor(u => u.user_password)
-                @Html.ValidationMessageFor(u => u.user_password)
-            </div>
-            <input type="submit" value="Log In" />
+                <div>@Html.LabelFor(u => u.user_password)</div>
 
-        </fieldset>
-    </div>
-}
+                <div>
+                    @Html.PasswordFor(u => u.user_password, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(u => u.user_password)
+                </div>
+                <input class="btn btn-info btn-lg themeBGColor" type="submit" value="Log In" />
+
+            </fieldset>
+        </div>
+    }
+</div>
 
