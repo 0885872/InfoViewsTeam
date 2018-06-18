@@ -38,7 +38,7 @@ namespace Reserveer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index() // Populates Home->Index with data
         {
             string mail = Request.Query["mail"];
             string token = Request.Query["number"];
@@ -60,7 +60,7 @@ namespace Reserveer.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Registration(UserRegistration user)
+        public IActionResult Registration(UserRegistration user) // Posts Registration Data
         {
             var crypto = new SimpleCrypto.PBKDF2();
             var encrypass = crypto.Compute(user.Password);
@@ -72,7 +72,7 @@ namespace Reserveer.Controllers
             string domainExists = domainArray[1];
             string group_id = db.getDomainCheck(domainExists);
 
-            if (group_id == "null")
+            if (group_id == "null") // Checks for existing group connected to email
             {
                 ModelState.AddModelError("Mail", "There is no group allocated to this email. Contact your administrator for more information.");
                 return View();
@@ -146,7 +146,7 @@ namespace Reserveer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(User user)
+        public async Task<IActionResult> Index(User user) // Posts Index data
         {
             if (ModelState.IsValid)
             {
@@ -186,7 +186,7 @@ namespace Reserveer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> LogOut() // Redirects and logs out user
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
