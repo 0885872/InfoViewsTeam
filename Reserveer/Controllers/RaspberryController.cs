@@ -18,6 +18,9 @@ namespace Reserveer.Controllers
             List<string[]> results = db.getReservations(room);
             var json = JsonConvert.SerializeObject(results);
             ViewData["results"] = json;
+            string[] temperatureData = db.getLatestTemperature(room);
+            var jsonTemp = JsonConvert.SerializeObject(temperatureData);
+            ViewData["temp"] = jsonTemp;
             return View();
         }
     }

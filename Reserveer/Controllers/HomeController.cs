@@ -13,11 +13,10 @@ using Reserveer.Data;
 using Reserveer.Models;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Authorization;
-using System.Net.Http;
-using Newtonsoft.Json;
 
 namespace Reserveer.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private readonly DutchContext _context;
