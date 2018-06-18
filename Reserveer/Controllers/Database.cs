@@ -12,10 +12,11 @@ namespace Reserveer.Controllers
 {
     public class Database
     {
-        public string[] getLatestTemperature(string roomid)
+    String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+
+    public string[] getLatestTemperature(string roomid)
         {
             string[] res = new string[2];
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -45,7 +46,6 @@ namespace Reserveer.Controllers
         public string getUserMail(string id)
         {
             string[] res = new string[1];
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -74,7 +74,6 @@ namespace Reserveer.Controllers
         public string getRoomName(string id)
         {
             string[] res = new string[1];
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -103,7 +102,6 @@ namespace Reserveer.Controllers
         public List<string[]> getReservations(string room)
         {
             List<string[]> reservations = new List<string[]>();
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -139,7 +137,6 @@ namespace Reserveer.Controllers
         public bool VerifyMail(string mail, string token)
         {
             string[] res = new string[1];
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -231,7 +228,6 @@ namespace Reserveer.Controllers
 
             //Get reservation id for next step
             string[] result = new string[1];
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -272,7 +268,6 @@ namespace Reserveer.Controllers
         public string[] FindDuplicates(UserRegistration user)
         {
             string[] result = new string[1];
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -303,7 +298,6 @@ namespace Reserveer.Controllers
         {
             string[] res = new string[1];
             string result;
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -342,7 +336,6 @@ namespace Reserveer.Controllers
         public List<string[]> getUserGroup()
         {
             List<string[]> UserGroup = new List<string[]>();
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -375,7 +368,6 @@ namespace Reserveer.Controllers
         public List<string[]> getRoomSensors(string room)
         {
             List<string[]> RoomSensors = new List<string[]>();
-            String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -409,7 +401,6 @@ namespace Reserveer.Controllers
         public List<string[]> getGroupRooms()
     {
         List<string[]> GroupRooms = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
         using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -442,8 +433,7 @@ namespace Reserveer.Controllers
     public List<string[]> getGroupUser()
     {
         List<string[]> GroupUser = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-        using (MySqlConnection connMysql = new MySqlConnection(connString))
+       using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
@@ -477,7 +467,6 @@ namespace Reserveer.Controllers
     public List<string[]> getGroupAdmin()
     {
         List<string[]> AdminGroup = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
         using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             string[] group_id = new string[1];
@@ -535,7 +524,6 @@ namespace Reserveer.Controllers
     public List<string[]> getAdminProfileInfo()
     {
         List<string[]> AdminProfileInfo = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
         using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -574,7 +562,6 @@ namespace Reserveer.Controllers
     public List<string[]> getRoomProfileInfo(string room)
     {
         List<string[]> RoomProfileInfo = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
         using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -613,7 +600,6 @@ namespace Reserveer.Controllers
     public List<string[]> getRoomReservation()
     {
         List<string[]> RoomReservation = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
         using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
@@ -648,7 +634,6 @@ namespace Reserveer.Controllers
     public List<string[]> getGroupRoomReservation()
     {
         List<string[]> GroupRoomReservation = new List<string[]>();
-        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
         using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
