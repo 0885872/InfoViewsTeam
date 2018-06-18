@@ -14,7 +14,7 @@ namespace Reserveer.Controllers
     {
     String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
-    public string[] getLatestTemperature(string roomid)
+    public string[] getLatestTemperature(string roomid) // Gets the latest temperature in the room from the Raspberry Pi
         {
             string[] res = new string[2];
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -43,7 +43,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public string getUserMail(string id)
+        public string getUserMail(string id) // Get the mail corresponding to the userID
         {
             string[] res = new string[1];
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -71,7 +71,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public string getRoomName(string id)
+        public string getRoomName(string id) // Gets the room name corresponding to the roomID
         {
             string[] res = new string[1];
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -99,7 +99,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public List<string[]> getReservations(string room)
+        public List<string[]> getReservations(string room) // Gets all reservations corresponding to the roomID
         {
             List<string[]> reservations = new List<string[]>();
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -134,7 +134,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public bool VerifyMail(string mail, string token)
+        public bool VerifyMail(string mail, string token) // Verifies user emailaccount by combination with a token
         {
             string[] res = new string[1];
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -211,7 +211,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public void setReservations(ReservationModel reservation)
+        public void setReservations(ReservationModel reservation) // Sets the reservations made by users
         {
             //Save reservation to database
             using (MySqlConnection conn = new MySqlConnection())
@@ -252,7 +252,6 @@ namespace Reserveer.Controllers
                 }
             }
 
-
             //user-resevation assignment
             using (MySqlConnection connn = new MySqlConnection())
             {
@@ -265,7 +264,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public string[] FindDuplicates(UserRegistration user)
+        public string[] FindDuplicates(UserRegistration user) // Checks for duplicate user email
         {
             string[] result = new string[1];
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -294,7 +293,7 @@ namespace Reserveer.Controllers
             return result;
         }
 
-        public string getDomainCheck(string domain)
+        public string getDomainCheck(string domain) // Checks for domain name corresponding with group_id
         {
             string[] res = new string[1];
             string result;
@@ -333,7 +332,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public List<string[]> getUserGroup()
+        public List<string[]> getUserGroup() // Gets usergroup corresponding with userID
         {
             List<string[]> UserGroup = new List<string[]>();
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -343,7 +342,6 @@ namespace Reserveer.Controllers
                     int userID = HomeController.UserId;
                     cmdd.CommandText = "SELECT group.group_id, group.group_name FROM `group`, `user` where " + userID + " = `user_id` and user.group_id = group.group_id;";
                     cmdd.CommandType = System.Data.CommandType.Text;
-                    //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                     cmdd.Connection = connMysql;
 
                     connMysql.Open();
@@ -365,7 +363,7 @@ namespace Reserveer.Controllers
         }
 
 
-        public List<string[]> getRoomSensors(string room)
+        public List<string[]> getRoomSensors(string room) // Gets all temperature sensors/raspberry that are unassigned
         {
             List<string[]> RoomSensors = new List<string[]>();
             using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -376,7 +374,6 @@ namespace Reserveer.Controllers
                     
                     cmdd.CommandText = "SELECT sensors.sensor_id, sensors.mac, rooms.group_id FROM `sensors`,rooms WHERE assigned = 0 AND rooms.room_id = "+ room +"";
                     cmdd.CommandType = System.Data.CommandType.Text;
-                    //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                     cmdd.Connection = connMysql;
 
                     connMysql.Open();
@@ -398,7 +395,7 @@ namespace Reserveer.Controllers
             }
         }
 
-        public List<string[]> getGroupRooms()
+        public List<string[]> getGroupRooms() // Gets all rooms corresponding to the groupID
     {
         List<string[]> GroupRooms = new List<string[]>();
         using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -408,7 +405,6 @@ namespace Reserveer.Controllers
                 int groupID = 1;
                 cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms` where " + groupID + " = rooms.group_id";
                 cmdd.CommandType = System.Data.CommandType.Text;
-                //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
                     connMysql.Open();
@@ -430,17 +426,16 @@ namespace Reserveer.Controllers
             }
         }
 
-    public List<string[]> getGroupUser()
+    public List<string[]> getGroupUser() // Gets all users corresponding to the groupID
     {
         List<string[]> GroupUser = new List<string[]>();
-       using (MySqlConnection connMysql = new MySqlConnection(connString))
+        using (MySqlConnection connMysql = new MySqlConnection(connString))
         {
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
                 int groupID = 1;
                 cmdd.CommandText = "SELECT user.user_id, user.user_name, user.user_mail, user.active, user.group_id FROM `user` WHERE user.group_id = " + groupID + " AND user.active = 0";
                 cmdd.CommandType = System.Data.CommandType.Text;
-                //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
                     connMysql.Open();
@@ -464,7 +459,7 @@ namespace Reserveer.Controllers
         }
     }
 
-    public List<string[]> getGroupAdmin()
+    public List<string[]> getGroupAdmin() // Get the groups corresponding to the Admin groupID
     {
         List<string[]> AdminGroup = new List<string[]>();
         using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -475,7 +470,6 @@ namespace Reserveer.Controllers
                 int userID = HomeController.UserId;
                 cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';";
                 cmdd.CommandType = System.Data.CommandType.Text;
-                //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
                     connMysql.Open();
@@ -496,7 +490,6 @@ namespace Reserveer.Controllers
 
                 cmdd.CommandText = "SELECT group.group_id, group.group_name, domain.domain_name, COUNT(user.user_name) AS user_amount, domain.domain_id FROM `group`, `user`, `domain` where user.group_id = group.group_id and group.group_id = domain.group_id AND group.group_id = '" + group_id[0] + "';";
                 cmdd.CommandType = System.Data.CommandType.Text;
-                //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
                 connMysql.Open();
@@ -521,45 +514,7 @@ namespace Reserveer.Controllers
         }
     }
 
-    public List<string[]> getAdminProfileInfo()
-    {
-        List<string[]> AdminProfileInfo = new List<string[]>();
-        using (MySqlConnection connMysql = new MySqlConnection(connString))
-        {
-            using (MySqlCommand cmdd = connMysql.CreateCommand())
-            {
-                int room_id = 1;
-                cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.room_floor, rooms.available, rooms.room_number, rooms.room_facilities, rooms.room_comment FROM `rooms` WHERE room_id = " + room_id + ";";
-                cmdd.CommandType = System.Data.CommandType.Text;
-                //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
-                cmdd.Connection = connMysql;
-
-                connMysql.Open();
-
-                using (MySqlDataReader reader = cmdd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string[] res = new string[7];
-                        res[0] = reader["room_name"].ToString();
-                        res[1] = reader["room_floor"].ToString();
-                        res[2] = reader["available"].ToString();
-                        res[3] = reader["room_number"].ToString();
-                        res[4] = reader["room_facilities"].ToString();
-                        res[5] = reader["room_comment"].ToString();
-                        res[6] = reader["room_id"].ToString();
-                        AdminProfileInfo.Add(res);
-                    }
-                }
-            }
-            connMysql.Close();
-            return AdminProfileInfo;
-        }
-    }
-
-
-
-    public List<string[]> getRoomProfileInfo(string room)
+    public List<string[]> getRoomProfileInfo(string room) // Gets the room information corresponding to te roomID
     {
         List<string[]> RoomProfileInfo = new List<string[]>();
         using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -569,7 +524,6 @@ namespace Reserveer.Controllers
                 string room_id = room;
                 cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.room_floor, rooms.available, rooms.room_number, rooms.room_facilities, rooms.room_comment FROM `rooms` WHERE room_id = " + room_id + ";";
                 cmdd.CommandType = System.Data.CommandType.Text;
-                //SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms`, `group` where "1" = rooms.group_id ;
                 cmdd.Connection = connMysql;
 
                 connMysql.Open();
@@ -597,7 +551,7 @@ namespace Reserveer.Controllers
 
 
 
-    public List<string[]> getRoomReservation()
+    public List<string[]> getRoomReservation() // Gets all info corresponding to reservationID's
     {
         List<string[]> RoomReservation = new List<string[]>();
         using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -631,7 +585,7 @@ namespace Reserveer.Controllers
         }
     }
 
-    public List<string[]> getGroupRoomReservation()
+    public List<string[]> getGroupRoomReservation() // Gets all reservation info corresponding to reservationID
     {
         List<string[]> GroupRoomReservation = new List<string[]>();
         using (MySqlConnection connMysql = new MySqlConnection(connString))
@@ -639,7 +593,7 @@ namespace Reserveer.Controllers
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
                 int group_id = 1;
-                cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name,  reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name, rooms.group_id FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id =" + group_id + " AND reservations.valid = 0;";
+                cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name,  reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name, rooms.group_id FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id =" + group_id + " AND reservations.valid = 1;";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 cmdd.Connection = connMysql;
 
