@@ -21,7 +21,7 @@ namespace Reserveer.Controllers
     {
         private readonly DutchContext _context;
         public string UserName;
-        public string UserRole;
+        public static string UserRole;
         public static int UserId;
         public string Username;
         public int active;
@@ -40,6 +40,19 @@ namespace Reserveer.Controllers
         [HttpGet]
         public IActionResult Index() // Populates Home->Index with data
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (UserRole == "user")
+                {
+                    return RedirectToAction("Index", "Groups");
+                }
+
+                if (UserRole == "admin")
+                {
+                    return RedirectToAction("Index", "GroupsAdmin");
+                }
+            }
+
             string mail = Request.Query["mail"];
             string token = Request.Query["number"];
 
