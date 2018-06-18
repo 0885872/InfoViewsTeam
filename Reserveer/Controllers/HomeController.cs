@@ -192,7 +192,7 @@ namespace Reserveer.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private bool IsValid(string email, string password)
+        private bool IsValid(string email, string password) // Check for validation of the login input
         {
             var crypto = new SimpleCrypto.PBKDF2();
             bool isValid = false;
