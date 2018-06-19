@@ -70,7 +70,7 @@ namespace Reserveer.Controllers
                 }}
         
     }
-
+    //get Roomprofile
     public IActionResult RoomProfile()
     {
             {
@@ -107,7 +107,7 @@ namespace Reserveer.Controllers
     }
 
     [ValidateAntiForgeryToken]
-    public IActionResult UpdateRoom(RoomInfo info, GroupInfo test)
+    public IActionResult UpdateRoom(RoomInfo info, GroupInfo test) // Updates room info
         {
             {
                 try
@@ -133,7 +133,7 @@ namespace Reserveer.Controllers
     }
 
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateRoomSensor(RoomInfo info, GroupInfo test)
+        public IActionResult UpdateRoomSensor(RoomInfo info, GroupInfo test) // Updates the sensor assigned to the room
         {
             {
                 try
@@ -195,7 +195,7 @@ namespace Reserveer.Controllers
                 }}
     }
 
-    public IActionResult AddRoomInfo(RoomInfo info)
+    public IActionResult AddRoomInfo(RoomInfo info) // Adds a new room to group
     {
             {
                 try
@@ -221,7 +221,7 @@ namespace Reserveer.Controllers
     }
 
     [ValidateAntiForgeryToken]
-    public IActionResult UpdateGroupName(GroupInfo info)
+    public IActionResult UpdateGroupName(GroupInfo info) // Updates the group name
     {
             {
                 try
@@ -246,7 +246,7 @@ namespace Reserveer.Controllers
         
     }
 
-    public IActionResult DeactivateUser(string userId, string groupId)
+    public IActionResult DeactivateUser(string userId, string groupId) // Deactives the specified user
     {
             {
                 try
@@ -272,7 +272,7 @@ namespace Reserveer.Controllers
         
     }
 
-    public IActionResult DeleteReservation(string reservationId, string groupId)
+    public IActionResult DeleteReservation(string reservationId, string groupId) // Deletes specified reservation
     {
             {
                 try

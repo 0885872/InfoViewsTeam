@@ -14,7 +14,7 @@ namespace Reserveer.Controllers
     [Authorize(Roles = "admin,user")]
   public class ScheduleController : Controller
   {
-        //Reservaties ophalen
+        //Get reservations
         [HttpGet]
         public ActionResult Index()
         {
@@ -42,7 +42,7 @@ namespace Reserveer.Controllers
             
         }
 
-        //Reservaties posten
+        //Reservations post
         [HttpPost]
         public ActionResult SetReservation([FromBody]ReservationModel reservation)
         {
@@ -85,7 +85,6 @@ namespace Reserveer.Controllers
                 }}
             
         } 
-
 
     }
 }

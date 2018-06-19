@@ -11,7 +11,7 @@ using Reserveer.Controllers;
 namespace Reserveer.Models
 {
 
-    public class ReservationModel
+    public class ReservationModel // Model for reservation page
     {
         public string title { get; set; }
         public string start { get; set; }

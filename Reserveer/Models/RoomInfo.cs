@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reserveer.Models
 {
-  public class RoomInfo
+  public class RoomInfo // Models for all the room information
     {
       [Required(ErrorMessage = "This field is required.")]
       public string RoomName { get; set; }
@@ -30,7 +30,7 @@ namespace Reserveer.Models
         public string RoomIDSensor { get; set; }
         public string CurrentSensorID { get; set; }
     }
-    public class GroupInfo
+    public class GroupInfo // Models to send group info
     {
         public string GroupName { get; set; }
         public string GroupID { get; set; }

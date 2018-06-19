@@ -9,7 +9,7 @@ namespace Reserveer.Data
 {
     public class DutchContext : DbContext
     {
-        public DutchContext(DbContextOptions<DutchContext> options) : base(options)
+        public DutchContext(DbContextOptions<DutchContext> options) : base(options) // Gets database info
         {
 
         }

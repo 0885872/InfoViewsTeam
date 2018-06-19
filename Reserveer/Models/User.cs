@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reserveer.Models
 {
-    public class User
+    public class User // Model to save userinfo
     {
         [Key]
         public int group_id { get; set; }

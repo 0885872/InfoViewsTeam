@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reserveer.Models
 {
-    public class UserRegistration
+    public class UserRegistration // Models to save data in user registration
     {
         [Required(ErrorMessage = "This field is required.")]
         public string Name { get; set; }

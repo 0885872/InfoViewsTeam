@@ -67,7 +67,7 @@ namespace Reserveer.Controllers
             
         }
 
-        public IActionResult DeleteReservation(string reservationId, string groupId)
+        public IActionResult DeleteReservation(string reservationId, string groupId) // Deleted specified reservation
         {
             {
                 try
@@ -75,7 +75,6 @@ namespace Reserveer.Controllers
                     using (MySqlConnection conn = new MySqlConnection())
                     {
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-                        //string test123 = "1";
                         conn.Open();
                         String sql =
                             "UPDATE reservations SET reservations.valid = '0'  WHERE reservations.reservation_id = " + reservationId + ";";

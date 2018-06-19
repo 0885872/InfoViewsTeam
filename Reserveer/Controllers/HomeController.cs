@@ -27,7 +27,7 @@ namespace Reserveer.Controllers
         public int active;
         private static Random random = new Random();
 
-        public HomeController(DutchContext context)
+        public HomeController(DutchContext context) // Connects to database
         {
             _context = context;
         }
@@ -77,7 +77,7 @@ namespace Reserveer.Controllers
         }
 
 
-        public IActionResult Registration()
+        public IActionResult Registration() // Shows registration
         {
             return View();
         }
