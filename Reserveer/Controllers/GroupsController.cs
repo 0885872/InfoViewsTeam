@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+
 namespace Reserveer.Controllers
 {
     [Authorize(Roles = "user")]
@@ -14,7 +15,7 @@ namespace Reserveer.Controllers
     // 
     // GET: /Groups/
 
-        public IActionResult Index(int numTimes = 1)
+        public IActionResult Index(int numTimes = 1) // Fills The Groups->Index view with data
         {
             Database db = new Database();
             List<string[]> results = db.getUserGroup();
@@ -27,7 +28,7 @@ namespace Reserveer.Controllers
 
         // 
         // GET: /Groups/Welcome/  
-        public IActionResult Rooms(string name, int numTimes = 7)
+        public IActionResult Rooms(string name, int numTimes = 7) // Fills the Groups->Rooms with data
         {
 
             Database db = new Database();
@@ -40,12 +41,6 @@ namespace Reserveer.Controllers
 
             return View();
         }
-
-            
-
-
-
-
 
     }
 }
