@@ -40,31 +40,42 @@ namespace Reserveer.Controllers
         [HttpGet]
         public IActionResult Index() // Populates Home->Index with data
         {
-            if (User.Identity.IsAuthenticated)
             {
-                if (UserRole == "user")
+                try
                 {
-                    return RedirectToAction("Index", "Groups");
-                }
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        if (UserRole == "user")
+                        {
+                            return RedirectToAction("Index", "Groups");
+                        }
 
-                if (UserRole == "admin")
+                        if (UserRole == "admin")
+                        {
+                            return RedirectToAction("Index", "GroupsAdmin");
+                        }
+                    }
+
+                    string mail = Request.Query["mail"];
+                    string token = Request.Query["number"];
+
+                    if (mail != null && token != null)
+                    {
+                        Database database = new Database();
+                        bool verified = database.VerifyMail(mail, token);
+                        ViewBag.verified = verified;
+                    }
+                    return View();
+                }
+                catch (Exception e)
                 {
-                    return RedirectToAction("Index", "GroupsAdmin");
+                    Debug.WriteLine("Index Exception login {0}", e);
+                    throw;
                 }
             }
 
-            string mail = Request.Query["mail"];
-            string token = Request.Query["number"];
-
-            if(mail != null && token != null)
-            {
-                Database database = new Database();
-                bool verified = database.VerifyMail(mail, token);
-                ViewBag.verified = verified;
-            }
-            return View();
         }
-                
+
 
         public IActionResult Registration()
         {
@@ -85,118 +96,142 @@ namespace Reserveer.Controllers
             string domainExists = domainArray[1];
             string group_id = db.getDomainCheck(domainExists);
 
-            if (group_id == "null") // Checks for existing group connected to email
             {
-                ModelState.AddModelError("Mail", "There is no group allocated to this email. Contact your administrator for more information.");
-                return View();
-            }
-            else
-            {
-                if (result[0] == "0")
+                try
                 {
-                    using (MySqlConnection conn = new MySqlConnection())
+                    if (group_id == "null") // Checks for existing group connected to email
                     {
-                        //Set user in database
-                        conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-
-                        conn.Open();
-                        String sql =
-                            "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
-                            group_id + ",'" + user.Name + "','" + user.Mail + "','" + encrypass + "','" + crypto.Salt +
-                            "', 'user', 0);";
-                        MySqlCommand command = new MySqlCommand(sql, conn);
-                        command.ExecuteNonQuery();
-                        conn.Close();
-
-                        //get user_id from database
-                        conn.Open();
-                        String iDsql =
-                            "SELECT user_id from user where user_mail = '" + user.Mail + "';" ;
-                        MySqlCommand uIdcmd = new MySqlCommand(iDsql, conn);
-
-                        string[] res = new string[1];
-                        using (MySqlDataReader reader = uIdcmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                res[0] = reader["user_id"].ToString();
-                            }
-                        }
-                        conn.Close();
-
-                        //Set verification key in database
-                        conn.Open();
-                        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                        string rrandom = new string(Enumerable.Repeat(chars, 15)
-                          .Select(s => s[random.Next(s.Length)]).ToArray());
-
-                        string insertVerStr = "INSERT INTO registration_validation (user_id, registration_key) VALUES (" + res[0] + ", '" + rrandom + "');";
-                        MySqlCommand verSqlstring = new MySqlCommand(insertVerStr, conn);
-                        verSqlstring.ExecuteNonQuery();
-                        conn.Close();
-
-                        MailMessage msg = new MailMessage();
-                        SmtpClient smtp = new SmtpClient();
-
-                        string verifyLink = "http://145.24.222.130/?mail=" + user.Mail + "&number=" + rrandom;
-                        msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
-                        msg.To.Add(user.Mail);
-                        msg.Subject = "E-mail verification";
-                        msg.Body = "Hi there, click the following link to activate your account: " + verifyLink;
-
-                        var client = new SmtpClient("smtp.hro.nl", 25);
-                        client.Send(msg);
-
+                        ModelState.AddModelError("Mail",
+                            "There is no group allocated to this email. Contact your administrator for more information.");
                         return View();
                     }
+                    else
+                    {
+                        if (result[0] == "0")
+                        {
+                            using (MySqlConnection conn = new MySqlConnection())
+                            {
+                                //Set user in database
+                                conn.ConnectionString =
+                                    "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+
+                                conn.Open();
+                                String sql =
+                                    "INSERT INTO user (group_id,user_name, user_mail, user_password, password_salt, user_role, active) VALUES (" +
+                                    group_id + ",'" + user.Name + "','" + user.Mail + "','" + encrypass + "','" +
+                                    crypto.Salt +
+                                    "', 'user', 0);";
+                                MySqlCommand command = new MySqlCommand(sql, conn);
+                                command.ExecuteNonQuery();
+                                conn.Close();
+
+                                //get user_id from database
+                                conn.Open();
+                                String iDsql =
+                                    "SELECT user_id from user where user_mail = '" + user.Mail + "';";
+                                MySqlCommand uIdcmd = new MySqlCommand(iDsql, conn);
+
+                                string[] res = new string[1];
+                                using (MySqlDataReader reader = uIdcmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        res[0] = reader["user_id"].ToString();
+                                    }
+                                }
+
+                                conn.Close();
+
+                                //Set verification key in database
+                                conn.Open();
+                                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                                string rrandom = new string(Enumerable.Repeat(chars, 15)
+                                    .Select(s => s[random.Next(s.Length)]).ToArray());
+
+                                string insertVerStr =
+                                    "INSERT INTO registration_validation (user_id, registration_key) VALUES (" +
+                                    res[0] + ", '" + rrandom + "');";
+                                MySqlCommand verSqlstring = new MySqlCommand(insertVerStr, conn);
+                                verSqlstring.ExecuteNonQuery();
+                                conn.Close();
+
+                                MailMessage msg = new MailMessage();
+                                SmtpClient smtp = new SmtpClient();
+
+                                string verifyLink = "http://145.24.222.130/?mail=" + user.Mail + "&number=" + rrandom;
+                                msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
+                                msg.To.Add(user.Mail);
+                                msg.Subject = "E-mail verification";
+                                msg.Body = "Hi there, click the following link to activate your account: " + verifyLink;
+
+                                var client = new SmtpClient("smtp.hro.nl", 25);
+                                client.Send(msg);
+
+                                return View();
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Mail", "Email is already taken");
+                            return View();
+                        }
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    ModelState.AddModelError("Mail", "Email is already taken");
-                    return View();
-                }
-            }
+                    Debug.WriteLine("Registration Exception {0}", e);
+                    throw;
+                }}
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(User user) // Posts Index data
         {
-            if (ModelState.IsValid)
             {
-                if (IsValid(user.user_mail, user.user_password) && active == 1)
+                try
                 {
-                    List<Claim> claims = new List<Claim>
+                    if (ModelState.IsValid)
                     {
-                        new Claim(ClaimTypes.Name, Username),
-                        new Claim(ClaimTypes.Role, UserRole)
-                    };
-                    var userIdentity =
-                        new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                    await HttpContext.SignInAsync(principal);
-                    UserName = principal.Identity.Name;
+                        if (IsValid(user.user_mail, user.user_password) && active == 1)
+                        {
+                            List<Claim> claims = new List<Claim>
+                            {
+                                new Claim(ClaimTypes.Name, Username),
+                                new Claim(ClaimTypes.Role, UserRole)
+                            };
+                            var userIdentity =
+                                new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                            await HttpContext.SignInAsync(principal);
+                            UserName = principal.Identity.Name;
 
-                    if (principal.IsInRole("user"))
-                    {
-                        return RedirectToAction("Index", "Groups");
+                            if (principal.IsInRole("user"))
+                            {
+                                return RedirectToAction("Index", "Groups");
+                            }
+
+                            if (principal.IsInRole("admin"))
+                            {
+                                return RedirectToAction("Index", "GroupsAdmin");
+                            }
+                        }
+
+                        if (IsValid(user.user_mail, user.user_password) && active == 0)
+                        {
+                            ModelState.AddModelError("", "User Account is not activated");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Login Data is incorrect");
+                        }
                     }
-
-                    if (principal.IsInRole("admin"))
-                    {
-                        return RedirectToAction("Index", "GroupsAdmin");
-                    }
+                    return View();
                 }
-
-                if (IsValid(user.user_mail, user.user_password) && active == 0)
+                catch (Exception e)
                 {
-                    ModelState.AddModelError("", "User Account is not activated");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Login Data is incorrect");
-                }
-            }
-            return View();
+                    Debug.WriteLine("Index login post Exception {0}", e);
+                    throw;
+                }}
         }
 
         public async Task<IActionResult> LogOut() // Redirects and logs out user
@@ -207,41 +242,50 @@ namespace Reserveer.Controllers
 
         private bool IsValid(string email, string password) // Check for validation of the login input
         {
-            var crypto = new SimpleCrypto.PBKDF2();
-            bool isValid = false;
-            var user = _context.user.FirstOrDefault(u => u.user_mail == email);
-
-            if (user != null && user.active != 0)
             {
-                UserRole = user.user_role;
-                UserId = user.user_id;
-                Username = user.user_name;
-                active = user.active;
-
-                string toCompare = crypto.Compute(password, user.password_salt);
-                int amount = user.user_password.Length;
-                string passwordSaltFixed = toCompare.Substring(0, amount);
-                string compareString = user.user_password.Substring(0, amount);
-
-                if (passwordSaltFixed == compareString)
+                try
                 {
-                    isValid = true;
+                    var crypto = new SimpleCrypto.PBKDF2();
+                    bool isValid = false;
+                    var user = _context.user.FirstOrDefault(u => u.user_mail == email);
+
+                    if (user != null && user.active != 0)
+                    {
+                        UserRole = user.user_role;
+                        UserId = user.user_id;
+                        Username = user.user_name;
+                        active = user.active;
+
+                        string toCompare = crypto.Compute(password, user.password_salt);
+                        int amount = user.user_password.Length;
+                        string passwordSaltFixed = toCompare.Substring(0, amount);
+                        string compareString = user.user_password.Substring(0, amount);
+
+                        if (passwordSaltFixed == compareString)
+                        {
+                            isValid = true;
+                        }
+                    }
+
+                    else if (user != null && user.active == 0)
+                    {
+                        string toCompare = crypto.Compute(password, user.password_salt);
+                        int amount = user.user_password.Length;
+                        string passwordSaltFixed = toCompare.Substring(0, amount);
+                        string compareString = user.user_password.Substring(0, amount);
+
+                        if (passwordSaltFixed == compareString)
+                        {
+                            isValid = true;
+                        }
+                    }
+                    return isValid;
                 }
-            }
-
-            else if (user != null && user.active == 0)
-            {
-                string toCompare = crypto.Compute(password, user.password_salt);
-                int amount = user.user_password.Length;
-                string passwordSaltFixed = toCompare.Substring(0, amount);
-                string compareString = user.user_password.Substring(0, amount);
-
-                if (passwordSaltFixed == compareString)
+                catch (Exception e)
                 {
-                    isValid = true;
-                }
-            }
-            return isValid;
+                    Debug.WriteLine("Isvalid bool login Exception: {0}", e);
+                    throw;
+                }}
         }
     }
 }

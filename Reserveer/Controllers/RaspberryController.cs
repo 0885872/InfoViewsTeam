@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +14,25 @@ namespace Reserveer.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            string room = Request.Query["roomid"];
-            Database db = new Database();
-            List<string[]> results = db.getReservations(room);
-            var json = JsonConvert.SerializeObject(results);
-            ViewData["results"] = json;
-            string[] temperatureData = db.getLatestTemperature(room);
-            var jsonTemp = JsonConvert.SerializeObject(temperatureData);
-            ViewData["temp"] = jsonTemp;
-            return View();
+            {
+                try
+                {
+                    string room = Request.Query["roomid"];
+                    Database db = new Database();
+                    List<string[]> results = db.getReservations(room);
+                    var json = JsonConvert.SerializeObject(results);
+                    ViewData["results"] = json;
+                    string[] temperatureData = db.getLatestTemperature(room);
+                    var jsonTemp = JsonConvert.SerializeObject(temperatureData);
+                    ViewData["temp"] = jsonTemp;
+                    return View();
+
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Index raspberry Exception: {0}", e);
+                    throw;
+                }}
         }
     }
 }
