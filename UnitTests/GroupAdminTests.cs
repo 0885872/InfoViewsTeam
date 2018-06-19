@@ -53,38 +53,6 @@ namespace UnitTests
     }
 
     [Fact]
-    public void UpdateRoom_ReturnsView_NotNull()
-    {
-            var result = ad.UpdateRoom();
-     // Assert.NotNull(result);
-
-    }
-
-    [Fact]
-    public void UpdateRoomSensor_ReturnsView_NotNull()
-    {
-            var result = ad.UpdateRoomSensor();
-     // Assert.NotNull(result);
-
-    }
-
-    [Fact]
-    public void AddRoomInfo_ReturnsView_NotNull()
-    {
-            var result = ad.AddRoomInfo();
-    //  Assert.NotNull(result);
-
-    }
-
-    [Fact]
-    public void UpdateGroupName_ReturnsView_NotNull()
-    {
-            var result = ad.UpdateGroupName();
-   //   Assert.NotNull(result);
-
-    }
-
-    [Fact]
     public void Deactivatuser_ReturnsString_NotNull()
     {
     var result = ad.DeactivateUser("1","42");

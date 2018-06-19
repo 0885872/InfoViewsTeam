@@ -16,7 +16,7 @@ namespace UnitTests
             grp = group;
         }
         [Fact]
-        public void Test1()
+        public void Index_ReturnsView_NotNull()
         {
             var returnedView = grp.Index() as ViewResult;
             Assert.NotNull(returnedView.ViewData["results"]);
@@ -25,7 +25,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Test2()
+        public void Rooms_ReturnsView_NotNull()
         {
             var returnedView = grp.Rooms("TestNameUser") as ViewResult;
             Assert.NotNull(returnedView);

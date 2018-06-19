@@ -83,9 +83,9 @@ namespace UnitTests
         }
 
         [Fact]
-        public void getRoomSensor_ReturnsString_NotNull()
+        public void getCurrentRoomSensor_ReturnsString_NotNull()
         {
-            List<string[]> result = db.getRoomSensors("1");
+            List<string[]> result = db.getCurrentRoomSensors("1");
             Assert.NotNull(result);
 
         }
