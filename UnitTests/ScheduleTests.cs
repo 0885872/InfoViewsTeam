@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using Reserveer;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UnitTests
 {
@@ -15,14 +16,15 @@ namespace UnitTests
       sd = schedule;
     }
         [Fact]
-        public void Test1()
+        public void Index_ReturnsViews_NotNull()
         {
-
-
-        }
+      var returnedView = sd.Index() as ViewResult;
+      Assert.NotNull(returnedView.ViewData["results"]);
+      Assert.NotNull(returnedView.ViewData["NumTimes"]);
+    }
 
       [Fact]
-      public void Test2()
+      public void SetReservation_etc_etc()
     {
 
 

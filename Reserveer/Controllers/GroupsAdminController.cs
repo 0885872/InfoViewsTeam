@@ -170,5 +170,3 @@ namespace Reserveer.Controllers
 
     }
 }
-
-// GROEPID NOG AANPASSEN BIJ ADDROOM
