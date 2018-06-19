@@ -167,10 +167,9 @@ namespace Reserveer.Controllers
         using (MySqlConnection conn = new MySqlConnection())
         {
             conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-            //string test123 = "1";
             conn.Open();
             String sql =
-                "UPDATE `group` SET group.group_name = " + info.GroupName + " WHERE group.group_id = '" + info.GroupID + "'";
+                "UPDATE [group] SET group_name = " + info.GroupName + " WHERE group_id = '" + info.GroupID + "';";
             MySqlCommand command = new MySqlCommand(sql, conn);
             command.ExecuteNonQuery();
             conn.Close();
