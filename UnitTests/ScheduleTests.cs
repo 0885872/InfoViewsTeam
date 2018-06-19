@@ -22,12 +22,5 @@ namespace UnitTests
       Assert.NotNull(returnedView.ViewData["results"]);
       Assert.NotNull(returnedView.ViewData["NumTimes"]);
     }
-
-      [Fact]
-      public void SetReservation_etc_etc()
-    {
-
-
-    }
   }
 }
