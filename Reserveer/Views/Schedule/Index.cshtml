@@ -42,6 +42,7 @@
                 maxTime: "18:00:00",
                 displayEventTime: false,
                 disableResizing: false,
+                height: 'auto',
                 eventStartEditable: false,
                 timeFormat: 'H(:mm)',
                 slotLabelFormat: "HH:mm",
@@ -122,6 +123,20 @@
             });
 
 
+            RoomReservationsArray = new Array();
+            RoomReservationsArray = @Html.Raw(ViewData["RoomReservationsResults"]);
+
+            console.log(RoomReservationsArray)
+
+            var arrayLength = RoomReservationsArray.length;
+            for (var i = 0; i < arrayLength; i++) {
+                $("#Reservations").append(
+
+                    '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div id="' + RoomReservationsArray[i][0] + '" class="caption"> <div class="col-sm-3">' + RoomReservationsArray[i][2] + ' - ' + RoomReservationsArray[i][3] + '</div><div class="col-sm-3">' + RoomReservationsArray[i][3] + '</div></div></div>'
+                );
+            }
+
+
         });
 </script>
 
@@ -130,6 +145,7 @@
 @*TIM ZET JE CALENDER DIV ID HIER!!!!!!!!!!!!!*@
 
 <div id="calendar" class="opacityWhitebg"></div>
+<br />
 
 
 
@@ -143,44 +159,18 @@
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
-                <div class="row">
-
-                    @*Zet dit achter url en zie magic---> ?NumTimes=3 *@
-                    @for (int i = 0; i < (int)ViewData["NumTimes"]; i++)
-                    {
+                <div class="row" id="Reservations">
+                     
                         <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-                            <div class="caption">
-                                <div class="col-sm-3">
-                                    USERNAME
-                                </div>
+                            <div class="caption "> 
                                 <div class="col-sm-3">
                                     Reservation Time
                                 </div>
                                 <div class="col-sm-3">
                                     Reservation Date
-                                </div>
-                                <div class="col-sm-3">
-                                    Room Number
-                                </div>
+                                </div> 
                             </div>
-                        </div>
-                        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-                            <div class="caption">
-                                <div class="col-sm-3">
-                                    USERNAME
-                                </div>
-                                <div class="col-sm-3">
-                                    Reservation Time
-                                </div>
-                                <div class="col-sm-3">
-                                    Reservation Date
-                                </div>
-                                <div class="col-sm-3">
-                                    Room Number
-                                </div>
-                            </div>
-                        </div>
-                    }
+                        </div> 
 
                 </div>
             </div>

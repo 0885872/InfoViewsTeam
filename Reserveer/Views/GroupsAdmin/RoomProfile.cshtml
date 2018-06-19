@@ -10,18 +10,52 @@
       RoomProfileInfoArray = @Html.Raw(ViewData["results"]);
       RoomReservationsArray = new Array();
         RoomReservationsArray = @Html.Raw(ViewData["results2"]);
-        RoomSensorArray = new Array();
-        RoomSensorArray = @Html.Raw(ViewData["results3"]);
+        CurrentRoomSensorArray = new Array();
+        CurrentRoomSensorArray = @Html.Raw(ViewData["results3"]);
+        AvailableRoomSensorArray = new Array();
+        AvailableRoomSensorArray = @Html.Raw(ViewData["results4"]);
 
-        $.each(RoomSensorArray, function (key, value) {
+        LatestTempArray = new Array();
+        LatestTempArray = @Html.Raw(ViewData["temp"]);
+        if (LatestTempArray.length >= 1) {
+            $("#LTemp").append(
 
-            $('#sel1')
-                .append($("<option></option>")
-                    .attr("value", value[0])
-                    .text("SensorID: " + value[0] + " | MAC: " + value[1]));
-        });
+                '<div class="caption"><div class="col-sm-6">' + LatestTempArray[1] + '</div><div class="col-sm-6">' + LatestTempArray[0] + '</div></div>'
+            );
+        }
 
-        console.log(RoomSensorArray);
+        if (CurrentRoomSensorArray.length >= 1) {
+
+            $.each(CurrentRoomSensorArray, function (key, value) {
+
+                $('#sel1')
+                    .append($("<option></option>")
+                        .attr("value", value[0])
+                        .text("SensorID: " + value[0] + " | MAC: " + value[1] + " | ASSIGNED"));
+            });
+
+            $('#assignedIV').text("assigned sensorID: " + CurrentRoomSensorArray[0][0]);
+            $('#CurrentSensorID').val(CurrentRoomSensorArray[0][0]);
+        } else {
+            $('#CurrentSensorID').val("New");
+            $('#assignedIV').text("not assigned");
+        }
+        
+        
+
+        if (AvailableRoomSensorArray.length >= 1) {
+
+
+            $.each(AvailableRoomSensorArray, function (key, value) {
+
+                $('#sel1')
+                    .append($("<option></option>")
+                        .attr("value", value[0])
+                        .text("SensorID: " + value[0] + " | MAC: " + value[1]));
+            });
+        }
+
+        console.log(CurrentRoomSensorArray);
 
       $('#RoomNameI').val(RoomProfileInfoArray[0][0]);
       $('#RoomNumberI').val(RoomProfileInfoArray[0][3]);
@@ -30,6 +64,7 @@
         $('#RoomCommentI').val(RoomProfileInfoArray[0][5]);
         $('#RoomIDI').val(RoomProfileInfoArray[0][6]);
         $('#RoomIDISensor').val(RoomProfileInfoArray[0][6]);
+        $('#NHidden').val(RoomProfileInfoArray[0][6]);
         $('#title').text(RoomProfileInfoArray[0][0]);
 
 
@@ -43,9 +78,9 @@
 
       var arrayLength = RoomReservationsArray.length;
         for (var i = 0; i < arrayLength; i++) {
-          $("#collapse3").append(
+            $("#collapse3").append( 
 
-            '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div id="' + RoomReservationsArray[i][5] + '" class="caption"><div class="col-sm-3">' + RoomReservationsArray[i][0] + '</div> <div class="col-sm-3">' + RoomReservationsArray[i][1] + ' - ' + RoomReservationsArray[i][2] + '</div><div class="col-sm-3">' + RoomReservationsArray[i][3]+'</div><div class="col-sm-3">'+RoomReservationsArray[i][4]+'</div></div></div>'
+                '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div id="' + RoomReservationsArray[i][5] + '" class="caption"><div class="col-sm-3">' + RoomReservationsArray[i][0] + '</div> <div class="col-sm-3">' + RoomReservationsArray[i][1] + ' - ' + RoomReservationsArray[i][2] + '</div><div class="col-sm-3">' + RoomReservationsArray[i][3] + '</div><div class="col-sm-2"><a href="DeleteReservation?reservationId=' + RoomReservationsArray[i][5] + '&groupId=' + RoomReservationsArray[i][6] +'" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div></div>'
             );
         }
 
@@ -144,7 +179,7 @@
         <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
             <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#Domains" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                    InfoViews
+                    InfoViews <span id="assignedIV"></span>
                 </a>
             </h4>
         </div>
@@ -154,7 +189,9 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room ID </span>
-                            <input id="RoomIDISensor" asp-for="RoomIDSensor" hidden class="form-control" disabled />
+                            <input id="NHidden" class="form-control" disabled/>
+                            <input id="RoomIDISensor" asp-for="RoomIDSensor" class="form-control" type="hidden" />
+                            <input id="CurrentSensorID" asp-for="CurrentSensorID" class="form-control" type="hidden" />
                         </div>
 
                     </div>
@@ -172,17 +209,14 @@
 
                 </div>
                 <hr />
-                <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                <div id="LTemp" class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
 
                     <div class="caption">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             TimeStamp
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             Tempature Value
-                        </div>
-                        <div class="col-sm-4">
-                            Movement
                         </div>
                     </div>
 

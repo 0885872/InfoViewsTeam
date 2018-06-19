@@ -28,6 +28,7 @@ namespace Reserveer.Models
 
       public string SensorID { get; set; }
         public string RoomIDSensor { get; set; }
+        public string CurrentSensorID { get; set; }
     }
     public class GroupInfo
     {

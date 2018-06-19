@@ -4,8 +4,17 @@
         UserGroupsArray = new Array();
         UserGroupsArray = @Html.Raw(ViewData["results"]);
 
+        UserInfoArray = new Array();
+        UserInfoArray = @Html.Raw(ViewData["UserInfoResults"]);
 
-        console.log(UserGroupsArray);
+        UserReservationsArray = new Array();
+        UserReservationsArray = @Html.Raw(ViewData["UserReservationsResults"]);
+
+        $('#CollapseUsername').text(UserInfoArray[0][0]);
+        $('#UsernameInput').val(UserInfoArray[0][0]);
+        $('#UserEmailInput').val(UserInfoArray[0][1]);
+
+        console.log(UserInfoArray);
 
         var arrayLength = UserGroupsArray.length;
         for (var i = 0; i < arrayLength; i++) {
@@ -13,6 +22,14 @@
 
                 '<div class="col-sm-4"><div class="thumbnail "><a class="card-link" href="groups/rooms?GroupId='+UserGroupsArray[i][0]+'"><img class="card-img-top" src="https://dummyimage.com/180x100/000/17a2b8 " alt="Card image cap" style="height: 200px; width: 100%; display: block;"/></a><div class="caption"><a class="card-link" href="groups/rooms?roomid='+UserGroupsArray[i][0]+'"><h3 class="card-title text-center">' + UserGroupsArray[i][1] + '</h3></a><a href="groups/rooms?GroupId='+ UserGroupsArray[i][0]+'" class="btn btn-primary center-block">View Rooms</a></div></div></div>'
 
+            );
+        }
+
+        var arrayLength2 = UserReservationsArray.length;
+        for (var i = 0; i < arrayLength2; i++) {
+            $("#collapseReservations").append(
+
+                '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" ><div class= "col-sm-3" > ' + UserReservationsArray[i][6] + '</div > <div class="col-sm-3">' + UserReservationsArray[i][2] + ' - ' + UserReservationsArray[i][3] + '</div><div class="col-sm-2">' + UserReservationsArray[i][4] + '</div><div class="col-sm-2"><a href="DeleteReservation?reservationId=' + UserReservationsArray[i][0] + '&groupId=' + UserReservationsArray[i][5] + '" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div ></div > '
             );
         }
 
@@ -38,7 +55,7 @@
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
-                <div id="UserGroupsCollapse" class="row"> 
+                <div id="UserGroupsCollapse" class="row">
 
                 </div>
             </div>
@@ -52,7 +69,7 @@
             <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
                 <h4 class="panel-title">
                     <a role="button" data-toggle="collapse" data-parent="#Info" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                        Info: Elvin Carvalho
+                        Info: <span id="CollapseUsername"></span>
                     </a>
                 </h4>
             </div>
@@ -62,12 +79,12 @@
                         <div class="row">
                             <div class=" col-sm-6">
                                 <label class="sr-only" for="inlineFormInput">Username</label>
-                                <input type="text" class="form-control col-sm-6" id="inlineFormInput" placeholder="Username">
+                                <input type="text" class="form-control col-sm-6" id="UsernameInput" placeholder="Username">
 
                             </div>
                             <div class=" col-sm-6">
                                 <label class="sr-only" for="inlineFormInput">Email</label>
-                                <input type="text" class="form-control col-sm-6" id="inlineFormInput" placeholder="Email">
+                                <input type="text" class="form-control col-sm-6" id="UserEmailInput" placeholder="Email">
 
                             </div>
 
@@ -89,6 +106,32 @@
 
                         <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group" id="Reservations" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#collapseReservations" aria-expanded="true" aria-controls="collapseReservations">
+                        Your Reservation
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseReservations" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
+                <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                    <div class="caption">
+                        <div class="col-sm-3">
+                            Room Number
+                        </div>
+                        <div class="col-sm-3">
+                            Reservation Time
+                        </div>
+                        <div class="col-sm-3">
+                            Reservation Date
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

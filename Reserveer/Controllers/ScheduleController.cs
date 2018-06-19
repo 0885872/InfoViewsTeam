@@ -16,15 +16,19 @@ namespace Reserveer.Controllers
   {
         //Reservaties ophalen
         [HttpGet]
-        public ActionResult Index(int numTimes = 1)
+        public ActionResult Index()
         {
             int userid = HomeController.UserId;
-            string room = Request.Query["roomid"];
-            ViewData["NumTimes"] = numTimes;
+            string room = Request.Query["roomid"]; 
             Database db = new Database();
             List<string[]> results = db.getReservations(room);
             var json = JsonConvert.SerializeObject(results);
             ViewData["results"] = json;
+
+            List<string[]> RoomReservations = db.getReservations(room);
+            var RoomReservationsjson = JsonConvert.SerializeObject(RoomReservations);
+            ViewData["RoomReservationsResults"] = RoomReservationsjson;
+
             return View();
         }
 
@@ -60,26 +64,7 @@ namespace Reserveer.Controllers
             client.Send(msg);
 
             return View("Index");
-        }
-        //// 
-        //// GET: /Groups/
-
-        //public IActionResult Index()
-        //{
-        //    ViewData["NumTimes"] = numTimes;
-        //    return View();
-        //}
-
-        //// 
-        //// GET: /Groups/Welcome/  
-        //public IActionResult Rooms(string name, int numTimes = 1)
-        //{
-        //  ViewData["Message"] = "Hello " + name;
-        //  ViewData["NumTimes"] = numTimes;
-
-        //  return View();
-        //}
-
+        } 
 
 
     }

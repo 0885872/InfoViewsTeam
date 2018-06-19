@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using MySql.Data.MySqlClient;
 
 namespace Reserveer.Controllers
 {
@@ -15,20 +16,27 @@ namespace Reserveer.Controllers
     // 
     // GET: /Groups/
 
-        public IActionResult Index(int numTimes = 1) // Fills The Groups->Index view with data
+        public IActionResult Index() // Fills The Groups->Index view with data
         {
             Database db = new Database();
             List<string[]> results = db.getUserGroup();
             var json = JsonConvert.SerializeObject(results);
             ViewData["results"] = json;
 
-            ViewData["NumTimes"] = numTimes;
+            List<string[]> UserInfoList = db.getUserInfo();
+            var UserInfojson = JsonConvert.SerializeObject(UserInfoList);
+            ViewData["UserInfoResults"] = UserInfojson;
+
+            List<string[]> UserReservationsList = db.getUserReservations();
+            var UserReservationsjson = JsonConvert.SerializeObject(UserReservationsList);
+            ViewData["UserReservationsResults"] = UserReservationsjson;
+
             return View();
         }
 
         // 
         // GET: /Groups/Welcome/  
-        public IActionResult Rooms(string name, int numTimes = 7) // Fills the Groups->Rooms with data
+        public IActionResult Rooms(string name) // Fills the Groups->Rooms with data
         {
 
             Database db = new Database();
@@ -36,10 +44,23 @@ namespace Reserveer.Controllers
             var json = JsonConvert.SerializeObject(results);
             ViewData["results"] = json;
 
-            ViewData["Message"] = "Hello " + name;
-            ViewData["NumTimes"] = numTimes;
-
             return View();
+        }
+
+        public IActionResult DeleteReservation(string reservationId, string groupId)
+        {
+            using (MySqlConnection conn = new MySqlConnection())
+            {
+                conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+                //string test123 = "1";
+                conn.Open();
+                String sql =
+                  "UPDATE reservations SET reservations.valid = '0'  WHERE reservations.reservation_id = " + reservationId + ";";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+                return RedirectToAction("Profile", "GroupsAdmin", groupId);
+            }
         }
 
     }

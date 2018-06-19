@@ -106,7 +106,7 @@ namespace Reserveer.Controllers
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
-                    cmdd.CommandText = "SELECT * FROM reservations where room_id = " + room + ";";
+                    cmdd.CommandText = "SELECT * FROM reservations where room_id = " + room + " ORDER BY reservations.start DESC;";
                     cmdd.CommandType = System.Data.CommandType.Text;
 
                     cmdd.Connection = connMysql;
@@ -125,6 +125,42 @@ namespace Reserveer.Controllers
                             res[4] = reader["valid"].ToString();
                             res[2] = Convert.ToDateTime(res[2]).ToString("yyyy/MM/dd HH:mm");
                             res[3] = Convert.ToDateTime(res[3]).ToString("yyyy/MM/dd HH:mm");
+                            reservations.Add(res);
+                        }
+                    }
+                }
+                connMysql.Close();
+                return reservations;
+            }
+        }
+
+        public List<string[]> getUserReservations() // Gets all reservations corresponding to the roomID
+        {
+            List<string[]> reservations = new List<string[]>();
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    int userID = HomeController.UserId;
+                    cmdd.CommandText = "SELECT reservations.reservation_id, reservations.room_id, reservations.start, reservations.end, reservations.reservation_date, user.group_id, rooms.room_name FROM rooms, reservations, user, user_has_reservations where rooms.room_id = reservations.room_id AND user.user_id = user_has_reservations.user_id AND reservations.reservation_id = user_has_reservations.reservation_id AND reservations.valid = 1 AND user.user_id = "+ userID + " ORDER BY reservations.reservation_date DESC";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string[] res = new string[7];
+                            res[0] = reader["reservation_id"].ToString();
+                            res[1] = reader["room_id"].ToString();
+                            res[2] = reader["start"].ToString();
+                            res[3] = reader["end"].ToString();
+                            res[4] = reader["reservation_date"].ToString();
+                            res[5] = reader["group_id"].ToString();
+                            res[6] = reader["room_name"].ToString();
                             reservations.Add(res);
                         }
                     }
@@ -361,18 +397,15 @@ namespace Reserveer.Controllers
                 return UserGroup;
             }
         }
-
-
-        public List<string[]> getRoomSensors(string room) // Gets all temperature sensors/raspberry that are unassigned
+        public List<string[]> getUserInfo() // Gets usergroup corresponding with userID
         {
-            List<string[]> RoomSensors = new List<string[]>();
+            List<string[]> UserInfo = new List<string[]>();
             using (MySqlConnection connMysql = new MySqlConnection(connString))
             {
                 using (MySqlCommand cmdd = connMysql.CreateCommand())
                 {
-                    //int userID = HomeController.UserId;
-                    
-                    cmdd.CommandText = "SELECT sensors.sensor_id, sensors.mac, rooms.group_id FROM `sensors`,rooms WHERE assigned = 0 AND rooms.room_id = "+ room +"";
+                    int userID = HomeController.UserId;
+                    cmdd.CommandText = "SELECT user_name, user_mail FROM `user` WHERE user_id = " + userID + " ";
                     cmdd.CommandType = System.Data.CommandType.Text;
                     cmdd.Connection = connMysql;
 
@@ -382,16 +415,82 @@ namespace Reserveer.Controllers
                     {
                         while (reader.Read())
                         {
-                            string[] res = new string[3];
-                            res[0] = reader["sensor_id"].ToString();
-                            res[1] = reader["mac"].ToString();
-                            res[2] = reader["group_id"].ToString();
-                            RoomSensors.Add(res);
+                            string[] res = new string[2];
+                            res[0] = reader["user_name"].ToString();
+                            res[1] = reader["user_mail"].ToString();
+                            UserInfo.Add(res);
                         }
                     }
                 }
                 connMysql.Close();
-                return RoomSensors;
+                return UserInfo;
+            }
+        }
+
+
+        public List<string[]> getCurrentRoomSensors(string room) // Gets the assigned temperature sensors/raspberry corresponding to the roomid
+        {
+            List<string[]> AvaibleRoomSensors = new List<string[]>();
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    //int userID = HomeController.UserId;
+                    
+                    cmdd.CommandText = "SELECT sensors.sensor_id, sensors.mac, sensors.group_id, sensors.assigned FROM `sensors`,`rooms_has_sensors` WHERE sensors.sensor_id = rooms_has_sensors.sensor_id AND sensors.assigned = 1 AND rooms_has_sensors.room_id = " + room +"";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string[] res = new string[4];
+                            res[0] = reader["sensor_id"].ToString();
+                            res[1] = reader["mac"].ToString();
+                            res[2] = reader["group_id"].ToString();
+                            res[3] = reader["assigned"].ToString();
+                            AvaibleRoomSensors.Add(res);
+                        }
+                    }
+                }
+                connMysql.Close();
+                return AvaibleRoomSensors;
+            }
+        }
+
+        public List<string[]> getAvaibleRoomSensors(string room) // Gets all temperature sensors/raspberry that are unassigned
+        {
+            List<string[]> AvaibleRoomSensors = new List<string[]>();
+            using (MySqlConnection connMysql = new MySqlConnection(connString))
+            {
+                using (MySqlCommand cmdd = connMysql.CreateCommand())
+                {
+                    //moet nog uit geselecteerd worden uit specifieke groep
+
+                    cmdd.CommandText = "SELECT sensors.sensor_id, sensors.mac, sensors.group_id, sensors.assigned FROM `sensors` WHERE sensors.assigned = 0 ";
+                    cmdd.CommandType = System.Data.CommandType.Text;
+                    cmdd.Connection = connMysql;
+
+                    connMysql.Open();
+
+                    using (MySqlDataReader reader = cmdd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string[] res = new string[4];
+                            res[0] = reader["sensor_id"].ToString();
+                            res[1] = reader["mac"].ToString();
+                            res[2] = reader["group_id"].ToString();
+                            res[3] = reader["assigned"].ToString();
+                            AvaibleRoomSensors.Add(res);
+                        }
+                    }
+                }
+                connMysql.Close();
+                return AvaibleRoomSensors;
             }
         }
 
@@ -559,7 +658,7 @@ namespace Reserveer.Controllers
             using (MySqlCommand cmdd = connMysql.CreateCommand())
             {
                 int room_id = 1;
-                cmdd.CommandText = "SELECT user.user_name, reservations.reservation_id, reservations.start, reservations.end, reservations.reservation_date, reservations.valid FROM `user_has_reservations`, user, reservations WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id = '" + room_id + "';";
+                cmdd.CommandText = "SELECT user.user_name, reservations.reservation_id, reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.group_id FROM `user_has_reservations`, user, reservations, rooms WHERE reservations.valid = 1 AND user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND rooms.room_id = reservations.room_id AND reservations.room_id = '" + room_id + "';";
                 cmdd.CommandType = System.Data.CommandType.Text;
                 cmdd.Connection = connMysql;
 
@@ -569,13 +668,14 @@ namespace Reserveer.Controllers
                 {
                     while (reader.Read())
                     {
-                        string[] res = new string[6];
+                        string[] res = new string[7];
                         res[0] = reader["user_name"].ToString();
                         res[1] = reader["start"].ToString();
                         res[2] = reader["end"].ToString();
                         res[3] = reader["reservation_date"].ToString();
                         res[4] = reader["valid"].ToString();
                         res[5] = reader["reservation_id"].ToString();
+                        res[6] = reader["group_id"].ToString();
                         RoomReservation.Add(res);
                     }
                 }

@@ -13,6 +13,7 @@ namespace Reserveer.Controllers
     [Authorize(Roles = "admin")]
     public class GroupsAdminController : Controller
     {
+
     // 
     // GET: /Groups/
     public IActionResult Index(int numTimes = 1)
@@ -56,13 +57,22 @@ namespace Reserveer.Controllers
         Database db = new Database();
         List<string[]> results = db.getRoomProfileInfo(roomid);
         List<string[]> results2 = db.getRoomReservation();
-        List<string[]> results3 = db.getRoomSensors(roomid);
+        List<string[]> results3 = db.getCurrentRoomSensors(roomid);
+            if (results3.Count == 1)
+            {
+                string[] temperatureData = db.getLatestTemperature(roomid);
+                var jsonTemp = JsonConvert.SerializeObject(temperatureData);
+                ViewData["temp"] = jsonTemp;
+            }
+        List<string[]> results4 = db.getAvaibleRoomSensors(roomid);
+        var json4 = JsonConvert.SerializeObject(results4);
         var json3 = JsonConvert.SerializeObject(results3);
         var json2 = JsonConvert.SerializeObject(results2);
         var json = JsonConvert.SerializeObject(results);
         ViewData["results"] = json;
         ViewData["results2"] = json2;
         ViewData["results3"] = json3;
+        ViewData["results4"] = json4;
         return View();
     }
 
@@ -87,17 +97,50 @@ namespace Reserveer.Controllers
     {
         using (MySqlConnection conn = new MySqlConnection())
         {
+            
             conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-            conn.Open();
-            String sql = "UPDATE sensors SET assigned = 1 WHERE sensor_id = "+info.SensorID+" ";
-            MySqlCommand command = new MySqlCommand(sql, conn);
-            command.ExecuteNonQuery();
-            conn.Close();
-            conn.Open();
-            String sql2 = "INSERT INTO `rooms_has_sensors` VALUES('1','" + info.SensorID + "') ";
-            MySqlCommand command2 = new MySqlCommand(sql2, conn);
-            command2.ExecuteNonQuery();
-            conn.Close();
+            
+                if (info.CurrentSensorID != "New")
+                {
+                    conn.Open();
+                    String sql = "DELETE FROM `rooms_has_sensors` WHERE `rooms_has_sensors`.`sensor_id` = " + info.CurrentSensorID + "";
+                    MySqlCommand command = new MySqlCommand(sql, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Open();
+                    String sql2 = "UPDATE sensors SET assigned = 0 WHERE sensor_id = " + info.CurrentSensorID + " ";
+                    MySqlCommand command2 = new MySqlCommand(sql2, conn);
+                    command2.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Open();
+                    String sql3 = "UPDATE sensors SET assigned = 1 WHERE sensor_id = " + info.SensorID + " ";
+                    MySqlCommand command3 = new MySqlCommand(sql3, conn);
+                    command3.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Open();
+                    String sql4 = "INSERT INTO `rooms_has_sensors` VALUES('" + info.RoomIDSensor + "','" + info.SensorID + "') ";
+                    MySqlCommand command4 = new MySqlCommand(sql4, conn);
+                    command4.ExecuteNonQuery();
+                    conn.Close();
+                }
+                else
+                {
+                    conn.Open();
+                    String sql = "UPDATE sensors SET assigned = 1 WHERE sensor_id = " + info.SensorID + " ";
+                    MySqlCommand command = new MySqlCommand(sql, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Open();
+                    String sql2 = "INSERT INTO `rooms_has_sensors` VALUES('" + info.RoomIDSensor + "','" + info.SensorID + "') ";
+                    MySqlCommand command2 = new MySqlCommand(sql2, conn);
+                    command2.ExecuteNonQuery();
+                    conn.Close();
+                }
+            
+            
+            
+            
+            
             
             return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
         }
