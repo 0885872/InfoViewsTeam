@@ -55,7 +55,7 @@ namespace UnitTests
     [Fact]
     public void UpdateRoom_ReturnsView_NotNull()
     {
-   //   var result = ad.UpdateRoom();
+            var result = ad.UpdateRoom();
      // Assert.NotNull(result);
 
     }
@@ -63,7 +63,7 @@ namespace UnitTests
     [Fact]
     public void UpdateRoomSensor_ReturnsView_NotNull()
     {
-    //  var result = ad.UpdateRoomSensor();
+            var result = ad.UpdateRoomSensor();
      // Assert.NotNull(result);
 
     }
@@ -71,7 +71,7 @@ namespace UnitTests
     [Fact]
     public void AddRoomInfo_ReturnsView_NotNull()
     {
-   //   var result = ad.AddRoomInfo();
+            var result = ad.AddRoomInfo();
     //  Assert.NotNull(result);
 
     }
@@ -79,7 +79,7 @@ namespace UnitTests
     [Fact]
     public void UpdateGroupName_ReturnsView_NotNull()
     {
-    //  var result = ad.UpdateGroupName();
+            var result = ad.UpdateGroupName();
    //   Assert.NotNull(result);
 
     }

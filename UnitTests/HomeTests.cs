@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using Reserveer;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UnitTests
 {
@@ -11,13 +12,14 @@ namespace UnitTests
 
     public HomeTests()
     {
-  //    Reserveer.Controllers.HomeController home = new Reserveer.Controllers.HomeController();
-  //    h = home;
+            //Reserveer.Data.DutchContext dc = new Reserveer.Data.DutchContext();
+            //Reserveer.Controllers.HomeController home = new Reserveer.Controllers.HomeController();
+            //h = home;
     }
         [Fact]
         public void Test1()
         {
-
+            //var returnedView = ad.RoomProfile() as ViewResult;
 
         }
 
