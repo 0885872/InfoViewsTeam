@@ -159,7 +159,7 @@ namespace Reserveer.Controllers
         //string test123 = "1";
         conn.Open();
         String sql =
-          "UPDATE reservations SET reservations.valid = '1'  WHERE reservations.reservation_id = " + reservationId + ";";
+          "UPDATE reservations SET reservations.valid = '0'  WHERE reservations.reservation_id = " + reservationId + ";";
         MySqlCommand command = new MySqlCommand(sql, conn);
         command.ExecuteNonQuery();
         conn.Close();
