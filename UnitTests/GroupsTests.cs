@@ -20,7 +20,8 @@ namespace UnitTests
         {
             var returnedView = grp.Index() as ViewResult;
             Assert.NotNull(returnedView.ViewData["results"]);
-            Assert.NotNull(returnedView.ViewData["NumTimes"]);
+            Assert.NotNull(returnedView.ViewData["UserInfoResults"]);
+            Assert.NotNull(returnedView.ViewData["UserReservationsResults"]);
 
         }
 
@@ -30,8 +31,6 @@ namespace UnitTests
             var returnedView = grp.Rooms("TestNameUser") as ViewResult;
             Assert.NotNull(returnedView);
             Assert.NotNull(returnedView.ViewData["results"]);
-            Assert.NotNull(returnedView.ViewData["Message"]);
-            Assert.NotNull(returnedView.ViewData["NumTimes"]);
 
         }
     }

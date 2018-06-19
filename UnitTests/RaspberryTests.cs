@@ -15,13 +15,13 @@ namespace UnitTests
       Reserveer.Controllers.RaspberryController raspberry = new Reserveer.Controllers.RaspberryController();
       rb = raspberry;
     }
-    [Fact]
-    public void Index_ReturnsView_NotNull()
-    {
-      var returnedView = rb.Index() as ViewResult;
-      Assert.NotNull(returnedView.ViewData["results"]);
-      Assert.NotNull(returnedView.ViewData["temp"]);
+    //[Fact]
+    //public void Index_ReturnsView_NotNull()
+    //{
+    //  var returnedView = rb.Index() as ViewResult;
+    //  Assert.NotNull(returnedView.ViewData["results"]);
+    //  Assert.NotNull(returnedView.ViewData["temp"]);
 
-    }
+    //}
   }
 }

@@ -15,12 +15,12 @@ namespace UnitTests
             Reserveer.Controllers.ScheduleController schedule = new Reserveer.Controllers.ScheduleController();
             sd = schedule;
         }
-        [Fact]
-        public void Index_ReturnsViews_NotNull()
-        {
-            var returnedView = sd.Index() as ViewResult;
-            Assert.NotNull(returnedView.ViewData["results"]);
-            Assert.NotNull(returnedView.ViewData["NumTimes"]);
-        }
+        //[Fact]
+        //public void Index_ReturnsViews_NotNull()
+        //{
+        //    var returnedView = sd.Index() as ViewResult;
+        //    Assert.NotNull(returnedView.ViewData["results"]);
+        //    Assert.NotNull(returnedView.ViewData["RoomReservationsResults"]);
+        //}
     }
 }

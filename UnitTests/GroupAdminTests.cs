@@ -44,15 +44,6 @@ namespace UnitTests
     }
 
     [Fact]
-    public void RoomProfile_ReturnsView_NotNull()
-    {
-      var returnedView = ad.RoomProfile() as ViewResult;
-      Assert.NotNull(returnedView.ViewData["results"]);
-      Assert.NotNull(returnedView.ViewData["results2"]);
-      Assert.NotNull(returnedView.ViewData["results3"]);
-    }
-
-    [Fact]
     public void Deactivatuser_ReturnsString_NotNull()
     {
     var result = ad.DeactivateUser("1","42");
