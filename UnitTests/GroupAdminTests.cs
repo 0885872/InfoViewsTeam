@@ -15,89 +15,19 @@ namespace UnitTests
       ad = admin;
     }
         [Fact]
-        public void Test1()
+        public void Deactivatuser_ReturnsString_NotNull()
         {
-     // string result = ad.UpdateRoom();
-     // Assert.Equal(result, null);
+      var result = ad.DeactivateUser("1","42");
+      Assert.NotNull(result);
 
         }
 
       [Fact]
-      public void Test2()
+      public void DeleteReservation_ReturnsString_NotNull()
     {
+      var result = ad.DeleteReservation("60" , "1");
+      Assert.NotNull(result);
 
-
-    }
-    [Fact]
-    public void Test3()
-    {
-
-
-    }
-    [Fact]
-    public void Test4()
-    {
-
-
-    }
-    [Fact]
-    public void Test5()
-    {
-
-
-    }
-    [Fact]
-    public void Test6()
-    {
-
-    }
-    [Fact]
-    public void Test7()
-    {
-
-    }
-    [Fact]
-    public void Test8()
-    {
-
-
-    }
-    [Fact]
-    public void Test9()
-    {
-
-    }
-
-    [Fact]
-    public void Test10()
-    {
-
-    }
-
-    [Fact]
-    public void Test11()
-    {
-
-    }
-
-    [Fact]
-    public void Test12()
-    {
-
-    }
-
-    //[Fact]
-    //public void Test13()
-    //{
-    //  db.setReservations();
-
-    //}
-
-    //[Fact]
-    //public void Test14()
-    //{
-    //  db.VerifyMail();
-
-    //}      
+    } 
   }
 }
