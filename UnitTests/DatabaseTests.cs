@@ -15,7 +15,7 @@ namespace UnitTests
             db = database;
         }
         [Fact]
-        public void Test1()
+        public void getDomainCheck_ReturnsString_1()
         {
 
             string result = db.getDomainCheck("hr.nl");
@@ -24,35 +24,35 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Test2()
+        public void getGroupAdmin_ReturnsString_NotNull()
         {
             List<string[]> result = db.getGroupAdmin();
             Assert.NotNull(result);
 
         }
         [Fact]
-        public void Test3()
+        public void getGroupRoomReservation_ReturnsString_NotNull()
         {
             List<string[]> result = db.getGroupRoomReservation();
             Assert.NotNull(result);
 
         }
         [Fact]
-        public void Test4()
+        public void getGroupRooms_ReturnsString_NotNull()
         {
             List<string[]> result = db.getGroupRooms();
             Assert.NotNull(result);
 
         }
         [Fact]
-        public void Test5()
+        public void getGroupUser_ReturnsString_NotNull()
         {
             List<string[]> result = db.getGroupUser();
             Assert.NotNull(result);
 
         }
         [Fact]
-        public void Test6()
+        public void getLatestTemperature_ReturnsString_23()
         {
             string[] result = db.getLatestTemperature("1");
             Assert.Equal(result[0], "23.0");
@@ -61,21 +61,21 @@ namespace UnitTests
 
         }
         [Fact]
-        public void Test7()
+        public void getReservations_ReturnsString_NotNull()
         {
             List<string[]> result = db.getReservations("1");
             Assert.NotNull(result);
 
         }
         [Fact]
-        public void Test8()
+        public void getRoomName_ReturnsString_H2312()
         {
             string result = db.getRoomName("1");
             Assert.Equal(result, "H2312");
 
         }
         [Fact]
-        public void Test9()
+        public void getRoomReservation_ReturnsString_NotNull()
         {
             List<string[]> result = db.getRoomReservation();
             Assert.NotNull(result);
@@ -83,7 +83,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Test10()
+        public void getRoomSensor_ReturnsString_NotNull()
         {
             List<string[]> result = db.getRoomSensors("1");
             Assert.NotNull(result);
@@ -91,7 +91,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Test11()
+        public void getUserGroup_ReturnsString_NotNull()
         {
             List<string[]> result = db.getUserGroup();
             Assert.NotNull(result);
@@ -99,24 +99,10 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Test12()
+        public void getUserMail_ReturnsString_email()
         {
             string result = db.getUserMail("42");
             Assert.Equal(result, "nee@Hotmail.com");
         }
-
-        //[Fact]
-        //public void Test13()
-        //{
-        //  db.setReservations();
-
-        //}
-
-        //[Fact]
-        //public void Test14()
-        //{
-        //  db.VerifyMail();
-
-        //}      
     }
 }
