@@ -2,10 +2,11 @@ using System;
 using Xunit;
 using Reserveer;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UnitTests
 {
-    public class GroupAdminTests
+    public class GroupAdminTests // Tests results from the GroupsAdminController
     {
     public Reserveer.Controllers.GroupsAdminController ad;
 
@@ -14,90 +15,90 @@ namespace UnitTests
       Reserveer.Controllers.GroupsAdminController admin = new Reserveer.Controllers.GroupsAdminController();
       ad = admin;
     }
-        [Fact]
-        public void Test1()
-        {
-     // string result = ad.UpdateRoom();
-     // Assert.Equal(result, null);
 
-        }
-
-      [Fact]
-      public void Test2()
-    {
-
-
-    }
     [Fact]
-    public void Test3()
+    public void Index_ReturnsView_NotNull()
     {
-
-
-    }
-    [Fact]
-    public void Test4()
-    {
-
-
-    }
-    [Fact]
-    public void Test5()
-    {
-
-
-    }
-    [Fact]
-    public void Test6()
-    {
-
-    }
-    [Fact]
-    public void Test7()
-    {
-
-    }
-    [Fact]
-    public void Test8()
-    {
-
-
-    }
-    [Fact]
-    public void Test9()
-    {
+      var returnedView = ad.Index() as ViewResult;
+      Assert.NotNull(returnedView.ViewData["results"]);
+      Assert.NotNull(returnedView.ViewData["NumTimes"]);
 
     }
 
     [Fact]
-    public void Test10()
+    public void Addroom_ReturnsView_NotNull()
     {
+      var result = ad.AddRoom();
+      Assert.NotNull(result);
 
     }
 
     [Fact]
-    public void Test11()
+    public void Profile_ReturnsView_NotNull()
     {
+      var returnedView = ad.Profile() as ViewResult;
+      Assert.NotNull(returnedView.ViewData["results"]);
+      Assert.NotNull(returnedView.ViewData["results2"]);
+      Assert.NotNull(returnedView.ViewData["results3"]);
+      Assert.NotNull(returnedView.ViewData["results4"]);
+    }
+
+    [Fact]
+    public void RoomProfile_ReturnsView_NotNull()
+    {
+      var returnedView = ad.RoomProfile() as ViewResult;
+      Assert.NotNull(returnedView.ViewData["results"]);
+      Assert.NotNull(returnedView.ViewData["results2"]);
+      Assert.NotNull(returnedView.ViewData["results3"]);
+    }
+
+    [Fact]
+    public void UpdateRoom_ReturnsView_NotNull()
+    {
+   //   var result = ad.UpdateRoom();
+     // Assert.NotNull(result);
 
     }
 
     [Fact]
-    public void Test12()
+    public void UpdateRoomSensor_ReturnsView_NotNull()
     {
+    //  var result = ad.UpdateRoomSensor();
+     // Assert.NotNull(result);
 
     }
 
-    //[Fact]
-    //public void Test13()
-    //{
-    //  db.setReservations();
+    [Fact]
+    public void AddRoomInfo_ReturnsView_NotNull()
+    {
+   //   var result = ad.AddRoomInfo();
+    //  Assert.NotNull(result);
 
-    //}
+    }
 
-    //[Fact]
-    //public void Test14()
-    //{
-    //  db.VerifyMail();
+    [Fact]
+    public void UpdateGroupName_ReturnsView_NotNull()
+    {
+    //  var result = ad.UpdateGroupName();
+   //   Assert.NotNull(result);
 
-    //}      
+    }
+
+    [Fact]
+    public void Deactivatuser_ReturnsString_NotNull()
+    {
+    var result = ad.DeactivateUser("1","42");
+    Assert.NotNull(result);
+
+    }
+
+    [Fact]
+    public void DeleteReservation_ReturnsString_NotNull()
+    {
+    var result = ad.DeleteReservation("60" , "1");
+    Assert.NotNull(result);
+
+    } 
+
   }
 }
