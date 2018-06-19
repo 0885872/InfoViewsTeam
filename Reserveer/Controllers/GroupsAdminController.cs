@@ -27,11 +27,6 @@ namespace Reserveer.Controllers
 
     // 
     // GET: /Groups/Welcome/  
-    public IActionResult AddGroup()
-    {
-        return View();
-    }
-
     public IActionResult AddRoom()
     {
         return View();
