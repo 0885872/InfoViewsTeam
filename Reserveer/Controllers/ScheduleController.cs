@@ -37,6 +37,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index Schedule Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
             
@@ -81,6 +82,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("SetReservation Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
             

@@ -70,6 +70,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index Exception login {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }
             }
@@ -180,6 +181,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Registration Exception {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         }
@@ -230,6 +232,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index login post Exception {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         }

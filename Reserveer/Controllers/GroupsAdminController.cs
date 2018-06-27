@@ -32,6 +32,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index Groupsadmin Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
     }
@@ -66,6 +67,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Profile Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         
@@ -101,6 +103,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Roomprofile Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         
@@ -127,6 +130,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("UpdateRoom Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         
@@ -191,12 +195,15 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("UpdateRoomSensor Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
     }
 
     public IActionResult AddRoomInfo(RoomInfo info) // Adds a new room to group
     {
+
+
             {
                 try
                 {
@@ -215,6 +222,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("AddRoomInfo Exception: {0}", e);
+                    return RedirectToAction("Error","Home");
                     throw;
                 }}
         
@@ -241,6 +249,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("UpdateGroupName Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         
@@ -267,6 +276,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("DeactivateUser Exception", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         
@@ -293,6 +303,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("DeleteReservation Exception", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         

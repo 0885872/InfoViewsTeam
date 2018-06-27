@@ -31,6 +31,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index raspberry Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
         }

@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite.Internal.UrlActions;
 using MySql.Data.MySqlClient;
 using Reserveer.Models;
 
@@ -49,6 +51,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("getLatestTemperature Exception: {0}", e);
+
                     throw;
                 }}
             
@@ -87,6 +90,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("getUserMail Exception: {0}", e);
+
                     throw;
                 }}
             
@@ -623,6 +627,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("getAvaibleRoomSensors Exception: {0}", e);
+                    return 
                     throw;
                 }}
             

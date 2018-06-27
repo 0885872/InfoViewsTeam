@@ -40,6 +40,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index Groups Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
             
@@ -62,6 +63,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Rooms Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
             
@@ -87,6 +89,7 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("DeleteReservation Exception: {0}", e);
+                    return RedirectToAction("Error", "Home");
                     throw;
                 }}
             
