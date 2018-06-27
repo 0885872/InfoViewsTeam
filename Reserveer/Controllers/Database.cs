@@ -627,7 +627,6 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("getAvaibleRoomSensors Exception: {0}", e);
-                    return 
                     throw;
                 }}
             

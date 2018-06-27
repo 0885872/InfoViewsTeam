@@ -6280,7 +6280,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
-      "sha512": "DH1ytct+Ck2E5a+QxAL5xD6d7BL88QdMhbMuUwceiIRjrVaw3Q/MwVzzUmZO1+puetl1cWKlhBbTsvevalT49Q==",
+      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
       "type": "package",
       "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "files": [
@@ -8326,7 +8326,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "/OI3X7oW4779V0qKL4BhBJXfvrsKoUW/XTgMNXXhETNjBYQNXzedb7K7BQpMPLXN8tTD9dG/2In6dkkgh6kVbg==",
+      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -10522,7 +10522,7 @@
       ]
     },
     "System.Linq.Queryable/4.0.1": {
-      "sha512": "BdS+NyRdScaWeMfIqBWSfk8QGGuRzWdi+Vevns+uJVNYoEZ0zlo7Is/KsfqA6tL3mz29SizJKoehV4AqSm5xQw==",
+      "sha512": "Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
       "type": "package",
       "path": "system.linq.queryable/4.0.1",
       "files": [
@@ -12315,7 +12315,7 @@
       ]
     },
     "System.Security.Cryptography.Xml/4.4.2": {
-      "sha512": "q9Dren/YP5jhRCkDvLfuaPpMTQzP97ANvzq/OoGgwK8YdLRSTABS9oW5/23OKoM2DRCuBrh4qaecD2YNhPtuzQ==",
+      "sha512": "1m+fKVrApgKYMRuE0MF0vGjqy4XqAp1rCtyAzMXhJajMDDytMh/rHk9hp4M7KKk3QQZoWJUvyUY7xcw74w+JiQ==",
       "type": "package",
       "path": "system.security.cryptography.xml/4.4.2",
       "files": [
@@ -13525,24 +13525,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vboz\\.nuget\\packages\\": {},
+    "C:\\Users\\Tommy\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam11\\Reserveer\\Reserveer.csproj",
+      "projectUniqueName": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam14\\Reserveer\\Reserveer.csproj",
       "projectName": "Reserveer",
-      "projectPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam11\\Reserveer\\Reserveer.csproj",
-      "packagesPath": "C:\\Users\\vboz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vboz\\Source\\Repos\\InfoViewsTeam11\\Reserveer\\obj\\",
+      "projectPath": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam14\\Reserveer\\Reserveer.csproj",
+      "packagesPath": "C:\\Users\\Tommy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam14\\Reserveer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\vboz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Tommy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
