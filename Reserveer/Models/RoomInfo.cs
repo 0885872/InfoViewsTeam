@@ -32,7 +32,10 @@ namespace Reserveer.Models
     }
     public class GroupInfo // Models to send group info
     {
-        public string GroupName { get; set; }
-        public string GroupID { get; set; }
+    [MinLength(2, ErrorMessage = "Name has to be at least 2 Characters.")]
+    [MaxLength(10, ErrorMessage = "Name cannot be longer than 20 characters.")]
+    public string GroupName { get; set; }
+
+    public string GroupID { get; set; }
     } 
 }
