@@ -89,6 +89,10 @@ namespace Reserveer.Controllers
                         var jsonTemp = JsonConvert.SerializeObject(temperatureData);
                         ViewData["temp"] = jsonTemp;
                     }
+                    else
+                    {
+                        ViewData["temp"] = "[]";
+                    }
                     List<string[]> results4 = db.getAvaibleRoomSensors(roomid);
                     var json4 = JsonConvert.SerializeObject(results4);
                     var json3 = JsonConvert.SerializeObject(results3);
