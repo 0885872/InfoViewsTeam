@@ -27,6 +27,7 @@ namespace Reserveer.Controllers
                     {
                         using (MySqlCommand cmdd = connMysql.CreateCommand())
                         {
+                            // Selects the latest sensor temperature value and Time that has been updated to the room sensor
                             cmdd.CommandText = "SELECT sv.value, sv.datetime as date FROM sensor_values sv, sensors s, rooms_has_sensors r WHERE sv.sensor_id = s.sensor_id AND s.sensor_id = r.sensor_id AND r.room_id = " + roomid + ";";
                             cmdd.CommandType = System.Data.CommandType.Text;
 
@@ -39,8 +40,8 @@ namespace Reserveer.Controllers
                                 while (reader.Read())
                                 {
 
-                                    res[0] = reader["value"].ToString();
-                                    res[1] = reader["date"].ToString();
+                                    res[0] = reader["value"].ToString(); // Places the temperature value into the string array
+                                    res[1] = reader["date"].ToString(); // Places the date into the string array
                                 }
                             }
                         }
@@ -67,6 +68,7 @@ namespace Reserveer.Controllers
                     {
                         using (MySqlCommand cmdd = connMysql.CreateCommand())
                         {
+                            // Select the user_mail that is connected to the user_id
                             cmdd.CommandText = "SELECT user_mail FROM user where user_id = " + id + ";";
                             cmdd.CommandType = System.Data.CommandType.Text;
 
@@ -79,7 +81,7 @@ namespace Reserveer.Controllers
                                 while (reader.Read())
                                 {
 
-                                    res[0] = reader["user_mail"].ToString();
+                                    res[0] = reader["user_mail"].ToString(); // Puts the selected user_mail into the string array
                                 }
                             }
                         }
