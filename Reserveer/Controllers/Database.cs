@@ -27,7 +27,7 @@ namespace Reserveer.Controllers
                     {
                         using (MySqlCommand cmdd = connMysql.CreateCommand())
                         {
-                            cmdd.CommandText = "SELECT sv.value, max(sv.datetime) as date FROM sensor_values sv, sensors s, rooms_has_sensors r WHERE sv.sensor_id = s.sensor_id AND s.sensor_id = r.sensor_id AND r.room_id = " + roomid + ";";
+                            cmdd.CommandText = "SELECT sv.value, sv.datetime as date FROM sensor_values sv, sensors s, rooms_has_sensors r WHERE sv.sensor_id = s.sensor_id AND s.sensor_id = r.sensor_id AND r.room_id = " + roomid + ";";
                             cmdd.CommandType = System.Data.CommandType.Text;
 
                             cmdd.Connection = connMysql;
