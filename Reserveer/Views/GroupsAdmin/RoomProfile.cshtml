@@ -117,7 +117,7 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room Number</span>
-                            <input id="RoomNumberI" asp-for="RoomNumber" placeholder="Room Name" class="form-control" required>
+                            <input id="RoomNumberI" asp-for="RoomNumber" pattern="[0-9]{1,}" title="Only numbers allowed" placeholder="Room Name" class="form-control" required>
                             <span asp-validation-for="RoomNumber" class="text-danger"></span>
                         </div>
 
@@ -129,7 +129,7 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room Floor </span>
-                            <input id="RoomFloorI" asp-for="RoomFloor" placeholder="Room Floor" class="form-control" required>
+                            <input id="RoomFloorI" asp-for="RoomFloor" pattern="[0-9]{1,}" title="Only numbers allowed" placeholder="Room Floor" class="form-control" required>
                             <span asp-validation-for="RoomFloor" class="text-danger"></span>
                         </div>
 
