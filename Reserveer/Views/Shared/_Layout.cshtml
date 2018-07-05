@@ -35,17 +35,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand cwhite">InfoView Reservation</a>
+            <a asp-controller="Groups" asp-action="Index" class="navbar-brand cwhite">InfoView Reservation</a>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav ">
                 @if (User.IsInRole("user"))
                 {
                     if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-controller="Groups" asp-action="Index" class="cwhite">Home</a></li>
+                    { 
                         <li><a class="cwhite">Welcome @User.Identity.Name</a></li>
-                        <li><a href="@Url.Action("LogOut", "Home")" class="cwhite">Logout</a></li>
+                        <li><a href="@Url.Action("LogOut", "Home")" class=" btn btn-default btn-sm">Logout</a></li>
 
                     }
                 }
@@ -56,7 +55,7 @@
                     {
                         <li><a asp-controller="GroupsAdmin" asp-action="Index" class="cwhite">Home</a></li>
                         <li><a class="cwhite">Welcome @User.Identity.Name</a></li>
-                        <li><a href="@Url.Action("LogOut", "Home")" class="cwhite">Logout</a></li>
+                        <li><a href="@Url.Action("LogOut", "Home")" class="btn  btn-default">Logout</a></li>
                      
                     
                     }
