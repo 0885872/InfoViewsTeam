@@ -38,6 +38,8 @@
 
 
             $('#calendar').fullCalendar({
+                selectOverlap: false,
+                eventDurationEditable: false,
                 allDaySlot: false,
                 minTime: "08:00:00",
                 maxTime: "18:00:00",
@@ -65,7 +67,6 @@
                     enddate = end.clone();
                     isWeekend = false;
                     past = false;
-                    alert("startdate " + moment(start).format('YYYY-MM-DD') + ", today " + moment(today).format('YYYY-MM-DD'));
 
                     if (moment(start).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD') || moment(end).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD')) {
                         alert("You can not book in past.");
@@ -105,8 +106,7 @@
                                 reservation.roomid = roomid
 
 
-                                
-  ({
+                                $.ajax({
                                     url: '/Schedule/SetReservation',
                                     type: 'POST',
                                     dataType: "json",
@@ -162,32 +162,32 @@
 
 
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Overview Reservations:
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
-                <div class="row" id="Reservations">
-                     
-                        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-                            <div class="caption "> 
-                                <div class="col-sm-3">
-                                    Reservation Time
-                                </div>
-                                <div class="col-sm-3">
-                                    Reservation Date
-                                </div> 
-                            </div>
-                        </div> 
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Overview Reservations:
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
+            <div class="row" id="Reservations">
 
+                <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                    <div class="caption ">
+                        <div class="col-sm-3">
+                            Reservation Time
+                        </div>
+                        <div class="col-sm-3">
+                            Reservation Date
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
