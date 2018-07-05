@@ -38,6 +38,7 @@
 
 
             $('#calendar').fullCalendar({
+                allDaySlot: false,
                 minTime: "08:00:00",
                 maxTime: "18:00:00",
                 displayEventTime: false,
@@ -63,16 +64,27 @@
                     startdate = start.clone();
                     enddate = end.clone();
                     isWeekend = false;
+                    past = false;
+                    alert("startdate " + moment(start).format('YYYY-MM-DD') + ", today " + moment(today).format('YYYY-MM-DD'));
+
+                    if (moment(start).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD') || moment(end).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD')) {
+                        alert("You can not book in past.");
+                        past = true;
+                        $('#calendar').fullCalendar('unselect');
+                    }
 
                     if (startdate.isoWeekday() == 6 || startdate.isoWeekday() == 7 || enddate.isoWeekday() == 6 || enddate.isoWeekday() == 7) {
                         isWeekend = true;
                         alert("You can not book a room on Saturday or Sunday.")
                         $('#calendar').fullCalendar('unselect');
                     }
-                    if (isWeekend == false) {
+                    if (isWeekend == false && past == false) {
                         var confirmed = confirm("Do you really want to book this room from " + moment(start).format('YYYY/MM/DD HH:mm') + " till " + moment(end).format('YYYY/MM/DD HH:mm') + "?");
-                        if (confirmed) {
-                            var title = "userId";
+                        if (!confirmed) {
+                            $('#calendar').fullCalendar('unselect');
+                        }
+                        else if (confirmed) {
+                            var title = "You have successfully booked this timeslot!";
                             var eventData;
                             if (title) {
                                 eventData = {
