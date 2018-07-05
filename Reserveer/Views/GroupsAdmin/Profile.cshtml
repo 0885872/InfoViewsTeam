@@ -79,11 +79,9 @@
 
                       <div class="input-group ">
                         <span class="input-group-addon" id="basic-addon1">Group Name</span>
-                        @*<input id="groupI" type="text" class="form-control" placeholder="Group Name" aria-describedby="basic-addon1">*@
                         <input type="hidden" id="groupId" asp-for="GroupID" hidden class="form-control" />
-                        <input id="groupI" asp-for="GroupName" placeholder="GroupName" class="form-control" required>
+                        <input id="groupI" asp-for="GroupName" placeholder="GroupName" maxlength="30" class="form-control" required>
                         <span asp-validation-for="GroupName" class="text-danger"></span>
-                        @*<input id="groupId" asp-for="GroupID" placeholder="GroupID" class="form-control" required>*@
                       </div>
                         <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;">Save</button>
                         <br />

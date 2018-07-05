@@ -107,7 +107,7 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room name </span>
-                            <input id="RoomNameI" asp-for="RoomName" placeholder="Room Name" class="form-control" required>
+                            <input id="RoomNameI" asp-for="RoomName" placeholder="Room Name" maxlength="20" class="form-control" required>
                             <input type="hidden" id="RoomIDI" asp-for="RoomID" hidden class="form-control" />
                             <span asp-validation-for="RoomName" class="text-danger"></span>
                         </div>
@@ -117,7 +117,7 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room Number</span>
-                            <input id="RoomNumberI" asp-for="RoomNumber" pattern="[0-9]{1,}" title="Only numbers allowed" placeholder="Room Name" class="form-control" required>
+                            <input id="RoomNumberI" asp-for="RoomNumber" pattern="[0-9]{1,}" title="Only numbers allowed" placeholder="Room Number" maxlength="5" class="form-control" required>
                             <span asp-validation-for="RoomNumber" class="text-danger"></span>
                         </div>
 
@@ -129,7 +129,7 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room Floor </span>
-                            <input id="RoomFloorI" asp-for="RoomFloor" pattern="[0-9]{1,}" title="Only numbers allowed" placeholder="Room Floor" class="form-control" required>
+                            <input id="RoomFloorI" asp-for="RoomFloor" pattern="[0-9]{1,}" title="Only numbers allowed" placeholder="Room Floor" maxlength="5" class="form-control" required>
                             <span asp-validation-for="RoomFloor" class="text-danger"></span>
                         </div>
 
@@ -137,7 +137,7 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room Facility</span>
-                            <input id="RoomFacilityI" asp-for="RoomFacility" placeholder="Room Facility" class="form-control" required>
+                            <input id="RoomFacilityI" asp-for="RoomFacility" placeholder="Room Facility" maxlength="30" class="form-control" required>
                             <span asp-validation-for="RoomFacility" class="text-danger"></span>
                         </div>
 
