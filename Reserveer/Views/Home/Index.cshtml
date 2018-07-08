@@ -7,13 +7,23 @@
 {
     if (ViewBag.verified == true)
     {
-        string msg = "You have successfully registered your account, you now can log in.";
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>You have successfully registered your account, you now can log in.<div>";
         @Html.Raw(msg);
     }
     else if (ViewBag.verified == false)
     {
-        string msg = "Something went terribly wrong. Please try again later.";
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>Something went terribly wrong. Please try again later.<div>";
         @Html.Raw(msg);
+    }
+}
+
+@if (TempData["verification_allowed"] != null)
+{
+    if (TempData["verification_allowed"].ToString() == "true")
+    {
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>Please check your mailbox for the verification email message.</div>";
+        @Html.Raw(msg);
+
     }
 
 }
@@ -51,7 +61,7 @@
                     @Html.PasswordFor(u => u.user_password, new { @class = "form-control input-lg" })
                     @Html.ValidationMessageFor(u => u.user_password)
                 </div>
-                <input class="btn btn-info btn-lg themeBGColor" type="submit" onclick="this.form.submit(); this.disabled = true; "value="Log In" />
+                <input class="btn btn-info btn-lg themeBGColor" type="submit" onclick="this.form.submit(); this.disabled = true; " value="Log In" />
 
             </fieldset>
         </div>
