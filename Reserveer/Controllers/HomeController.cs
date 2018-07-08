@@ -180,7 +180,7 @@ namespace Reserveer.Controllers
               }
             }
           }
-
+                    
           catch (Exception e)
           {
             Debug.WriteLine("Registration Exception {0}", e);

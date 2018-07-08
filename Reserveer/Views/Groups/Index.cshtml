@@ -1,4 +1,4 @@
-﻿@model Reserveer.Models.UserRegistration;
+﻿@model UpdateUserModel;
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -76,23 +76,26 @@
         </h4>
       </div>
       <div id="collapse2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading2">
-        <div class="panel-body">
-          <form asp-action="UpdateUser">
-            <div class="row">
-                <div class=" col-sm-6">
-                    <label class="sr-only" for="inlineFormInput">Username</label>
-                    <input id="UsernameInput" asp-for="Name" class="form-control" maxlength="20" placeholder="Username">
-                    <span asp-validation-for="Name" class="text-danger"></span>
+          <div class="panel-body">
 
-                    <label class="sr-only" for="inlineFormInput">Password</label>
-                    <input id="PasswordInput" asp-for="Password" class="form-control" maxlength="20" placeholder="Password">
-                    <span asp-validation-for="Password" class="text-danger"></span>
+            <form asp-action="UpdateUser">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <label class="sr-only" for="inlineFormInput">Username</label>
+                    <input id="UsernameInput" asp-for="Namee" class="form-control" required="" maxlength="20" placeholder="Username">
+                    <span asp-validation-for="Namee" class="text-danger"></span>
+
+                    <label class="sr-only" for="inlineFormInput">Passwordd</label>
+                    <input id="PasswordInput" asp-for="Passwordd" class="form-control" maxlength="20" placeholder="Password">
+                    <span asp-validation-for="Passwordd" class="text-danger"></span>
 
                 </div>
-            </div><br>
-            <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
+          </div><br>
+          <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
           </form>
-        </div>
+
+      </div>
       </div>
     </div>
   </div>
