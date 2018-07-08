@@ -44,17 +44,17 @@ namespace Reserveer.Controllers
         try
         {
           if (User.Identity.IsAuthenticated)
-          {
-            if (UserRole == "user")
             {
-              return RedirectToAction("Index", "Groups");
-            }
+                if (User.IsInRole("user"))
+                {
+                    return RedirectToAction("Index", "Groups");
+                }
 
-            if (UserRole == "admin")
-            {
-              return RedirectToAction("Index", "GroupsAdmin");
+                if (User.IsInRole("admin"))
+                {
+                    return RedirectToAction("Index", "GroupsAdmin");
+                }
             }
-          }
 
           string mail = Request.Query["mail"];
           string token = Request.Query["number"];
