@@ -101,77 +101,37 @@ namespace Reserveer.Controllers
 
         [HttpPost]
         public IActionResult UpdateUser(UpdateUserModel user) // Updates room info
+    {
+      try
+      {
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
-            {
-      //          var crypto = new SimpleCrypto.PBKDF2();
-      //          var encrypass = crypto.Compute(user.Password);
-                using (MySqlConnection conn = new MySqlConnection())
-                {
-                    conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-                    conn.Open();
-                    String sql =
-                        "UPDATE user SET user_name = '" + user.Namee + "' WHERE user_id = " + HomeController.UserId + ";";
-                    MySqlCommand command = new MySqlCommand(sql, conn);
-                    command.ExecuteNonQuery();
-                    conn.Close();
-                    return RedirectToAction("Index", "Groups", HomeController.UserId);
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("","Error bro");
-            }
-            return View("Index");
+          var crypto = new SimpleCrypto.PBKDF2();
+          var encrypass = crypto.Compute(user.Passwordd);
+          using (MySqlConnection conn = new MySqlConnection())
+          {
+            conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+            conn.Open();
+            String sql =
+                "UPDATE user SET user_name = '" + user.Namee + "', user_password = '" + encrypass + "', password_salt = '" + crypto.Salt + "' WHERE user_id = " + HomeController.UserId + ";";
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            command.ExecuteNonQuery();
+            conn.Close();
+            return RedirectToAction("Index", "Groups", HomeController.UserId);
+          }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        else
+        {
+          ModelState.AddModelError("", "Error bro");
+        }
+        return View("Index");
+      }
+      catch (Exception e)
+      {
+        Debug.WriteLine("Updateroom Exception: {0}", e);
+        return RedirectToAction("Error", "Home");
+        throw;
+      }
     }
-
-
-
-
-
-        //{
-        //    try
-        //    {
-        //            var crypto = new SimpleCrypto.PBKDF2();
-        //            var encrypass = crypto.Compute(user.Password);
-        //            using (MySqlConnection conn = new MySqlConnection())
-        //            {
-        //                conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-        //                conn.Open();
-        //                String sql =
-        //                    "UPDATE user SET user_name = '" + user.Name + "', user_password = '" + encrypass + "', password_salt = '" + crypto.Salt + "' WHERE user_id = " + HomeController.UserId + ";";
-        //                MySqlCommand command = new MySqlCommand(sql, conn);
-        //                command.ExecuteNonQuery();
-        //                conn.Close();
-        //                return RedirectToAction("Index", "Groups", HomeController.UserId);
-        //            }
-
-        //    }
-        //    catch (Exception e)
-        //    {
-
-        //        Debug.WriteLine("UpdateRoom Exception: {0}", e);
-        //        return RedirectToAction("Error", "Home");
-        //        throw;
-        //    }
-        //}
-        //}
-
-
+  }
 }

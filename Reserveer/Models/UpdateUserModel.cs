@@ -18,5 +18,12 @@ namespace Reserveer.Models
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Password has to be longer than 6 Characters.")]
         public string Passwordd { get; set; }
-    }
+
+        [Required(ErrorMessage = "This field is required.")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Password has to be longer than 6 Characters.")]
+        [DisplayName("Confirm Password")]
+        [Compare("Passwordd")]
+        public string ConfirmPasss { get; set; }
+  }
 }

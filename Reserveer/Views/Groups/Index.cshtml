@@ -76,26 +76,36 @@
         </h4>
       </div>
       <div id="collapse2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading2">
-          <div class="panel-body">
+        <div class="panel-body">
 
-            <form asp-action="UpdateUser">
+          <form asp-action="UpdateUser">
             <div class="row">
-                <div class="col-sm-6">
+              <div class="col-sm-6">
 
-                    <label class="sr-only" for="inlineFormInput">Username</label>
-                    <input id="UsernameInput" asp-for="Namee" class="form-control" required="" maxlength="20" placeholder="Username">
-                    <span asp-validation-for="Namee" class="text-danger"></span>
+                <label for="Namee">Username</label>
+                <input id="UsernameInput" asp-for="Namee" class="form-control" required="" maxlength="20" placeholder="Username">
+                <span asp-validation-for="Namee" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
 
-                    <label class="sr-only" for="inlineFormInput">Passwordd</label>
-                    <input id="PasswordInput" asp-for="Passwordd" class="form-control" maxlength="20" placeholder="Password">
-                    <span asp-validation-for="Passwordd" class="text-danger"></span>
-
-                </div>
-          </div><br>
-          <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
+                <label for="Passwordd">New Password</label>
+                <input id="PasswordInput" asp-for="Passwordd" class="form-control" maxlength="20" placeholder="Password">
+                <span asp-validation-for="Passwordd" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label for="ConfirmPasss">Confirm New Password</label>
+                <input id="PasswordInput" asp-for="ConfirmPasss" class="form-control" maxlength="20" placeholder="Confirm Password">
+                <span asp-validation-for="ConfirmPasss" class="text-danger"></span>
+              </div>
+            </div><br>
+            <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
           </form>
 
-      </div>
+        </div>
       </div>
     </div>
   </div>
