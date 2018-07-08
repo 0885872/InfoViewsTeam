@@ -7,12 +7,12 @@
 {
     if (ViewBag.verified == true)
     {
-        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>You have successfully registered your account, you now can log in.<div>";
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>You have successfully registered your account, you now can log in.</div>";
         @Html.Raw(msg);
     }
     else if (ViewBag.verified == false)
     {
-        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>Something went terribly wrong. Please try again later.<div>";
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>Something went terribly wrong. Please try again later.</div>";
         @Html.Raw(msg);
     }
 }

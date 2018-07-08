@@ -31,7 +31,5 @@ namespace Reserveer.Models
         public string user_role { get; set; }
 
         public int active { get; set; }
-
-        public bool verification_allowed { get; set; }
     }
 }
