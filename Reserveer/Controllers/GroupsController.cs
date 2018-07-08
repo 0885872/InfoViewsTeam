@@ -100,6 +100,8 @@ namespace Reserveer.Controllers
     }
     public IActionResult UpdateUser(UserRegistration user) // Updates room info
     {
+        var crypto = new SimpleCrypto.PBKDF2();
+        var encrypass = crypto.Compute(user.Password);
         try
         {
           using (MySqlConnection conn = new MySqlConnection())
@@ -107,7 +109,7 @@ namespace Reserveer.Controllers
             conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
             conn.Open();
             String sql =
-                "UPDATE user SET user_name = '" + user.Name + "' WHERE user_id = " + HomeController.UserId + ";";
+                "UPDATE user SET user_name = '" + user.Name + "', user_password = '" + encrypass + "', password_salt = '" + crypto.Salt + "' WHERE user_id = " + HomeController.UserId + ";";
             MySqlCommand command = new MySqlCommand(sql, conn);
             command.ExecuteNonQuery();
             conn.Close();

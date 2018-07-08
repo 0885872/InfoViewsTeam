@@ -79,11 +79,16 @@
         <div class="panel-body">
           <form asp-action="UpdateUser">
             <div class="row">
-              <div class=" col-sm-6">
-                <label class="sr-only" for="inlineFormInput">Username</label>
-                <input id="UsernameInput" asp-for="Name" class="form-control" maxlength="20" placeholder="Username">
-                <span asp-validation-for="Name" class="text-danger"></span>
-              </div>
+                <div class=" col-sm-6">
+                    <label class="sr-only" for="inlineFormInput">Username</label>
+                    <input id="UsernameInput" asp-for="Name" class="form-control" maxlength="20" placeholder="Username">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                    <label class="sr-only" for="inlineFormInput">Password</label>
+                    <input id="PasswordInput" asp-for="Password" class="form-control" maxlength="20" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
+                </div>
             </div><br>
             <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
           </form>

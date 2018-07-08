@@ -7167,7 +7167,7 @@
       ]
     },
     "Microsoft.Extensions.PlatformAbstractions/1.1.0": {
-      "sha512": "UMlN++q5qqzQ2HH+uOrKxN5fmBXMQDhrYkSaPJxhmyzfJaFPirrVr1raim/Ocq1psAZoB9+7JSAf0GDAX35wUg==",
+      "sha512": "H6ZsQzxYw/6k2DfEQRXdC+vQ6obd6Uba3uGJrnJ2vG4PRXjQZ7seB13JdCfE72abp8E6Fk3gGgDzfJiLZi5ZpQ==",
       "type": "package",
       "path": "microsoft.extensions.platformabstractions/1.1.0",
       "files": [
@@ -13525,23 +13525,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cabo_\\.nuget\\packages\\": {},
+    "C:\\Users\\V\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\Reserveer.csproj",
+      "projectUniqueName": "C:\\Users\\V\\Source\\Repos\\InfoViewsTeam\\Reserveer\\Reserveer.csproj",
       "projectName": "Reserveer",
-      "projectPath": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\Reserveer.csproj",
-      "packagesPath": "C:\\Users\\cabo_\\.nuget\\packages\\",
-      "outputPath": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\obj\\",
+      "projectPath": "C:\\Users\\V\\Source\\Repos\\InfoViewsTeam\\Reserveer\\Reserveer.csproj",
+      "packagesPath": "C:\\Users\\V\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\V\\Source\\Repos\\InfoViewsTeam\\Reserveer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\cabo_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\V\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
