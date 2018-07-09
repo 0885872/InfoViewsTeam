@@ -8,6 +8,12 @@
         @Html.Raw(msg);
 
     }
+    else if (TempData["ModifiedUserDataSaved"].ToString() == "false")
+    {
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>Some of the inserted values are incorrect. Please check and try again. </div>";
+        @Html.Raw(msg);
+
+    }
 
 }
 

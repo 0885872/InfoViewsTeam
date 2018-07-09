@@ -124,6 +124,7 @@ namespace Reserveer.Controllers
         else
         {
           ModelState.AddModelError("", "Error bro");
+          TempData["ModifiedUserDataSaved"] = "false";
           return RedirectToAction("Index", "Groups", HomeController.UserId);
                 }
             }
