@@ -167,7 +167,7 @@ namespace Reserveer.Controllers
                   msg.Subject = "E-mail verification";
                   msg.Body = "Hi there, click the following link to activate your account: " + verifyLink;
 
-                  var client = new SmtpClient("smtp.xs4all.nl", 25);
+                  var client = new SmtpClient("smtp.hro.nl", 25);
                   client.Send(msg);
                   TempData["verification_allowed"] = "true";
                   return RedirectToAction("Index", "Home");

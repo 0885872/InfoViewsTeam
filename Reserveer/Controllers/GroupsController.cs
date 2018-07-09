@@ -117,15 +117,16 @@ namespace Reserveer.Controllers
             MySqlCommand command = new MySqlCommand(sql, conn);
             command.ExecuteNonQuery();
             conn.Close();
+            TempData["ModifiedUserDataSaved"] = "true";
             return RedirectToAction("Index", "Groups", HomeController.UserId);
-          }
+                    }
         }
         else
         {
           ModelState.AddModelError("", "Error bro");
-        }
-        return View("Index");
-      }
+          return RedirectToAction("Index", "Groups", HomeController.UserId);
+                }
+            }
       catch (Exception e)
       {
         Debug.WriteLine("Updateroom Exception: {0}", e);
