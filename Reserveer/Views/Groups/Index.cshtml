@@ -1,4 +1,21 @@
-﻿@model Reserveer.Models.UserRegistration;
+﻿@model UpdateUserModel;
+
+@if (TempData["ModifiedUserDataSaved"] != null)
+{
+    if (TempData["ModifiedUserDataSaved"].ToString() == "true")
+    {
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>Modified user data successfully saved!</div>";
+        @Html.Raw(msg);
+
+    }
+    else if (TempData["ModifiedUserDataSaved"].ToString() == "false")
+    {
+        string msg = "<div class='jumbotron Whitebg' style='margin - top:20px; '>Some of the inserted values are incorrect. Please check and try again. </div>";
+        @Html.Raw(msg);
+
+    }
+
+}
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -31,7 +48,7 @@
         for (var i = 0; i < arrayLength2; i++) {
             $("#collapseReservations").append(
 
-                '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" ><div class= "col-sm-3" > ' + UserReservationsArray[i][6] + '</div > <div class="col-sm-3">' + UserReservationsArray[i][2] + ' - ' + UserReservationsArray[i][3] + '</div><div class="col-sm-2">' + UserReservationsArray[i][4] + '</div><div class="col-sm-2"><a href="DeleteReservation?reservationId=' + UserReservationsArray[i][0] + '&groupId=' + UserReservationsArray[i][5] + '" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div ></div > '
+                '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" ><div class= "col-sm-3" > ' + UserReservationsArray[i][6] + '</div > <div class="col-sm-3">' + UserReservationsArray[i][2] + ' - ' + UserReservationsArray[i][3] + '</div><div class="col-sm-2">' + UserReservationsArray[i][4] + '</div><div class="col-sm-2"><a href="Groups/DeleteReservation?reservationId=' + UserReservationsArray[i][0] + '&groupId=' + UserReservationsArray[i][5] + '" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div ></div > '
             );
         }
 
@@ -46,81 +63,94 @@
 
 
 
-  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-      <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-        <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Signed Groups
-          </a>
-        </h4>
-      </div>
-      <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
-        <div id="UserGroupsCollapse" class="row">
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="panel-group" id="Info" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-      <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
-        <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#Info" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-            Edit User: <span id="CollapseUsername"></span>
-          </a>
-        </h4>
-      </div>
-      <div id="collapse2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading2">
-        <div class="panel-body">
-          <form asp-action="UpdateUser">
-            <div class="row">
-                <div class=" col-sm-6">
-                    <label class="sr-only" for="inlineFormInput">Username</label>
-                    <input id="UsernameInput" asp-for="Name" class="form-control" maxlength="20" placeholder="Username">
-                    <span asp-validation-for="Name" class="text-danger"></span>
-
-                    <label class="sr-only" for="inlineFormInput">Password</label>
-                    <input id="PasswordInput" asp-for="Password" class="form-control" maxlength="20" placeholder="Password">
-                    <span asp-validation-for="Password" class="text-danger"></span>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Signed Groups
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
+                <div id="UserGroupsCollapse" class="row">
 
                 </div>
-            </div><br>
-            <button type="submit" class="btn btn-primary themeBGColor cwhite">Submit</button>
-          </form>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="panel-group" id="Reservations" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-          <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
-              <h4 class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#collapseReservations" aria-expanded="true" aria-controls="collapseReservations">
-                      Your Reservation
-                  </a>
-              </h4>
-          </div>
-          <img runat="server" id="imgCtrl" />
-          <div id="collapseReservations" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
-              <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-                  <div class="caption">
-                      <div class="col-sm-3">
-                          Room Number
-                      </div>
-                      <div class="col-sm-3">
-                          Reservation Time
-                      </div>
-                      <div class="col-sm-3">
-                          Reservation Date
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+
+    <hr>
+
+    <div class="panel-group" id="Info" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="heading2">
+                <div id="SavedNotification"></div>
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#Info" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                        Edit User: <span id="CollapseUsername"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading2">
+                <div class="panel-body">
+
+                    <form asp-action="UpdateUser">
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <label for="Namee">Username</label>
+                                <input id="UsernameInput" asp-for="Namee" class="form-control" required="" maxlength="20" placeholder="Username">
+                                <span asp-validation-for="Namee" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <label for="Passwordd">New Password</label>
+                                <input id="PasswordInput" asp-for="Passwordd" class="form-control" maxlength="20" placeholder="Password">
+                                <span asp-validation-for="Passwordd" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="ConfirmPasss">Confirm New Password</label>
+                                <input id="PasswordInput" asp-for="ConfirmPasss" class="form-control" maxlength="20" placeholder="Confirm Password">
+                                <span asp-validation-for="ConfirmPasss" class="text-danger"></span>
+                            </div>
+                        </div><br>
+                        <button type="submit" onclick="this.form.submit(); this.disabled = true;" class="btn btn-primary themeBGColor cwhite">Submit</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group" id="Reservations" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#collapseReservations" aria-expanded="true" aria-controls="collapseReservations">
+                        Your Reservation
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseReservations" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
+                <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                    <div class="caption">
+                        <div class="col-sm-3">
+                            Room Number
+                        </div>
+                        <div class="col-sm-3">
+                            Reservation Time
+                        </div>
+                        <div class="col-sm-3">
+                            Reservation Date
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

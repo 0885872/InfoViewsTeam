@@ -172,29 +172,29 @@ namespace Reserveer.Controllers
                                     msg.Subject = "E-mail verification";
                                     msg.Body = "Hi there, click the following link to activate your account: " + verifyLink;
 
-                                    var client = new SmtpClient("smtp.xs4all.nl", 25);
-                                    client.Send(msg);
-                                    TempData["verification_allowed"] = "true";
-                                    return RedirectToAction("Index", "Home");
-                                }
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("Mail", "Email is already taken");
-                                return View();
-                            }
-                        }
-                    }
-
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine("Registration Exception {0}", e);
-                        return RedirectToAction("Error", "Home");
-                        throw;
-                    }
+                  var client = new SmtpClient("smtp.hro.nl", 25);
+                  client.Send(msg);
+                  TempData["verification_allowed"] = "true";
+                  return RedirectToAction("Index", "Home");
                 }
+              }
+              else
+              {
+                ModelState.AddModelError("Mail", "Email is already taken");
+                return View();
+              }
             }
-            return View();
+          }
+                    
+          catch (Exception e)
+          {
+            Debug.WriteLine("Registration Exception {0}", e);
+            return RedirectToAction("Error", "Home");
+            throw;
+          }
+        }
+      }
+      return View();
         }
 
         [HttpPost]

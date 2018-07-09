@@ -15,9 +15,9 @@ namespace Reserveer.Controllers
 {
     public class Database
     {
-    String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+        String connString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
-    public string[] getLatestTemperature(string roomid) // Gets the latest temperature in the room from the Raspberry Pi
+        public string[] getLatestTemperature(string roomid) // Gets the latest temperature in the room from the Raspberry Pi
         {
             {
                 try
@@ -54,8 +54,9 @@ namespace Reserveer.Controllers
                     Debug.WriteLine("getLatestTemperature Exception: {0}", e);
 
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public string getUserMail(string id) // Get the mail corresponding to the userID
@@ -94,8 +95,9 @@ namespace Reserveer.Controllers
                     Debug.WriteLine("getUserMail Exception: {0}", e);
 
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public string getRoomName(string id) // Gets the room name corresponding to the roomID
@@ -132,8 +134,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getRoomName Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public List<string[]> getReservations(string room) // Gets all reservations corresponding to the roomID
@@ -178,8 +181,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getReservations Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public List<string[]> getUserReservations() // Gets all reservations corresponding to the roomID
@@ -224,8 +228,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getUserReservations Exception", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public bool VerifyMail(string mail, string token) // Verifies user emailaccount by combination with a token
@@ -294,8 +299,19 @@ namespace Reserveer.Controllers
                                 MySqlCommand command = new MySqlCommand(sql, conn);
                                 command.ExecuteNonQuery();
                                 conn.Close();
-                                return true;
                             }
+
+                            string validationSql = "DELETE FROM registration_validation WHERE user_id = " + res2[0] + ";";
+                            using (MySqlConnection conn3 = new MySqlConnection())
+                            {
+                                conn3.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+                                conn3.Open();
+                                MySqlCommand command3 = new MySqlCommand(validationSql, conn3);
+                                command3.ExecuteNonQuery();
+                                conn3.Close();
+                            }
+                            return true;
+
                         }
                         else
                         {
@@ -311,8 +327,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("VerifyMail Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public void setReservations(ReservationModel reservation) // Sets the reservations made by users
@@ -375,8 +392,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("setReservations Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public string[] FindDuplicates(UserRegistration user) // Checks for duplicate user email
@@ -414,8 +432,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("FindDuplicates Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public string getDomainCheck(string domain) // Checks for domain name corresponding with group_id
@@ -463,8 +482,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getDomainCheck Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public List<string[]> getUserGroup() // Gets usergroup corresponding with userID
@@ -505,7 +525,8 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getUserGroup Exception: {0}", e);
                     throw;
-                }}
+                }
+            }
 
         }
         public List<string[]> getUserInfo() // Gets usergroup corresponding with userID
@@ -544,8 +565,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getUserInfo Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
 
@@ -588,8 +610,9 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getCurrentRoomSensors Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
         public List<string[]> getAvaibleRoomSensors(string room) // Gets all temperature sensors/raspberry that are unassigned
@@ -631,12 +654,13 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getAvaibleRoomSensors Exception: {0}", e);
                     throw;
-                }}
-            
+                }
+            }
+
         }
 
-    public List<string[]> getGroupRooms() // Gets all rooms corresponding to the groupID
-    {
+        public List<string[]> getGroupRooms() // Gets all rooms corresponding to the groupID
+        {
             {
                 try
                 {
@@ -672,12 +696,13 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getGroupRooms Exception: {0}", e);
                     throw;
-                }}
-        
+                }
+            }
+
         }
 
-    public List<string[]> getGroupUser() // Gets all users corresponding to the groupID
-    {
+        public List<string[]> getGroupUser() // Gets all users corresponding to the groupID
+        {
             {
                 try
                 {
@@ -715,12 +740,13 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getGroupUser Exception: {0}", e);
                     throw;
-                }}
-        
-    }
+                }
+            }
 
-    public List<string[]> getGroupAdmin() // Get the groups corresponding to the Admin groupID
-    {
+        }
+
+        public List<string[]> getGroupAdmin() // Get the groups corresponding to the Admin groupID
+        {
             {
                 try
                 {
@@ -780,12 +806,13 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getGroupAdmin Exception: {0}", e);
                     throw;
-                }}
-        
-    }
+                }
+            }
 
-    public List<string[]> getRoomProfileInfo(string room) // Gets the room information corresponding to te roomID
-    {
+        }
+
+        public List<string[]> getRoomProfileInfo(string room) // Gets the room information corresponding to te roomID
+        {
             {
                 try
                 {
@@ -825,14 +852,15 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getRoomProfileInfo Exception: {0}", e);
                     throw;
-                }}
-        
-    }
+                }
+            }
+
+        }
 
 
 
-    public List<string[]> getRoomReservation() // Gets all info corresponding to reservationID's
-    {
+        public List<string[]> getRoomReservation() // Gets all info corresponding to reservationID's
+        {
             {
                 try
                 {
@@ -872,12 +900,13 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getRoomReservation Exception: {0}", e);
                     throw;
-                }}
-        
-    }
+                }
+            }
 
-    public List<string[]> getGroupRoomReservation() // Gets all reservation info corresponding to reservationID
-    {
+        }
+
+        public List<string[]> getGroupRoomReservation() // Gets all reservation info corresponding to reservationID
+        {
             {
                 try
                 {
@@ -919,9 +948,10 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("getGroupRoomReservation Exception: {0}", e);
                     throw;
-                }}
-        
-    }
+                }
+            }
+
+        }
 
     }
 }
