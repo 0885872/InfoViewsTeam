@@ -31,7 +31,7 @@
         for (var i = 0; i < arrayLength2; i++) {
             $("#collapseReservations").append(
 
-                '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" ><div class= "col-sm-3" > ' + UserReservationsArray[i][6] + '</div > <div class="col-sm-3">' + UserReservationsArray[i][2] + ' - ' + UserReservationsArray[i][3] + '</div><div class="col-sm-2">' + UserReservationsArray[i][4] + '</div><div class="col-sm-2"><a href="DeleteReservation?reservationId=' + UserReservationsArray[i][0] + '&groupId=' + UserReservationsArray[i][5] + '" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div ></div > '
+                '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div class= "caption" ><div class= "col-sm-3" > ' + UserReservationsArray[i][6] + '</div > <div class="col-sm-3">' + UserReservationsArray[i][2] + ' - ' + UserReservationsArray[i][3] + '</div><div class="col-sm-2">' + UserReservationsArray[i][4] + '</div><div class="col-sm-2"><a href="Groups/DeleteReservation?reservationId=' + UserReservationsArray[i][0] + '&groupId=' + UserReservationsArray[i][5] + '" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div ></div > '
             );
         }
 

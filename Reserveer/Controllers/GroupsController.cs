@@ -86,7 +86,7 @@ namespace Reserveer.Controllers
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
                         conn.Close();
-                        return RedirectToAction("Profile", "GroupsAdmin", groupId);
+                        return RedirectToAction("Index", "Home", groupId);
                     }
                 }
                 catch (Exception e)

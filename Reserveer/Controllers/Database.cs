@@ -305,7 +305,7 @@ namespace Reserveer.Controllers
                             {
                                 conn3.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
                                 conn3.Open();
-                                MySqlCommand command3 = new MySqlCommand(sql, conn3);
+                                MySqlCommand command3 = new MySqlCommand(validationSql, conn3);
                                 command3.ExecuteNonQuery();
                                 conn3.Close();
                             }
