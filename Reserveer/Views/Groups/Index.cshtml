@@ -39,8 +39,7 @@
     });
 
 </script>
-
-@{ ViewData["Title"] = "Signed Groups"; }
+ 
 
 <h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Groups</h1>
 <div class="opacityWhitebgr" style="padding:50px; border-radius:10px;">
@@ -97,30 +96,31 @@
     </div>
   </div>
   <div class="panel-group" id="Reservations" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-      <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
-        <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#collapseReservations" aria-expanded="true" aria-controls="collapseReservations">
-            Your Reservation
-          </a>
-        </h4>
-      </div>
-      <div id="collapseReservations" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
-        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-          <div class="caption">
-            <div class="col-sm-3">
-              Room Number
-            </div>
-            <div class="col-sm-3">
-              Reservation Time
-            </div>
-            <div class="col-sm-3">
-              Reservation Date
-            </div>
+      <div class="panel panel-default">
+          <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
+              <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#collapseReservations" aria-expanded="true" aria-controls="collapseReservations">
+                      Your Reservation
+                  </a>
+              </h4>
           </div>
-        </div>
+          <img runat="server" id="imgCtrl" />
+          <div id="collapseReservations" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
+              <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                  <div class="caption">
+                      <div class="col-sm-3">
+                          Room Number
+                      </div>
+                      <div class="col-sm-3">
+                          Reservation Time
+                      </div>
+                      <div class="col-sm-3">
+                          Reservation Date
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
 
 </div>

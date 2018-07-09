@@ -2947,6 +2947,20 @@
           "lib/netstandard2.0/NWebsec.AspNetCore.Middleware.dll": {}
         }
       },
+      "QRCoder/1.3.3": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "4.5.0-preview1-25914-04"
+        },
+        "compile": {
+          "lib/netstandard2.0/QRCoder.dll": {},
+          "lib/netstandard2.0/UnityEngine.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/QRCoder.dll": {},
+          "lib/netstandard2.0/UnityEngine.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -3746,6 +3760,28 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Diagnostics.Tracing.dll": {}
+        }
+      },
+      "System.Drawing.Common/4.5.0-preview1-25914-04": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Drawing.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Drawing.Common.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
         }
       },
       "System.Dynamic.Runtime/4.3.0": {
@@ -7167,7 +7203,7 @@
       ]
     },
     "Microsoft.Extensions.PlatformAbstractions/1.1.0": {
-      "sha512": "H6ZsQzxYw/6k2DfEQRXdC+vQ6obd6Uba3uGJrnJ2vG4PRXjQZ7seB13JdCfE72abp8E6Fk3gGgDzfJiLZi5ZpQ==",
+      "sha512": "UMlN++q5qqzQ2HH+uOrKxN5fmBXMQDhrYkSaPJxhmyzfJaFPirrVr1raim/Ocq1psAZoB9+7JSAf0GDAX35wUg==",
       "type": "package",
       "path": "microsoft.extensions.platformabstractions/1.1.0",
       "files": [
@@ -8323,6 +8359,31 @@
         "lib/netstandard2.0/NWebsec.AspNetCore.Middleware.xml",
         "nwebsec.aspnetcore.middleware.2.0.0.nupkg.sha512",
         "nwebsec.aspnetcore.middleware.nuspec"
+      ]
+    },
+    "QRCoder/1.3.3": {
+      "sha512": "V60dUrLxraB1OjgXToEy4LHELk0CUDYJojvKEw4tBesWonYR7xN57eveFtS8A0eHzgGaBmr15Ex2qJoj3QF+Nw==",
+      "type": "package",
+      "path": "qrcoder/1.3.3",
+      "files": [
+        "lib/monoandroid/QRCoder.dll",
+        "lib/monotouch/QRCoder.dll",
+        "lib/net35/QRCoder.dll",
+        "lib/net35/UnityEngine.dll",
+        "lib/net40/QRCoder.dll",
+        "lib/net40/UnityEngine.dll",
+        "lib/netcore/QRCoder.dll",
+        "lib/netstandard1.6/QRCoder.dll",
+        "lib/netstandard1.6/UnityEngine.dll",
+        "lib/netstandard2.0/QRCoder.dll",
+        "lib/netstandard2.0/UnityEngine.dll",
+        "lib/portable-net45+win8+wpa81/QRCoder.dll",
+        "lib/portable-net45+wpa81+wp81+wp8+uap/QRCoder.dll",
+        "lib/uap/QRCoder.dll",
+        "lib/uap10.0/QRCoder.dll",
+        "lib/xamarinios/QRCoder.dll",
+        "qrcoder.1.3.3.nupkg.sha512",
+        "qrcoder.nuspec"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -9849,6 +9910,37 @@
         "ref/xamarinwatchos10/_._",
         "system.diagnostics.tracing.4.3.0.nupkg.sha512",
         "system.diagnostics.tracing.nuspec"
+      ]
+    },
+    "System.Drawing.Common/4.5.0-preview1-25914-04": {
+      "sha512": "xe9fRaplCuFFkqa2FNSuhZrux4ENP6b1sKxcGIqI0en4aEDMHsHQxtIwwkMsvlKDHoFlLcPkvpUefUnttajA8w==",
+      "type": "package",
+      "path": "system.drawing.common/4.5.0-preview1-25914-04",
+      "files": [
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.Drawing.Common.dll",
+        "lib/netstandard2.0/System.Drawing.Common.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net461/System.Drawing.Common.dll",
+        "ref/netstandard2.0/System.Drawing.Common.dll",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll",
+        "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll",
+        "system.drawing.common.4.5.0-preview1-25914-04.nupkg.sha512",
+        "system.drawing.common.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Dynamic.Runtime/4.3.0": {
@@ -13521,27 +13613,28 @@
       "MySql.Data.EntityFrameworkCore >= 8.0.11",
       "NWebsec.AspNetCore.Core >= 2.0.0",
       "NWebsec.AspNetCore.Middleware >= 2.0.0",
+      "QRCoder >= 1.3.3",
       "SimpleCrypto.NetCore >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\V\\.nuget\\packages\\": {},
+    "C:\\Users\\cabo_\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\V\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
+      "projectUniqueName": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\Reserveer.csproj",
       "projectName": "Reserveer",
-      "projectPath": "C:\\Users\\V\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
-      "packagesPath": "C:\\Users\\V\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\V\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\obj\\",
+      "projectPath": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\Reserveer.csproj",
+      "packagesPath": "C:\\Users\\cabo_\\.nuget\\packages\\",
+      "outputPath": "D:\\School\\Year 3\\ICT-LAB 01\\Complete\\Reserveer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\V\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cabo_\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13597,6 +13690,10 @@
           "NWebsec.AspNetCore.Middleware": {
             "target": "Package",
             "version": "[2.0.0, )"
+          },
+          "QRCoder": {
+            "target": "Package",
+            "version": "[1.3.3, )"
           },
           "SimpleCrypto.NetCore": {
             "target": "Package",

@@ -1,4 +1,9 @@
-﻿<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: </h1>
+﻿<script src="@Url.Content("~/js/fullcalendar.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/fullcalendar.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/css/fullcalendar.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/css/fullcalendar.min.css")" rel="stylesheet" type="text/css" />
+
+<h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: <span id="ScheduleTitle"></span> </h1>
 
 <script type="text/javascript">
         $(document).ready(function () {
@@ -137,7 +142,7 @@
 
 
             RoomReservationsArray = new Array();
-            RoomReservationsArray = @Html.Raw(ViewData["RoomReservationsResults"]);
+            RoomReservationsArray = @Html.Raw(ViewData["results"]);
 
             console.log(RoomReservationsArray)
 
@@ -148,6 +153,8 @@
                     '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div id="' + RoomReservationsArray[i][0] + '" class="caption"> <div class="col-sm-3">' + RoomReservationsArray[i][2] + ' - ' + RoomReservationsArray[i][3] + '</div><div class="col-sm-3">' + RoomReservationsArray[i][3] + '</div></div></div>'
                 );
             }
+
+            $('#ScheduleTitle').text(RoomReservationsArray[0][5]);
 
 
         });
@@ -160,7 +167,10 @@
 <div id="calendar" class="opacityWhitebg"></div>
 <br />
 
-
+@if (ViewBag.QRCodeImage != null)
+{
+    <img src="@ViewBag.QRCodeImage" alt="" style="height:150px;width:150px" />
+}
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">

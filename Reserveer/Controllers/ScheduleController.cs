@@ -8,39 +8,60 @@ using Microsoft.AspNetCore.Mvc;
 using Reserveer.Models;
 using Newtonsoft.Json;
 using System.Net.Mail;
+using QRCoder;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace Reserveer.Controllers
 {
     [Authorize(Roles = "admin,user")]
-  public class ScheduleController : Controller
-  {
+    public class ScheduleController : Controller
+    {
         //Get reservations
         [HttpGet]
         public ActionResult Index()
         {
+
+            try
             {
-                try
+                int userid = HomeController.UserId;
+                string room = Request.Query["roomid"];
+
+                //QRCode Code nog commenten
+                var request = HttpContext.Request;
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    int userid = HomeController.UserId;
-                    string room = Request.Query["roomid"];
-                    Database db = new Database();
-                    List<string[]> results = db.getReservations(room);
-                    var json = JsonConvert.SerializeObject(results);
-                    ViewData["results"] = json;
+                    QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
-                    List<string[]> RoomReservations = db.getReservations(room);
-                    var RoomReservationsjson = JsonConvert.SerializeObject(RoomReservations);
-                    ViewData["RoomReservationsResults"] = RoomReservationsjson;
+                    QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://145.24.222.130" + request.Path + "?RoomId=" + room, QRCodeGenerator.ECCLevel.Q);
+                    QRCode qrCode = new QRCode(qrCodeData);
 
-                    return View();
+
+                    using (Bitmap qrCodeImage = qrCode.GetGraphic(20))
+                    {
+                        qrCodeImage.Save(ms, ImageFormat.Png);
+                        ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+                    }
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Index Schedule Exception: {0}", e);
-                    return RedirectToAction("Error", "Home");
-                    throw;
-                }}
-            
+
+                Database db = new Database();
+                List<string[]> results = db.getReservations(room);
+                var json = JsonConvert.SerializeObject(results);
+                ViewData["results"] = json; 
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Index Schedule Exception: {0}", e);
+                return RedirectToAction("Error", "Home");
+                throw;
+            }
+
+
+
+
         }
 
         //Reservations post
@@ -84,9 +105,10 @@ namespace Reserveer.Controllers
                     Debug.WriteLine("SetReservation Exception: {0}", e);
                     return RedirectToAction("Error", "Home");
                     throw;
-                }}
-            
-        } 
+                }
+            }
+
+        }
 
     }
 }
