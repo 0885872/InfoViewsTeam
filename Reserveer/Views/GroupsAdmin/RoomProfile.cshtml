@@ -5,7 +5,6 @@
 
 
 
-
         RoomProfileInfoArray = new Array();
       RoomProfileInfoArray = @Html.Raw(ViewData["results"]);
       RoomReservationsArray = new Array();
@@ -16,7 +15,9 @@
         AvailableRoomSensorArray = @Html.Raw(ViewData["results4"]);
 
         LatestTempArray = new Array();
-        LatestTempArray = @Html.Raw(ViewData["temp"]);
+      LatestTempArray = @Html.Raw(ViewData["temp"]);
+
+      // Checks if theres a LatestTemp present and shows the Latesttemp
         if (LatestTempArray.length >= 1) {
             $("#LTemp").append(
 
@@ -24,6 +25,7 @@
             );
         }
 
+      // Checks if there is currently a sensor connected to the current room
         if (CurrentRoomSensorArray.length >= 1) {
 
             $.each(CurrentRoomSensorArray, function (key, value) {
@@ -42,7 +44,7 @@
         }
         
         
-
+      // Checks if there is 1 or more unassigned Room Sensors available
         if (AvailableRoomSensorArray.length >= 1) {
 
 
@@ -66,15 +68,6 @@
         $('#RoomIDISensor').val(RoomProfileInfoArray[0][6]);
         $('#NHidden').val(RoomProfileInfoArray[0][6]);
         $('#title').text(RoomProfileInfoArray[0][0]);
-
-
-      //function convertDate(dateString) {
-      //  var date = new Date(dateString);
-      //  var mm = date.getMonth() + 1; //January is 0!
-      //  return date.getDate() + "/" +  mm + "/" + date.getFullYear();
-      //}
-
-
 
       var arrayLength = RoomReservationsArray.length;
         for (var i = 0; i < arrayLength; i++) {
