@@ -4,7 +4,7 @@
 <link href="@Url.Content("~/css/fullcalendar.min.css")" rel="stylesheet" type="text/css" />
 
 <h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: <span id="ScheduleTitle"></span> </h1>
-<a class="btn btn-lg btn-danger ReturnButton" href="javascript:history.go(-1)" role="button">Return</a>
+<a class="btn btn-lg btn-danger ReturnButton" href="javascript:history.go(-1)" role="button" onclick="this.form.submit(); this.disabled = true;">Return</a>
 
 <script type="text/javascript">
         $(document).ready(function () { //On load of page
@@ -50,7 +50,7 @@
                 minTime: "08:00:00", // show Day begin time
                 maxTime: "18:00:00", // show day end time
                 displayEventTime: false, //Dont show time in event blobs
-                disableResizing: false, 
+                disableResizing: false,
                 height: 'auto', //Height of the calendar
                 eventStartEditable: false, //Editability of existing events (start time)
                 timeFormat: 'H(:mm)', //format of time showed
@@ -94,7 +94,7 @@
                             var title = "You have successfully booked this timeslot!"; //message to show in event box
                             var eventData;
                             if (title) {
-                                eventData = { 
+                                eventData = {
                                     title: title,
                                     start: start,
                                     end: end
@@ -118,7 +118,7 @@
                                     dataType: "json",
                                     contentType: "application/json; charset=utf-8",
                                     data: JSON.stringify(reservation),
-                                    success: function (data) { //if successfully 
+                                    success: function (data) { //if successfully
                                         alert(data);
                                     },
                                     failure: function (errMsg) {
@@ -137,7 +137,7 @@
 
                 },
                 editable: true, //make calendar editable
-                eventLimit: true, 
+                eventLimit: true,
                 events: events, //event feed
             });
 
