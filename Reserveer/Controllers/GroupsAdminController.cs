@@ -15,151 +15,147 @@ namespace Reserveer.Controllers
     public class GroupsAdminController : Controller
     {
 
-    // 
-    // GET: /Groups/
-    public IActionResult Index(int numTimes = 1)
-    {
-            {
-                try
-                {
-                    Database db = new Database();
-                    // Creates list of string array for the result of getGroupAdmin returned by database
-                    List<string[]> results = db.getGroupAdmin();
-                    // Converts this list to a json results string
-                    var json = JsonConvert.SerializeObject(results);
-                    // Hands over json data to the view
-                    ViewData["results"] = json;
-                    ViewData["NumTimes"] = numTimes;
-                    return View();
-                }
-                    // If an exception gets caught and an error occurs
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Index Groupsadmin Exception: {0}", e);
-                    // Redirects the user to the error page
-                    return RedirectToAction("Error", "Home");
-                    throw;
-                }}
-    }
-
-    // 
-    // GET: /Groups/Welcome/  
-    public IActionResult AddRoom()
-    {
-        return View();
-    }
-
-    public IActionResult Profile()
-    {
-            {
-                try
-                {
-                    Database db = new Database();
-                    // Creates list of string array for the results returned by database.cs
-                    List<string[]> results = db.getGroupAdmin();
-                    List<string[]> results2 = db.getGroupRooms();
-                    List<string[]> results3 = db.getGroupUser();
-                    List<string[]> results4 = db.getGroupRoomReservation();
-                    // Converts these string array to json results string
-                    var json = JsonConvert.SerializeObject(results);
-                    var json2 = JsonConvert.SerializeObject(results2);
-                    var json3 = JsonConvert.SerializeObject(results3);
-                    var json4 = JsonConvert.SerializeObject(results4);
-                    // Hands over json data to the views
-                    ViewData["results"] = json;
-                    ViewData["results2"] = json2;
-                    ViewData["results3"] = json3;
-                    ViewData["results4"] = json4;
-                    return View();
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Profile Exception: {0}", e);
-                    // Redirects to error page
-                    return RedirectToAction("Error", "Home");
-                    throw;
-                }}
-        
-    }
-    //get Roomprofile
-    public IActionResult RoomProfile()
-    {
-            {
-                try
-                {
-                    string roomid = Request.Query["roomid"];
-                    Database db = new Database();
-                    // Creates list of string array for the results returned by database.cs
-                    List<string[]> results = db.getRoomProfileInfo(roomid);
-                    List<string[]> results2 = db.getRoomReservation();
-                    List<string[]> results3 = db.getCurrentRoomSensors(roomid);
-                    // If there is a sensor connected to the current room
-                    if (results3.Count == 1)
-                    {
-                        string[] temperatureData = db.getLatestTemperature(roomid);
-                        var jsonTemp = JsonConvert.SerializeObject(temperatureData);
-                        ViewData["temp"] = jsonTemp;
-                    }
-                    // If there is not a sensor connected to the current room
-                    else
-                    {
-                        ViewData["temp"] = "[]";
-                    }
-                    // Creates list of string array for the result of getAvailableRoomSensors for the current room returned by database
-                    List<string[]> results4 = db.getAvaibleRoomSensors(roomid);
-                    // Converts all string array to json results string
-                    var json4 = JsonConvert.SerializeObject(results4);
-                    var json3 = JsonConvert.SerializeObject(results3);
-                    var json2 = JsonConvert.SerializeObject(results2);
-                    var json = JsonConvert.SerializeObject(results);
-                    // Hands over json data to the views
-                    ViewData["results"] = json;
-                    ViewData["results2"] = json2;
-                    ViewData["results3"] = json3;
-                    ViewData["results4"] = json4;
-                    return View();
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Roomprofile Exception: {0}", e);
-                    // Redirect to error page
-                    return RedirectToAction("Error", "Home");
-                    throw;
-                }}
-        
-    }
-
-    [ValidateAntiForgeryToken]
-    public IActionResult UpdateRoom(RoomInfo info, GroupInfo test) // Updates room info
+        // 
+        // GET: /Groups/
+        public IActionResult Index()
         {
+            try
             {
-                try
+                Database db = new Database();
+                // Creates list of string array for the result of getGroupAdmin returned by database
+                List<string[]> results = db.getGroupAdmin();
+                // Converts this list to a json results string
+                var json = JsonConvert.SerializeObject(results);
+                // Hands over json data to the view
+                ViewData["results"] = json;
+                return View();
+            }
+            // If an exception gets caught and an error occurs
+            catch (Exception e)
+            {
+                Debug.WriteLine("Index Groupsadmin Exception: {0}", e);
+                // Redirects the user to the error page
+                return RedirectToAction("Error", "Home");
+                throw;
+            }
+        }
+
+        // 
+        // GET: /Groups/Welcome/  
+        public IActionResult AddRoom()
+        {
+            return View();
+        }
+
+        public IActionResult Profile()
+        {
+            try
+            {
+                Database db = new Database();
+                // Creates list of string array for the results returned by database.cs
+                List<string[]> results = db.getGroupAdmin();
+                List<string[]> results2 = db.getGroupRooms();
+                List<string[]> results3 = db.getGroupUser();
+                List<string[]> results4 = db.getGroupRoomReservation();
+                // Converts these string array to json results string
+                var json = JsonConvert.SerializeObject(results);
+                var json2 = JsonConvert.SerializeObject(results2);
+                var json3 = JsonConvert.SerializeObject(results3);
+                var json4 = JsonConvert.SerializeObject(results4);
+                // Hands over json data to the views
+                ViewData["results"] = json;
+                ViewData["results2"] = json2;
+                ViewData["results3"] = json3;
+                ViewData["results4"] = json4;
+                return View();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Profile Exception: {0}", e);
+                // Redirects to error page
+                return RedirectToAction("Error", "Home");
+                throw;
+            }
+        }
+        //get Roomprofile
+        public IActionResult RoomProfile()
+        {
+            try
+            {
+                string roomid = Request.Query["roomid"];
+                Database db = new Database();
+                // Creates list of string array for the results returned by database.cs
+                List<string[]> results = db.getRoomProfileInfo(roomid);
+                List<string[]> results2 = db.getRoomReservation();
+                List<string[]> results3 = db.getCurrentRoomSensors(roomid);
+                // If there is a sensor connected to the current room
+                if (results3.Count == 1)
                 {
-                    using (MySqlConnection conn = new MySqlConnection())
-                    {
-                        // The connectionstring with the connection info to login to the server
-                        conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
-                        conn.Open();
-                        // Create sql string to Update the room with the filled in information
-                        String sql =
-                            "UPDATE rooms SET rooms.room_name = '" + info.RoomName + "', rooms.room_number = " + info.RoomNumber + ",  rooms.room_floor = " + info.RoomFloor + ", rooms.room_facilities = '" + info.RoomFacility + "', rooms.room_comment = '" + info.RoomComment + "' WHERE rooms.room_id = " + info.RoomID + "; ";
-                        MySqlCommand command = new MySqlCommand(sql, conn);
-                        command.ExecuteNonQuery();
-                        // Close the connection after executing the query
-                        conn.Close();
-                        // Redirect to the GroupsAdmin/Profile page, with the GroupID of the current user
-                        return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
-                    }
+                    string[] temperatureData = db.getLatestTemperature(roomid);
+                    var jsonTemp = JsonConvert.SerializeObject(temperatureData);
+                    ViewData["temp"] = jsonTemp;
                 }
-                catch (Exception e) // Caches any exceptions that would cause an error
+                // If there is not a sensor connected to the current room
+                else
                 {
-                    Debug.WriteLine("UpdateRoom Exception: {0}", e);
-                    // Redirects to error page
-                    return RedirectToAction("Error", "Home");
-                    throw;
-                }}
-        
-    }
+                    ViewData["temp"] = "[]";
+                }
+                // Creates list of string array for the result of getAvailableRoomSensors for the current room returned by database
+                List<string[]> results4 = db.getAvaibleRoomSensors(roomid);
+                // Converts all string array to json results string
+                var json4 = JsonConvert.SerializeObject(results4);
+                var json3 = JsonConvert.SerializeObject(results3);
+                var json2 = JsonConvert.SerializeObject(results2);
+                var json = JsonConvert.SerializeObject(results);
+                // Hands over json data to the views
+                ViewData["results"] = json;
+                ViewData["results2"] = json2;
+                ViewData["results3"] = json3;
+                ViewData["results4"] = json4;
+                return View();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Roomprofile Exception: {0}", e);
+                // Redirect to error page
+                return RedirectToAction("Error", "Home");
+                throw;
+            }
+
+
+        }
+
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateRoom(RoomInfo info, GroupInfo test) // Updates room info
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection())
+                {
+                    // The connectionstring with the connection info to login to the server
+                    conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+                    conn.Open();
+                    // Create sql string to Update the room with the filled in information
+                    String sql =
+                        "UPDATE rooms SET rooms.room_name = '" + info.RoomName + "', rooms.room_number = " + info.RoomNumber + ",  rooms.room_floor = " + info.RoomFloor + ", rooms.room_facilities = '" + info.RoomFacility + "', rooms.room_comment = '" + info.RoomComment + "' WHERE rooms.room_id = " + info.RoomID + "; ";
+                    MySqlCommand command = new MySqlCommand(sql, conn);
+                    command.ExecuteNonQuery();
+                    // Close the connection after executing the query
+                    conn.Close();
+                    // Redirect to the GroupsAdmin/Profile page, with the GroupID of the current user
+                    return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
+                }
+            }
+            catch (Exception e) // Caches any exceptions that would cause an error
+            {
+                Debug.WriteLine("UpdateRoom Exception: {0}", e);
+                // Redirects to error page
+                return RedirectToAction("Error", "Home");
+                throw;
+            }
+
+
+        }
 
         [ValidateAntiForgeryToken]
         public IActionResult UpdateRoomSensor(RoomInfo info, GroupInfo test) // Updates the sensor assigned to the room
@@ -169,9 +165,9 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
-                            // The connectionstring with the connection info to login to the server
-                            conn.ConnectionString =
-                            "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
+                        // The connectionstring with the connection info to login to the server
+                        conn.ConnectionString =
+                        "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
                         if (info.CurrentSensorID != "New")
                         {
@@ -224,11 +220,12 @@ namespace Reserveer.Controllers
                     // Redirects to error page
                     return RedirectToAction("Error", "Home");
                     throw;
-                }}
-    }
+                }
+            }
+        }
 
-    public IActionResult AddRoomInfo(RoomInfo info) // Adds a new room to group
-    {
+        public IActionResult AddRoomInfo(RoomInfo info) // Adds a new room to group
+        {
 
 
             {
@@ -253,15 +250,16 @@ namespace Reserveer.Controllers
                 {
                     Debug.WriteLine("AddRoomInfo Exception: {0}", e);
                     // Redirects to error page
-                    return RedirectToAction("Error","Home");
+                    return RedirectToAction("Error", "Home");
                     throw;
-                }}
-        
-    }
+                }
+            }
 
-    [ValidateAntiForgeryToken]
-    public IActionResult UpdateGroupName(GroupInfo info) // Updates the group name
-    {
+        }
+
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateGroupName(GroupInfo info) // Updates the group name
+        {
             {
                 try
                 {
@@ -287,12 +285,13 @@ namespace Reserveer.Controllers
                     // Redirects to the error page
                     return RedirectToAction("Error", "Home");
                     throw;
-                }}
-        
-    }
+                }
+            }
 
-    public IActionResult DeactivateUser(string userId, string groupId) // Deactives the specified user
-    {
+        }
+
+        public IActionResult DeactivateUser(string userId, string groupId) // Deactives the specified user
+        {
             {
                 try
                 {
@@ -317,12 +316,13 @@ namespace Reserveer.Controllers
                     // Redirects to error page
                     return RedirectToAction("Error", "Home");
                     throw;
-                }}
-        
-    }
+                }
+            }
 
-    public IActionResult DeleteReservation(string reservationId, string groupId) // Deletes specified reservation
-    {
+        }
+
+        public IActionResult DeleteReservation(string reservationId, string groupId) // Deletes specified reservation
+        {
             {
                 try
                 {
@@ -348,9 +348,10 @@ namespace Reserveer.Controllers
                     // Redirects to error page
                     return RedirectToAction("Error", "Home");
                     throw;
-                }}
-        
-    }
+                }
+            }
+
+        }
 
 
     }
