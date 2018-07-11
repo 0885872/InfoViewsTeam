@@ -86,7 +86,7 @@ namespace Reserveer.Controllers
                 Database db = new Database();
                 // Creates list of string array for the results returned by database.cs
                 List<string[]> results = db.getRoomProfileInfo(roomid);
-                List<string[]> results2 = db.getRoomReservation();
+                List<string[]> results2 = db.getRoomReservation(roomid);
                 List<string[]> results3 = db.getCurrentRoomSensors(roomid);
                 // If there is a sensor connected to the current room
                 if (results3.Count == 1)

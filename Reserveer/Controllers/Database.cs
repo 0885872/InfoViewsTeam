@@ -901,7 +901,7 @@ namespace Reserveer.Controllers
 
 
 
-        public List<string[]> getRoomReservation() // Gets all info corresponding to reservationID's
+        public List<string[]> getRoomReservation(string roomid) // Gets all info corresponding to reservationID's
         {
 
             try
@@ -911,7 +911,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlCommand cmdd = connMysql.CreateCommand()) //Setup 
                     {
-                        int room_id = 1;
+                        string room_id = roomid;
                         cmdd.CommandText = "SELECT user.user_name, reservations.reservation_id, reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.group_id FROM `user_has_reservations`, user, reservations, rooms WHERE reservations.valid = 1 AND user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND rooms.room_id = reservations.room_id AND reservations.room_id = '" + room_id + "';"; //Sql query to execute
                         cmdd.CommandType = System.Data.CommandType.Text;
                         cmdd.Connection = connMysql;
@@ -940,7 +940,7 @@ namespace Reserveer.Controllers
             }
             catch (Exception e) //Exception catcher
             {
-                Debug.WriteLine("getRoomReservation Exception: {0}", e);
+                Debug.WriteLine("getRoomReservation Database Exception: {0}", e);
                 throw;
             }
 
@@ -953,12 +953,31 @@ namespace Reserveer.Controllers
             try
             {
                 List<string[]> GroupRoomReservation = new List<string[]>(); //List of string []'s to store database results
-                using (MySqlConnection connMysql = new MySqlConnection(connString))//Connection setup
+                using (MySqlConnection connMysql = new MySqlConnection(connString)) //Setup connection
                 {
+                    string[] group_id = new string[1]; //String [] to store db result of group id
                     using (MySqlCommand cmdd = connMysql.CreateCommand())
                     {
-                        int group_id = 1;
-                        cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name,  reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name, rooms.group_id FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id =" + group_id + " AND reservations.valid = 1;"; //Sql query to execute
+                        int userID = HomeController.UserId;
+                        cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';"; //Sql query to be executed ; get group_d corresponding to user_id
+                        cmdd.CommandType = System.Data.CommandType.Text;
+                        cmdd.Connection = connMysql;
+
+                        connMysql.Open(); //Open connection
+
+                        using (MySqlDataReader reader = cmdd.ExecuteReader()) //Execute the sql query and store result in string []
+                        {
+                            while (reader.Read())
+                            {
+                                string[] res = new string[1];
+                                group_id[0] = reader["group_id"].ToString();
+                            }
+                        }
+                        connMysql.Close(); //Close connection
+                    }
+                    using (MySqlCommand cmdd = connMysql.CreateCommand())
+                    {
+                        cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name,  reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name, rooms.group_id FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id =" + group_id[0] + " AND reservations.valid = 1;"; //Sql query to execute
                         cmdd.CommandType = System.Data.CommandType.Text;
                         cmdd.Connection = connMysql;
 
@@ -988,7 +1007,7 @@ namespace Reserveer.Controllers
             }
             catch (Exception e) //Exception catcher
             {
-                Debug.WriteLine("getGroupRoomReservation Exception: {0}", e);
+                Debug.WriteLine("getGroupRoomReservation Database Exception: {0}", e);
                 throw;
             }
 
