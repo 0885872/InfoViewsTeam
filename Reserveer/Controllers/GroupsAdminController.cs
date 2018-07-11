@@ -86,7 +86,7 @@ namespace Reserveer.Controllers
                 Database db = new Database();
                 // Creates list of string array for the results returned by database.cs
                 List<string[]> results = db.getRoomProfileInfo(roomid);
-                List<string[]> results2 = db.getRoomReservation();
+                List<string[]> results2 = db.getRoomReservation(roomid);
                 List<string[]> results3 = db.getCurrentRoomSensors(roomid);
                 // If there is a sensor connected to the current room
                 if (results3.Count == 1)
@@ -124,7 +124,7 @@ namespace Reserveer.Controllers
 
 
         }
-
+        //this function updates the room with the newly send info from roomprofile form
         [ValidateAntiForgeryToken]
         public IActionResult UpdateRoom(RoomInfo info, GroupInfo grp) // Updates room info
         {
@@ -157,6 +157,7 @@ namespace Reserveer.Controllers
             }
         }
 
+        //this function assingns or updates the rooms sensor
         [ValidateAntiForgeryToken]
         public IActionResult UpdateRoomSensor(RoomInfo info, GroupInfo test) // Updates the sensor assigned to the room
         {
@@ -169,7 +170,26 @@ namespace Reserveer.Controllers
                         conn.ConnectionString =
                         "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
-                        if (info.CurrentSensorID != "New")
+                        if (info.SensorID == "Default" && info.CurrentSensorID == "New" || info.SensorID == info.CurrentSensorID)
+                        {
+                            
+                        }
+                        else if (info.SensorID == "Default" && info.CurrentSensorID != "New")
+                        {
+                            conn.Open();
+                            String sql = "DELETE FROM `rooms_has_sensors` WHERE `rooms_has_sensors`.`sensor_id` = " +
+                                         info.CurrentSensorID + "";
+                            MySqlCommand command = new MySqlCommand(sql, conn);
+                            command.ExecuteNonQuery();
+                            conn.Close();
+                            conn.Open();
+                            String sql2 = "UPDATE sensors SET assigned = 0 WHERE sensor_id = " + info.CurrentSensorID +
+                                          " ";
+                            MySqlCommand command2 = new MySqlCommand(sql2, conn);
+                            command2.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                        else if (info.SensorID != "Default" && info.CurrentSensorID != "New")
                         {
                             conn.Open();
                             String sql = "DELETE FROM `rooms_has_sensors` WHERE `rooms_has_sensors`.`sensor_id` = " +
@@ -194,8 +214,8 @@ namespace Reserveer.Controllers
                             MySqlCommand command4 = new MySqlCommand(sql4, conn);
                             command4.ExecuteNonQuery();
                             conn.Close();
-                        }
-                        else
+                        } 
+                        else if(info.SensorID != "Default" && info.CurrentSensorID == "New")
                         {
                             conn.Open();
                             String sql = "UPDATE sensors SET assigned = 1 WHERE sensor_id = " + info.SensorID + " ";
@@ -216,7 +236,7 @@ namespace Reserveer.Controllers
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("UpdateRoomSensor Exception: {0}", e);
+                    Debug.WriteLine("UpdateRoomSensor Exception: |UpdateRoomSensor| {0}", e);
                     // Redirects to error page
                     return RedirectToAction("Error", "Home");
                     throw;
@@ -247,7 +267,7 @@ namespace Reserveer.Controllers
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("AddRoomInfo Exception: {0}", e);
+                    Debug.WriteLine("AddRoomInfo Exception: |AddRoomInfo| {0}", e);
                     // Redirects to error page
                     return RedirectToAction("Error", "Home");
                     throw;
@@ -280,7 +300,7 @@ namespace Reserveer.Controllers
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("UpdateGroupName Exception: {0}", e);
+                    Debug.WriteLine("UpdateGroupName Exception: |UpdateGroupName| {0}", e);
                     // Redirects to the error page
                     return RedirectToAction("Error", "Home");
                     throw;

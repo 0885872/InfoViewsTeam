@@ -68,138 +68,141 @@
 
 </script>
 @{
-  ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Profile";
 }
 
 <!-- This View display all the information of the 'GroupsAdmin/Profile page'-->
 <h1 class="text-center">Profile <span id="title"></span></h1>
+<a class="btn btn-lg btn-danger ReturnButton" href="javascript:history.go(-1)" role="button" onclick="this.form.submit(); this.disabled = true;">Return</a>
 
 <div class="panel-group" id="Group" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default opacityWhitebg">
-    <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#Group" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Group Info
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in " style="padding:40px;" role="tabpanel" aria-labelledby="headingOne">
-
-      <div class="row">
-
-        <div class="col-sm-6">
-          <div class="row">
-            <div>
-              <img class="card-img-top" src="https://dummyimage.com/300x200/000/17a2b8 " alt="Card image cap"
-                   style="height: 200px;  display: block; border: 2px #27A2A7 solid; padding: 2px;">
-            </div>
-          </div>
-
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Group" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Group Info
+                </a>
+            </h4>
         </div>
-        <!-- Button to change the groupname-->
-        <div class="col-sm-6">
-          <form asp-action="UpdateGroupName">
-            <div class="input-group ">
-              <span class="input-group-addon" id="basic-addon1">Group Name</span>
-              <input type="hidden" id="groupId" asp-for="GroupID" hidden class="form-control" />
-              <input id="groupI" asp-for="GroupName" placeholder="GroupName" maxlength="30" class="form-control" required>
-              <span asp-validation-for="GroupName" class="text-danger"></span>
+        <div id="collapseOne" class="panel-collapse collapse in " style="padding:40px;" role="tabpanel" aria-labelledby="headingOne">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div>
+                            <img class="card-img-top" src="https://dummyimage.com/300x200/000/17a2b8 " alt="Card image cap"
+                                 style="height: 200px;  display: block; border: 2px #27A2A7 solid; padding: 2px;">
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Button to change the groupname-->
+                <div class="col-sm-6">
+                    <form asp-action="UpdateGroupName">
+                        <div class="input-group ">
+                            <span class="input-group-addon" id="basic-addon1">Group Name</span>
+                            <input type="hidden" id="groupId" asp-for="GroupID" hidden class="form-control" />
+                            <input id="groupI" asp-for="GroupName" placeholder="GroupName" maxlength="30" class="form-control" required>
+                            <span asp-validation-for="GroupName" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;">Save</button>
+                        <br />
+                        <div id="domainI" class="col-sm-4 thumbnail">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <button type="submit" class="btn btn-lg btn-primary btn-block  center-block" style="margin-top:10px;">Save</button>
-            <br />
-            <div id="domainI" class="col-sm-4 thumbnail">
-            </div>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 
 
 <div class="panel-group" id="Rooms" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default opacityWhitebg">
-    <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#Rooms" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
-          Rooms
-        </a>
-      </h4>
-    </div>
-    <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
-      <div class="row">
-        <ul id="roomsI"></ul>
-      </div>
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading3">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Rooms" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                    Rooms
+                </a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
+            <div class="row">
 
-      <hr />
-      <a class="btn btn-lg btn-danger btn-block  center-block" href="Addroom" role="button">Add Room</a>
+                <a class="btn btn-lg btn-danger btn-block  center-block" href="Addroom" role="button">Add Room</a>
+                <hr />
+                <ul id="roomsI"></ul>
+            </div>
+
+
+        </div>
     </div>
-  </div>
 </div>
 
 
 <div class="panel-group" id="Users" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default opacityWhitebg">
-    <div class="panel-heading themeBGColor cwhite" role="tab" id="heading4">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#Users" href="#userI" aria-expanded="true" aria-controls="userI">
-          Users
-        </a>
-      </h4>
-    </div>
-    <div id="userI" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading4">
-
-      <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-
-        <div class="caption">
-          <div class="col-sm-3">
-            USERNAME
-          </div>
-          <div class="col-sm-3">
-            USER EMAIL
-          </div>
-          <div class="col-sm-3">
-            USER ACTIVE
-          </div>
-          <div class="col-sm-3">
-          </div>
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading4">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Users" href="#userI" aria-expanded="true" aria-controls="userI">
+                    Users
+                </a>
+            </h4>
         </div>
-      </div>
+        <div id="userI" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading4">
+
+            <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+
+                <div class="caption">
+                    <div class="col-sm-3">
+                        USERNAME
+                    </div>
+                    <div class="col-sm-3">
+                        USER EMAIL
+                    </div>
+                    <div class="col-sm-3">
+                        USER ACTIVE
+                    </div>
+                    <div class="col-sm-3">
+                    </div>
+                </div>
+            </div>
 
 
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="panel-group" id="Reservations" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default opacityWhitebg">
-    <div class="panel-heading themeBGColor cwhite" role="tab" id="heading5">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#reservationI" aria-expanded="true" aria-controls="reservationI">
-          Reservations
-        </a>
-      </h4>
-    </div>
-    <div id="reservationI" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading5">
-
-      <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-        <div class="caption">
-          <div class="col-sm-3">
-            USERNAME
-          </div>
-          <div class="col-sm-3">
-            Reservation Time
-          </div>
-          <div class="col-sm-3">
-            Reservation Date
-          </div>
-          <div class="col-sm-3">
-            Room Number
-          </div>
+    <div class="panel panel-default opacityWhitebg">
+        <div class="panel-heading themeBGColor cwhite" role="tab" id="heading5">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#Reservations" href="#reservationI" aria-expanded="true" aria-controls="reservationI">
+                    Reservations
+                </a>
+            </h4>
         </div>
-      </div>
+        <div id="reservationI" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading5">
 
+            <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                <div class="caption">
+                    <div class="col-sm-3">
+                        USERNAME
+                    </div>
+                    <div class="col-sm-3">
+                        Reservation Time
+                    </div>
+                    <div class="col-sm-3">
+                        Reservation Date
+                    </div>
+                    <div class="col-sm-3">
+                        Room Number
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>

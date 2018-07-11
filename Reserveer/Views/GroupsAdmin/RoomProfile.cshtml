@@ -1,23 +1,26 @@
-﻿@model Reserveer.Models.RoomInfo;
+﻿@*Assign model to page for sending data and verifying data*@
+@model Reserveer.Models.RoomInfo;
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function () { 
 
-
-      // Creates new arrays to store page data in that gets pulled from the controllers
+        //Assign the Json values that you get from the groupsadmin controller to a new array
         RoomProfileInfoArray = new Array();
-      RoomProfileInfoArray = @Html.Raw(ViewData["results"]);
-      RoomReservationsArray = new Array();
+        RoomProfileInfoArray = @Html.Raw(ViewData["results"]);
+
+        RoomReservationsArray = new Array();
         RoomReservationsArray = @Html.Raw(ViewData["results2"]);
+
         CurrentRoomSensorArray = new Array();
         CurrentRoomSensorArray = @Html.Raw(ViewData["results3"]);
+
         AvailableRoomSensorArray = new Array();
         AvailableRoomSensorArray = @Html.Raw(ViewData["results4"]);
 
         LatestTempArray = new Array();
-      LatestTempArray = @Html.Raw(ViewData["temp"]);
+        LatestTempArray = @Html.Raw(ViewData["temp"]);
 
-      // Checks if theres a LatestTemp present and shows the Latesttemp
+        //Checks if theres a LatestTemp present and shows the Latesttemp by appending it to a div with the id LTemp
         if (LatestTempArray.length >= 1) {
             $("#LTemp").append(
 
@@ -25,9 +28,8 @@
             );
         }
 
-      // Checks if there is currently a sensor connected to the current room
+        //Checks if there is currently a sensor connected to the current room and add it to dropdownbox and show in text what sensor is assigned
         if (CurrentRoomSensorArray.length >= 1) {
-
             $.each(CurrentRoomSensorArray, function (key, value) {
 
                 $('#sel1')
@@ -42,12 +44,10 @@
             $('#CurrentSensorID').val("New");
             $('#assignedIV').text("not assigned");
         }
-        
-        
-      // Checks if there is 1 or more unassigned Room Sensors available
-        if (AvailableRoomSensorArray.length >= 1) {
 
 
+        //Checks if there is 1 or more unassigned Room Sensors available and add all avaible sensors to the dropdownbox
+        if (AvailableRoomSensorArray.length >= 1) { 
             $.each(AvailableRoomSensorArray, function (key, value) {
 
                 $('#sel1')
@@ -56,34 +56,40 @@
                         .text("SensorID: " + value[0] + " | MAC: " + value[1]));
             });
         }
-
-        console.log(CurrentRoomSensorArray);
-
-      $('#RoomNameI').val(RoomProfileInfoArray[0][0]);
-      $('#RoomNumberI').val(RoomProfileInfoArray[0][3]);
-      $('#RoomFloorI').val(RoomProfileInfoArray[0][1]);
-      $('#RoomFacilityI').val(RoomProfileInfoArray[0][4]);
+        
+        //Add room information to the right inputbox
+        $('#RoomNameI').val(RoomProfileInfoArray[0][0]);
+        $('#RoomNumberI').val(RoomProfileInfoArray[0][3]);
+        $('#RoomFloorI').val(RoomProfileInfoArray[0][1]);
+        $('#RoomFacilityI').val(RoomProfileInfoArray[0][4]);
         $('#RoomCommentI').val(RoomProfileInfoArray[0][5]);
         $('#RoomIDI').val(RoomProfileInfoArray[0][6]);
         $('#RoomIDISensor').val(RoomProfileInfoArray[0][6]);
         $('#NHidden').val(RoomProfileInfoArray[0][6]);
         $('#title').text(RoomProfileInfoArray[0][0]);
 
-      var arrayLength = RoomReservationsArray.length;
+
+        //Append a button so you will get redirected to room Schedule
+        $("#collapse3").append(
+            '<a href="https://localhost:44366/schedule?RoomId=' + RoomProfileInfoArray[0][6] + '" class="btn btn-lg btn-primary  center-block" role="button">Schedule</a>'
+        )
+
+        //Append all the roomreservations to the page
+        var arrayLength = RoomReservationsArray.length;
         for (var i = 0; i < arrayLength; i++) {
-            $("#collapse3").append( 
+            $("#collapse3").append(
 
                 '<div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;"><div id="' + RoomReservationsArray[i][5] + '" class="caption"><div class="col-sm-3">' + RoomReservationsArray[i][0] + '</div> <div class="col-sm-3">' + RoomReservationsArray[i][1] + ' - ' + RoomReservationsArray[i][2] + '</div><div class="col-sm-3">' + RoomReservationsArray[i][3] + '</div><div class="col-sm-2"><a href="DeleteReservation?reservationId=' + RoomReservationsArray[i][5] + '&groupId=' + RoomReservationsArray[i][6] +'" class=" btn btn-sm btn-danger btn-block  center-block">DELETE</a></div></div></div>'
             );
         }
 
-
+         
     });
 
-</script>
-@{ ViewData["Title"] = "Edit"; }
+</script> 
 
 <h1 class="text-center">Room : <span id="title"></span></h1>
+<a class="btn btn-lg btn-danger ReturnButton" href="javascript:history.go(-1)" role="button" onclick="this.form.submit(); this.disabled = true;">Return</a> 
 
 <div class="panel-group" id="Group" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default opacityWhitebg">
@@ -139,17 +145,10 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h3>Room availability</h3>
-                        <label class="radio-inline"><input type="radio" name="optradio" class="selected active" selected="selected">Active</label>
-                        <label class="radio-inline"><input type="radio" name="optradio">Inactive</label>
-
-
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Comment</span>
-                            <textarea id="RoomCommentI" asp-for="RoomComment" Facility class="form-control" rows="4"></textarea>
+                            <textarea id="RoomCommentI" asp-for="RoomComment" Facility class="form-control" rows="3"></textarea>
                             <span asp-validation-for="RoomComment" class="text-danger"></span>
                         </div>
 
@@ -158,7 +157,7 @@
                 </div>
 
                 <div class="row">
-                    <input type="submit" value="Update" class="btn btn-lg btn-primary pull-right" style="margin-top:10px;">
+                    <input type="submit" value="Update" class="btn btn-lg btn-primary center-block" style="margin-top:10px;">
 
                 </div>
             </form>
@@ -182,7 +181,7 @@
                     <div class="col-sm-6">
                         <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1">Room ID </span>
-                            <input id="NHidden" class="form-control" disabled/>
+                            <input id="NHidden" class="form-control" disabled />
                             <input id="RoomIDISensor" asp-for="RoomIDSensor" class="form-control" type="hidden" />
                             <input id="CurrentSensorID" asp-for="CurrentSensorID" class="form-control" type="hidden" />
                         </div>
@@ -191,7 +190,7 @@
                     <div class="col-sm-3">
                         <div class="input-group">
                             <select class="form-control" id="sel1" asp-for="SensorID">
-                                <option value="0">Available InfoViews</option>
+                                <option value="Default">Available InfoViews</option>
                             </select>
                         </div>
 
@@ -231,9 +230,7 @@
                 </a>
             </h4>
         </div>
-        <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3">
-
-            <button type="submit" class="btn btn-lg btn-primary  center-block" style="margin-top:10px;">Room Schedule</button>
+        <div id="collapse3" class="panel-collapse collapse out " style="padding:20px;" role="tabpanel" aria-labelledby="heading3"> 
             <br />
 
             <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">

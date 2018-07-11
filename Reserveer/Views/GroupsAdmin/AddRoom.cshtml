@@ -59,18 +59,11 @@
 
         </div>
         <br />
-        <div class="row">
-          <div class="col-sm-6">
-            <h3>Room avaibility</h3>
-            <label class="radio-inline"><input type="radio" name="optradio" class="selected active" selected="selected">Active</label>
-            <label class="radio-inline"><input type="radio" name="optradio">Inactive</label>
-
-
-          </div>
-          <div class="col-sm-6">
+        <div class="row"> 
+          <div class="col-sm-12">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1">Comment</span>
-              <textarea asp-for="RoomComment" Facility class="form-control" rows="4"></textarea>
+              <textarea asp-for="RoomComment" Facility class="form-control" rows="3"></textarea>
               <span asp-validation-for="RoomComment" class="text-danger"></span>
             </div>
 
@@ -108,12 +101,13 @@
         </div>
         <div class="col-sm-6">
           <div class="input-group">
-            <select class="form-control" id="sel1">
+            <select class="form-control" id="sel1" data-toggle="This is available" disabled>
               <option>Available InfoViews</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
             </select>
+            <small>This is available after creation of the room</small>
           </div>
 
         </div>
