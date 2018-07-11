@@ -30,6 +30,7 @@
 
         //Checks if there is currently a sensor connected to the current room and add it to dropdownbox and show in text what sensor is assigned
         if (CurrentRoomSensorArray.length >= 1) {
+            //if there is any already assigned raspberry assign it first in the dropdownbox
             $.each(CurrentRoomSensorArray, function (key, value) {
 
                 $('#sel1')
@@ -41,7 +42,11 @@
             $('#assignedIV').text("assigned sensorID: " + CurrentRoomSensorArray[0][0]);
             $('#CurrentSensorID').val(CurrentRoomSensorArray[0][0]);
         } else {
+            //this is used for updating a rooms sensor
+            //here i assign new to the id CurrentSensorID
+            //this means there isnt a sensor assigned already
             $('#CurrentSensorID').val("New");
+            //this is the text the user gets shown
             $('#assignedIV').text("not assigned");
         }
 
@@ -49,7 +54,7 @@
         //Checks if there is 1 or more unassigned Room Sensors available and add all avaible sensors to the dropdownbox
         if (AvailableRoomSensorArray.length >= 1) { 
             $.each(AvailableRoomSensorArray, function (key, value) {
-
+                //for each avaible sensor add it to the dropdownbox with these values
                 $('#sel1')
                     .append($("<option></option>")
                         .attr("value", value[0])
