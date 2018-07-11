@@ -5,7 +5,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-      // Creates new array to store some page data inside of
+      // Creates new array to store page data inside of
         GroupProfileArray = new Array();
       GroupProfileArray = @Html.Raw(ViewData["results"]);
         console.log(GroupProfileArray);
@@ -16,7 +16,7 @@
         $('#groupId').val(GroupProfileArray[0][0]);
         $('#domainI').append('<h4 id="' + GroupProfileArray[0][4] + '" class="card-title text-center themeColor">&#9993;' + GroupProfileArray[0][2]+'</h4> ');
 
-      // Create new array to store some page data inside of
+      // Create new array to store page data inside of
       GroupRoomsArray = new Array();
       GroupRoomsArray = @Html.Raw(ViewData["results2"]);
 
