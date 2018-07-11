@@ -85,7 +85,7 @@ namespace Reserveer.Controllers
             {
                 try
                 {
-                    string roomid = Request.Query["roomid"];
+                    string roomid = Request.Query["roomid"]; // takes the variable roomid out of the URL
                     Database db = new Database();
                     // Creates list of string array for the results returned by database.cs
                     List<string[]> results = db.getRoomProfileInfo(roomid);
@@ -121,8 +121,7 @@ namespace Reserveer.Controllers
                     Debug.WriteLine("Roomprofile Exception: {0}", e);
                     return RedirectToAction("Error", "Home");   // Redirect to error page
                 throw;
-                }}
-        
+                }}       
     }
 
     [ValidateAntiForgeryToken]
