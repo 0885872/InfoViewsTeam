@@ -23,15 +23,20 @@ namespace Reserveer.Controllers
                 try
                 {
                     Database db = new Database();
+                    // Creates list of string array for the result of getGroupAdmin returned by database
                     List<string[]> results = db.getGroupAdmin();
+                    // Converts this list to a json results string
                     var json = JsonConvert.SerializeObject(results);
+                    // Hands over json data to the view
                     ViewData["results"] = json;
                     ViewData["NumTimes"] = numTimes;
                     return View();
                 }
+                    // If an exception gets caught and an error occurs
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index Groupsadmin Exception: {0}", e);
+                    // Redirects the user to the error page
                     return RedirectToAction("Error", "Home");
                     throw;
                 }}
@@ -50,17 +55,17 @@ namespace Reserveer.Controllers
                 try
                 {
                     Database db = new Database();
-                    // Creates string lists for all the information that gets taken from the database files
+                    // Creates list of string array for the results returned by database.cs
                     List<string[]> results = db.getGroupAdmin();
                     List<string[]> results2 = db.getGroupRooms();
                     List<string[]> results3 = db.getGroupUser();
                     List<string[]> results4 = db.getGroupRoomReservation();
-                    // Converts these string list to json results
+                    // Converts these string array to json results string
                     var json = JsonConvert.SerializeObject(results);
                     var json2 = JsonConvert.SerializeObject(results2);
                     var json3 = JsonConvert.SerializeObject(results3);
                     var json4 = JsonConvert.SerializeObject(results4);
-                    // Views all the data taken from the jsons
+                    // Hands over json data to the views
                     ViewData["results"] = json;
                     ViewData["results2"] = json2;
                     ViewData["results3"] = json3;
@@ -84,24 +89,30 @@ namespace Reserveer.Controllers
                 {
                     string roomid = Request.Query["roomid"];
                     Database db = new Database();
+                    // Creates list of string array for the results returned by database.cs
                     List<string[]> results = db.getRoomProfileInfo(roomid);
                     List<string[]> results2 = db.getRoomReservation();
                     List<string[]> results3 = db.getCurrentRoomSensors(roomid);
+                    // If there is a sensor connected to the current room
                     if (results3.Count == 1)
                     {
                         string[] temperatureData = db.getLatestTemperature(roomid);
                         var jsonTemp = JsonConvert.SerializeObject(temperatureData);
                         ViewData["temp"] = jsonTemp;
                     }
+                    // If there is not a sensor connected to the current room
                     else
                     {
                         ViewData["temp"] = "[]";
                     }
+                    // Creates list of string array for the result of getAvailableRoomSensors for the current room returned by database
                     List<string[]> results4 = db.getAvaibleRoomSensors(roomid);
+                    // Converts all string array to json results string
                     var json4 = JsonConvert.SerializeObject(results4);
                     var json3 = JsonConvert.SerializeObject(results3);
                     var json2 = JsonConvert.SerializeObject(results2);
                     var json = JsonConvert.SerializeObject(results);
+                    // Hands over json data to the views
                     ViewData["results"] = json;
                     ViewData["results2"] = json2;
                     ViewData["results3"] = json3;
