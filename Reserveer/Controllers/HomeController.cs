@@ -32,6 +32,7 @@ namespace Reserveer.Controllers
             _context = context;
         }
 
+        // Redirects to Error page
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -43,6 +44,7 @@ namespace Reserveer.Controllers
             {
                 try
                 {
+                    // Checks to see if user is authenticated as an user or admin
                     if (User.Identity.IsAuthenticated)
                     {
                         if (User.IsInRole("user"))
@@ -59,11 +61,10 @@ namespace Reserveer.Controllers
                         }
                     }
 
-                    //            string b = Request.QueryString("ReturnUrl");
-
                     string mail = Request.Query["mail"];
                     string token = Request.Query["number"];
 
+                    // Verifies the given usermail address and token
                     if (mail != null && token != null)
                     {
                         Database database = new Database();
@@ -72,6 +73,7 @@ namespace Reserveer.Controllers
                     }
                     return View();
                 }
+                // Catches an exception error and redirect to homepage
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index Exception login {0}", e);
@@ -94,6 +96,7 @@ namespace Reserveer.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Adds simplecrypto for encryption password
                 var crypto = new SimpleCrypto.PBKDF2();
                 var encrypass = crypto.Compute(user.Password);
 
@@ -153,9 +156,11 @@ namespace Reserveer.Controllers
                                     //Set verification key in database
                                     conn.Open();
                                     const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                                    // Verification key that is randomly generated
                                     string rrandom = new string(Enumerable.Repeat(chars, 15)
                                         .Select(s => s[random.Next(s.Length)]).ToArray());
 
+                                    // Saving randomly generated verification key in database
                                     string insertVerStr =
                                         "INSERT INTO registration_validation (user_id, registration_key) VALUES (" +
                                         res[0] + ", '" + rrandom + "');";
@@ -163,38 +168,41 @@ namespace Reserveer.Controllers
                                     verSqlstring.ExecuteNonQuery();
                                     conn.Close();
 
+                                    //Generating email and verification message
                                     MailMessage msg = new MailMessage();
                                     SmtpClient smtp = new SmtpClient();
 
+                                    // Makes the message
                                     string verifyLink = "http://145.24.222.130/?mail=" + user.Mail + "&number=" + rrandom;
                                     msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
                                     msg.To.Add(user.Mail);
                                     msg.Subject = "E-mail verification";
                                     msg.Body = "Hi there, click the following link to activate your account: " + verifyLink;
 
-                  var client = new SmtpClient("smtp.hro.nl", 25);
-                  client.Send(msg);
-                  TempData["verification_allowed"] = "true";
-                  return RedirectToAction("Index", "Home");
+                                    // Sends the message to the email
+                                    var client = new SmtpClient("smtp.hro.nl", 25);
+                                    client.Send(msg);
+                                    TempData["verification_allowed"] = "true";
+                                    return RedirectToAction("Index", "Home");
+                                }
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("Mail", "Email is already taken");
+                                return View();
+                            }
+                        }
+                    }
+                    // Catches exception error and redirects to error page
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Registration Exception {0}", e);
+                        return RedirectToAction("Error", "Home");
+                        throw;
+                    }
                 }
-              }
-              else
-              {
-                ModelState.AddModelError("Mail", "Email is already taken");
-                return View();
-              }
             }
-          }
-                    
-          catch (Exception e)
-          {
-            Debug.WriteLine("Registration Exception {0}", e);
-            return RedirectToAction("Error", "Home");
-            throw;
-          }
-        }
-      }
-      return View();
+            return View();
         }
 
         [HttpPost]
@@ -205,39 +213,46 @@ namespace Reserveer.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        // Looks if IsValid is true and user account is active
                         if (IsValid(user.user_mail, user.user_password) && active == 1)
                         {
+                            // Saves the Username and Userrole in claims
                             List<Claim> claims = new List<Claim>
                             {
                                 new Claim(ClaimTypes.Name, Username),
                                 new Claim(ClaimTypes.Role, UserRole)
                             };
-                            var userIdentity =
-                                new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            // Save the roles and name in userIdentity to make use of authentication
+                            var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            // Add Identity to make use off the build in protocols it haves
                             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                            // Signs in
                             await HttpContext.SignInAsync(principal);
+                            // Gets the username
                             UserName = principal.Identity.Name;
 
+                            // Looks at the role of the user 
                             if (principal.IsInRole("user"))
                             {
+                                // Gets value from the ReturnUrl variable in the url at homepage
                                 string URLRedirection = Request.Query["ReturnUrl"];
-                               
+
                                 if (URLRedirection != null)
-                                { 
+                                {
                                     string RoomIdURL = URLRedirection.Substring(URLRedirection.IndexOf("=") + 1);
-                                    //var request = HttpContext.Request;
-                                    //var test = Request.Host;
                                     return RedirectToAction("Index", "Schedule", new { RoomId = RoomIdURL });
                                 }
                                 return RedirectToAction("Index", "Groups");
                             }
 
+                            // Looks at the role of the user 
                             if (principal.IsInRole("admin"))
                             {
                                 return RedirectToAction("Index", "GroupsAdmin");
                             }
                         }
 
+                        // Looks if it is not an active user
                         if (IsValid(user.user_mail, user.user_password) && active == 0)
                         {
                             ModelState.AddModelError("", "User Account is not activated");
@@ -249,6 +264,7 @@ namespace Reserveer.Controllers
                     }
                     return View();
                 }
+                // If it catches an exception error it redirects to an error page
                 catch (Exception e)
                 {
                     Debug.WriteLine("Index login post Exception {0}", e);
@@ -269,10 +285,13 @@ namespace Reserveer.Controllers
             {
                 try
                 {
+                    //Add simpleCrypto to encrypt
                     var crypto = new SimpleCrypto.PBKDF2();
                     bool isValid = false;
+                    // Check to see if email is correct
                     var user = _context.user.FirstOrDefault(u => u.user_mail == email);
 
+                    //Check to see if it is not an active user
                     if (user != null && user.active != 0)
                     {
                         UserRole = user.user_role;
@@ -280,6 +299,7 @@ namespace Reserveer.Controllers
                         Username = user.user_name;
                         active = user.active;
 
+                        // encrypts input password and makes a length check of the password in database to compare it with the encrypted input password
                         string toCompare = crypto.Compute(password, user.password_salt);
                         int amount = user.user_password.Length;
                         string passwordSaltFixed = toCompare.Substring(0, amount);
@@ -291,6 +311,7 @@ namespace Reserveer.Controllers
                         }
                     }
 
+                    // Check to see if it is an active user
                     else if (user != null && user.active == 0)
                     {
                         string toCompare = crypto.Compute(password, user.password_salt);
@@ -305,6 +326,7 @@ namespace Reserveer.Controllers
                     }
                     return isValid;
                 }
+                // If it catches an exception error it redirects to an error page
                 catch (Exception e)
                 {
                     Debug.WriteLine("Isvalid bool login Exception: {0}", e);
