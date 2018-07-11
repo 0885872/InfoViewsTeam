@@ -669,17 +669,17 @@ namespace Reserveer.Controllers
                 List<string[]> GroupRooms = new List<string[]>();
                 using (MySqlConnection connMysql = new MySqlConnection(connString))
                 {
-                    string[] group_id = new string[1];
+                    string[] group_id = new string[1]; //string array to store database results
                     using (MySqlCommand cmdd = connMysql.CreateCommand())
                     {
                         int userID = HomeController.UserId;
-                        cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';";
+                        cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';"; //sql query to execute
                         cmdd.CommandType = System.Data.CommandType.Text;
                         cmdd.Connection = connMysql;
 
-                        connMysql.Open();
+                        connMysql.Open(); //Open connection
 
-                        using (MySqlDataReader reader = cmdd.ExecuteReader())
+                        using (MySqlDataReader reader = cmdd.ExecuteReader()) //Sql query execution and result data storage
                         {
                             while (reader.Read())
                             {
@@ -687,18 +687,18 @@ namespace Reserveer.Controllers
                                 group_id[0] = reader["group_id"].ToString();
                             }
                         }
-                        connMysql.Close();
+                        connMysql.Close(); //Close connection
                     }
 
                     using (MySqlCommand cmdd = connMysql.CreateCommand())
                     {
-                        cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms` where " + group_id[0] + " = rooms.group_id";
+                        cmdd.CommandText = "SELECT rooms.room_id, rooms.room_name, rooms.available FROM `rooms` where " + group_id[0] + " = rooms.group_id"; //Sql query to execute
                         cmdd.CommandType = System.Data.CommandType.Text;
                         cmdd.Connection = connMysql;
 
                         connMysql.Open(); //Open connection
 
-                        using (MySqlDataReader reader = cmdd.ExecuteReader()) //sql query execution 
+                        using (MySqlDataReader reader = cmdd.ExecuteReader()) //sql query execution and data storage
                         {
                             while (reader.Read())
                             {
@@ -728,19 +728,19 @@ namespace Reserveer.Controllers
             try
             {
                 List<string[]> GroupUser = new List<string[]>();
-                using (MySqlConnection connMysql = new MySqlConnection(connString))
+                using (MySqlConnection connMysql = new MySqlConnection(connString)) //Setup connection
                 {
-                    string[] group_id = new string[1];
+                    string[] group_id = new string[1]; //String array to store datbase result
                     using (MySqlCommand cmdd = connMysql.CreateCommand())
                     {
                         int userID = HomeController.UserId;
-                        cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';";
+                        cmdd.CommandText = "SELECT group_id FROM user WHERE user_id = '" + userID + "';"; //Sql query to execute
                         cmdd.CommandType = System.Data.CommandType.Text;
                         cmdd.Connection = connMysql;
 
-                        connMysql.Open();
+                        connMysql.Open(); //Open connection
 
-                        using (MySqlDataReader reader = cmdd.ExecuteReader())
+                        using (MySqlDataReader reader = cmdd.ExecuteReader()) //Sql query execution en result data storage
                         {
                             while (reader.Read())
                             {
@@ -748,16 +748,16 @@ namespace Reserveer.Controllers
                                 group_id[0] = reader["group_id"].ToString();
                             }
                         }
-                        connMysql.Close();
+                        connMysql.Close(); //Close connection
                     }
 
                     using (MySqlCommand cmdd = connMysql.CreateCommand())
                     {
-                        cmdd.CommandText = "SELECT user.user_id, user.user_name, user.user_mail, user.active, user.group_id FROM `user` WHERE user.group_id = " + group_id[0] + " AND user.active = 0";
+                        cmdd.CommandText = "SELECT user.user_id, user.user_name, user.user_mail, user.active, user.group_id FROM `user` WHERE user.group_id = " + group_id[0] + " AND user.active = 0"; //Sql query to execute
                         cmdd.CommandType = System.Data.CommandType.Text;
                         cmdd.Connection = connMysql;
 
-                        connMysql.Open();
+                        connMysql.Open(); //Open connection
 
                         using (MySqlDataReader reader = cmdd.ExecuteReader()) //Execute the sql query and store results
                         {
@@ -909,7 +909,7 @@ namespace Reserveer.Controllers
                 List<string[]> RoomReservation = new List<string[]>(); //List of string [] 's to store results
                 using (MySqlConnection connMysql = new MySqlConnection(connString)) //setup connection
                 {
-                    using (MySqlCommand cmdd = connMysql.CreateCommand())
+                    using (MySqlCommand cmdd = connMysql.CreateCommand()) //Setup 
                     {
                         int room_id = 1;
                         cmdd.CommandText = "SELECT user.user_name, reservations.reservation_id, reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.group_id FROM `user_has_reservations`, user, reservations, rooms WHERE reservations.valid = 1 AND user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND rooms.room_id = reservations.room_id AND reservations.room_id = '" + room_id + "';"; //Sql query to execute
