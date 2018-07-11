@@ -126,7 +126,7 @@ namespace Reserveer.Controllers
         }
         //this function updates the room with the newly send info from roomprofile form
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateRoom(RoomInfo info, GroupInfo test) // Updates room info
+        public IActionResult UpdateRoom(RoomInfo info, GroupInfo grp) // Updates room info
         {
             try
             {
@@ -137,13 +137,15 @@ namespace Reserveer.Controllers
                     conn.Open();
                     // Create sql string to Update the room with the filled in information
                     String sql =
-                        "UPDATE rooms SET rooms.room_name = '" + info.RoomName + "', rooms.room_number = " + info.RoomNumber + ",  rooms.room_floor = " + info.RoomFloor + ", rooms.room_facilities = '" + info.RoomFacility + "', rooms.room_comment = '" + info.RoomComment + "' WHERE rooms.room_id = " + info.RoomID + "; ";
+                        "UPDATE rooms SET rooms.room_name = '" + info.RoomName + "', rooms.room_number = " + info.RoomNumber
+                        + ",  rooms.room_floor = " + info.RoomFloor + ", rooms.room_facilities = '" + info.RoomFacility + "', rooms.room_comment = '" 
+                        + info.RoomComment + "' WHERE rooms.room_id = " + info.RoomID + "; ";
                     MySqlCommand command = new MySqlCommand(sql, conn);
                     command.ExecuteNonQuery();
                     // Close the connection after executing the query
                     conn.Close();
                     // Redirect to the GroupsAdmin/Profile page, with the GroupID of the current user
-                    return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
+                    return RedirectToAction("Profile", "GroupsAdmin", grp.GroupID);
                 }
             }
             catch (Exception e) // Caches any exceptions that would cause an error
@@ -153,8 +155,6 @@ namespace Reserveer.Controllers
                 return RedirectToAction("Error", "Home");
                 throw;
             }
-
-
         }
 
         //this function assingns or updates the rooms sensor
@@ -246,8 +246,6 @@ namespace Reserveer.Controllers
 
         public IActionResult AddRoomInfo(RoomInfo info) // Adds a new room to group
         {
-
-
             {
                 try
                 {
@@ -258,7 +256,8 @@ namespace Reserveer.Controllers
                         conn.Open();
                         // Creates query to add all information taken from the filled in textboxes and creates a new entry in the 'rooms' table in database
                         String sql =
-                            "INSERT INTO rooms(room_name, room_number, group_id, room_floor, room_facilities,  available, room_comment) VALUES ('" + info.RoomName + "', " + info.RoomNumber + ", 1, " + info.RoomFloor + ", '" + info.RoomFacility + "', 0, '" + info.RoomComment + "'); ";
+                            "INSERT INTO rooms(room_name, room_number, group_id, room_floor, room_facilities,  available, room_comment) VALUES ('" 
+                            + info.RoomName + "', " + info.RoomNumber + ", 1, " + info.RoomFloor + ", '" + info.RoomFacility + "', 0, '" + info.RoomComment + "'); ";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
                         // Closes the connection after executing the query
