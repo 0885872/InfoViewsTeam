@@ -68,46 +68,45 @@ namespace Reserveer.Controllers
         [HttpPost]
         public ActionResult SetReservation([FromBody]ReservationModel reservation)
         {
+
+            try
             {
-                try
+                int useridd = HomeController.UserId; //Get userid of logged in user
+                string userid = useridd.ToString();
+                ReservationModel reservations = new ReservationModel //Assign data to model
                 {
-                    int useridd = HomeController.UserId; //Get userid of logged in user
-                    string userid = useridd.ToString();
-                    ReservationModel reservations = new ReservationModel //Assign data to model
-                    {
-                        title = reservation.title,
-                        start = reservation.start,
-                        end = reservation.end,
-                        roomid = reservation.roomid,
-                        userid = userid
+                    title = reservation.title,
+                    start = reservation.start,
+                    end = reservation.end,
+                    roomid = reservation.roomid,
+                    userid = userid
 
 
-                    };
-                    Database db = new Database(); //Create new instance of database object
-                    db.setReservations(reservations); //Save data in database
-                    string mailaddr = db.getUserMail(userid); //Get and store user mailadres in string var
-                    string roomname = db.getRoomName(reservation.roomid); //Get and store roomname in string var
-                    MailMessage msg = new MailMessage(); //Create email message
-                    SmtpClient smtp = new SmtpClient(); //Create SMTP client
+                };
+                Database db = new Database(); //Create new instance of database object
+                db.setReservations(reservations); //Save data in database
+                string mailaddr = db.getUserMail(userid); //Get and store user mailadres in string var
+                string roomname = db.getRoomName(reservation.roomid); //Get and store roomname in string var
+                MailMessage msg = new MailMessage(); //Create email message
+                SmtpClient smtp = new SmtpClient(); //Create SMTP client
 
-                    //Setup of email
-                    msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
-                    msg.To.Add(mailaddr);
-                    msg.Subject = "Confirmation of reservation";
-                    msg.Body = "Hi there, We would like to inform you: We've saved your reservation! start: " + reservation.start + ", end: " + reservation.end + ", room: " + roomname + ". Thanks for using InfoViews!";
+                //Setup of email
+                msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
+                msg.To.Add(mailaddr);
+                msg.Subject = "Confirmation of reservation";
+                msg.Body = "Hi there, We would like to inform you: We've saved your reservation! start: " + reservation.start + ", end: " + reservation.end + ", room: " + roomname + ". Thanks for using InfoViews!";
 
-                    var client = new SmtpClient("smtp.hro.nl", 25); //Configure SMTP mailserver
-                    client.Send(msg); //Send confirmation mail 
-
-                    return View("Index"); //Returns the view
-                }
-                catch (Exception e) //Exception catcher
-                {
-                    Debug.WriteLine("SetReservation Exception: {0}", e);
-                    return RedirectToAction("Error", "Home"); //Shows error page
-                    throw;
-                }
+                var client = new SmtpClient("smtp.hro.nl", 25); //Configure SMTP mailserver
+                client.Send(msg); //Send confirmation mail 
+                return RedirectToAction("Index"); //Returns the view Index from Schedule Controller 
             }
+            catch (Exception e) //Exception catcher
+            {
+                Debug.WriteLine("SetReservation Exception: {0}", e);
+                return RedirectToAction("Error", "Home"); //Shows error page
+                throw;
+            }
+
 
         }
 

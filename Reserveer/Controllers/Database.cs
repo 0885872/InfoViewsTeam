@@ -152,7 +152,7 @@ namespace Reserveer.Controllers
                     using (MySqlCommand cmdd = connMysql.CreateCommand())
                     {
                         //Query to get reservation data from database, associated with the given room id.
-                        cmdd.CommandText = "SELECT reservations.reservation_id, reservations.room_id, reservations.start, reservations.end, reservations.valid, rooms.room_name FROM reservations, rooms where reservations.room_id = rooms.room_id AND reservations.room_id = " + room + " ORDER BY reservations.start DESC;";
+                        cmdd.CommandText = "SELECT reservations.reservation_id, reservations.room_id, reservations.start, reservations.end, reservations.valid, rooms.room_name FROM reservations, rooms where reservations.room_id = rooms.room_id AND reservations.room_id = " + room + " AND reservations.valid = 1 ORDER BY reservations.start DESC;";
                         cmdd.CommandType = System.Data.CommandType.Text;
 
                         cmdd.Connection = connMysql;

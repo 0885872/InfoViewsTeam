@@ -4,6 +4,7 @@
 <link href="@Url.Content("~/css/fullcalendar.min.css")" rel="stylesheet" type="text/css" />
 
 <h1 class="my-4 text-center" style=" margin-top:40px; margin-bottom:40px;">Room Schedule: <span id="ScheduleTitle"></span> </h1>
+<a class="btn btn-lg btn-danger ReturnButton" href="javascript:history.go(-1)" role="button">Return</a>
 
 <script type="text/javascript">
         $(document).ready(function () {
@@ -167,37 +168,44 @@
 <div id="calendar" class="opacityWhitebg"></div>
 <br />
 
-@if (ViewBag.QRCodeImage != null)
-{
-    <img src="@ViewBag.QRCodeImage" alt="" style="height:150px;width:150px" />
-}
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Overview Reservations:
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="row" id="Reservations">
 
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-        <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-            <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Overview Reservations:
-                </a>
-            </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
-            <div class="row" id="Reservations">
+                        <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
+                            <div class="caption ">
+                                <div class="col-sm-3">
+                                    Reservation Date/Time
+                                </div>
+                                <div class="col-sm-3">
+                                    Room
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="row thumbnail" style="margin-right: 15px; margin-left: 15px;">
-                    <div class="caption ">
-                        <div class="col-sm-3">
-                            Reservation Time
-                        </div>
-                        <div class="col-sm-3">
-                            Creation Date
-                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+    <div class="col-md-3">
+
+        @if (ViewBag.QRCodeImage != null)
+        {
+            <img src="@ViewBag.QRCodeImage" alt="" style="height:250px;width:250px" />
+        }
+    </div>
 </div>
+
 
 
