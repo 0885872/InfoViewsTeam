@@ -40,12 +40,12 @@ namespace Reserveer.Controllers
             }
         }
 
-        // 
-        // GET: /Groups/Welcome/  
-        public IActionResult AddRoom()
-        {
-            return View();
-        }
+    // 
+    // GET: /Groups/Welcome/  
+    public IActionResult AddRoom()
+    {
+        return View(); // Creates a new page to fill in data for a new room
+    }
 
         public IActionResult Profile()
         {

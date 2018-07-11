@@ -269,3 +269,14 @@ C:\Users\Tommy\Source\Repos\InfoViewsTeam22\Reserveer\obj\Debug\netcoreapp2.0\Re
 C:\Users\Tommy\Source\Repos\InfoViewsTeam22\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
 C:\Users\Tommy\Source\Repos\InfoViewsTeam22\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
 C:\Users\Tommy\Source\Repos\InfoViewsTeam22\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.deps.json
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.json
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.runtimeconfig.dev.json
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.dll
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\bin\Debug\netcoreapp2.0\Reserveer.pdb
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csprojAssemblyReference.cache
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csproj.CoreCompileInputs.cache
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfoInputs.cache
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
+C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb

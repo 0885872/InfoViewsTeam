@@ -19,18 +19,17 @@ namespace Reserveer.Controllers
     public class ScheduleController : Controller
     {
         //Get reservations
+        //Called when Schedule route is requested
         [HttpGet]
         public ActionResult Index()
         {
-
             try
             {
-                int userid = HomeController.UserId;
-                string room = Request.Query["roomid"];
+                int userid = HomeController.UserId; //Get userid of logged in user
+                string room = Request.Query["roomid"]; //Get roomid from url parameter
 
-                //QRCode Code nog commenten
                 var request = HttpContext.Request;
-                using (MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream()) //QR-code generation
                 {
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
@@ -45,14 +44,14 @@ namespace Reserveer.Controllers
                     }
                 }
 
-                Database db = new Database();
-                List<string[]> results = db.getReservations(room);
-                var json = JsonConvert.SerializeObject(results);
-                ViewData["results"] = json; 
+                Database db = new Database(); // Make instance of database class
+                List<string[]> results = db.getReservations(room); // Get reservation from database object and store returned values in List of string []'s
+                var json = JsonConvert.SerializeObject(results); //Convert previous list of string []'s to json object
+                ViewData["results"] = json; //Hands over json object to view
 
-                return View();
+                return View(); //View gets returned with viewdata
             }
-            catch (Exception e)
+            catch (Exception e) //Exception catcher
             {
                 Debug.WriteLine("Index Schedule Exception: {0}", e);
                 return RedirectToAction("Error", "Home");
@@ -65,15 +64,16 @@ namespace Reserveer.Controllers
         }
 
         //Reservations post
+        //Method to save reservations to database
         [HttpPost]
         public ActionResult SetReservation([FromBody]ReservationModel reservation)
         {
             {
                 try
                 {
-                    int useridd = HomeController.UserId;
+                    int useridd = HomeController.UserId; //Get userid of logged in user
                     string userid = useridd.ToString();
-                    ReservationModel reservations = new ReservationModel
+                    ReservationModel reservations = new ReservationModel //Assign data to model
                     {
                         title = reservation.title,
                         start = reservation.start,
@@ -83,27 +83,28 @@ namespace Reserveer.Controllers
 
 
                     };
-                    Database db = new Database();
-                    db.setReservations(reservations);
-                    string mailaddr = db.getUserMail(userid);
-                    string roomname = db.getRoomName(reservation.roomid);
-                    MailMessage msg = new MailMessage();
-                    SmtpClient smtp = new SmtpClient();
+                    Database db = new Database(); //Create new instance of database object
+                    db.setReservations(reservations); //Save data in database
+                    string mailaddr = db.getUserMail(userid); //Get and store user mailadres in string var
+                    string roomname = db.getRoomName(reservation.roomid); //Get and store roomname in string var
+                    MailMessage msg = new MailMessage(); //Create email message
+                    SmtpClient smtp = new SmtpClient(); //Create SMTP client
 
+                    //Setup of email
                     msg.From = new MailAddress("Noreply@infoviews.drakonit.nl");
                     msg.To.Add(mailaddr);
                     msg.Subject = "Confirmation of reservation";
                     msg.Body = "Hi there, We would like to inform you: We've saved your reservation! start: " + reservation.start + ", end: " + reservation.end + ", room: " + roomname + ". Thanks for using InfoViews!";
 
-                    var client = new SmtpClient("smtp.hro.nl", 25);
-                    client.Send(msg);
+                    var client = new SmtpClient("smtp.hro.nl", 25); //Configure SMTP mailserver
+                    client.Send(msg); //Send confirmation mail 
 
-                    return View("Index");
+                    return View("Index"); //Returns the view
                 }
-                catch (Exception e)
+                catch (Exception e) //Exception catcher
                 {
                     Debug.WriteLine("SetReservation Exception: {0}", e);
-                    return RedirectToAction("Error", "Home");
+                    return RedirectToAction("Error", "Home"); //Shows error page
                     throw;
                 }
             }
