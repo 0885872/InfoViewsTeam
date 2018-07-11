@@ -13,9 +13,7 @@ namespace Reserveer.Controllers
 {
     [Authorize(Roles = "admin")]
     public class GroupsAdminController : Controller
-    {
-
-    // 
+    { 
     // GET: /Groups/
     public IActionResult Index(int numTimes = 1)
     {
@@ -46,7 +44,7 @@ namespace Reserveer.Controllers
     // GET: /Groups/Welcome/  
     public IActionResult AddRoom()
     {
-        return View();
+        return View(); // Creates a new page to fill in data for a new room
     }
 
     public IActionResult Profile()
@@ -100,8 +98,7 @@ namespace Reserveer.Controllers
                         var jsonTemp = JsonConvert.SerializeObject(temperatureData);
                         ViewData["temp"] = jsonTemp;
                     }
-                    // If there is not a sensor connected to the current room
-                    else
+                    else                     // If there is not a sensor connected to the current room
                     {
                         ViewData["temp"] = "[]";
                     }
@@ -122,9 +119,8 @@ namespace Reserveer.Controllers
                 catch (Exception e)
                 {
                     Debug.WriteLine("Roomprofile Exception: {0}", e);
-                    // Redirect to error page
-                    return RedirectToAction("Error", "Home");
-                    throw;
+                    return RedirectToAction("Error", "Home");   // Redirect to error page
+                throw;
                 }}
         
     }
