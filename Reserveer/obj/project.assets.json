@@ -12407,7 +12407,7 @@
       ]
     },
     "System.Security.Cryptography.Xml/4.4.2": {
-      "sha512": "1m+fKVrApgKYMRuE0MF0vGjqy4XqAp1rCtyAzMXhJajMDDytMh/rHk9hp4M7KKk3QQZoWJUvyUY7xcw74w+JiQ==",
+      "sha512": "q9Dren/YP5jhRCkDvLfuaPpMTQzP97ANvzq/OoGgwK8YdLRSTABS9oW5/23OKoM2DRCuBrh4qaecD2YNhPtuzQ==",
       "type": "package",
       "path": "system.security.cryptography.xml/4.4.2",
       "files": [
@@ -13618,27 +13618,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tommy\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\0880606\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam22\\Reserveer\\Reserveer.csproj",
+      "projectUniqueName": "C:\\Users\\0880606\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
       "projectName": "Reserveer",
-      "projectPath": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam22\\Reserveer\\Reserveer.csproj",
-      "packagesPath": "C:\\Users\\Tommy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tommy\\Source\\Repos\\InfoViewsTeam22\\Reserveer\\obj\\",
+      "projectPath": "C:\\Users\\0880606\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\Reserveer.csproj",
+      "packagesPath": "C:\\Users\\0880606\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\0880606\\Source\\Repos\\InfoViewsTeam2\\Reserveer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Tommy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\0880606\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"

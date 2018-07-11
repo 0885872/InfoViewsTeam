@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<!--Looks if the Viewbag has a value-->
 @if (ViewBag.verified != null)
 {
     if (ViewBag.verified == true)
@@ -16,7 +16,7 @@
         @Html.Raw(msg);
     }
 }
-
+<!--Looks if TempData has a value  to show a message-->
 @if (TempData["verification_allowed"] != null)
 {
     if (TempData["verification_allowed"].ToString() == "true")
