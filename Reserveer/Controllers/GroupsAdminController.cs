@@ -126,6 +126,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
+                        // The connectionstring with the connection info to login to the server
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
                         conn.Open();
                         // Create sql string to Update the room with the filled in information
@@ -133,6 +134,7 @@ namespace Reserveer.Controllers
                             "UPDATE rooms SET rooms.room_name = '" + info.RoomName + "', rooms.room_number = " + info.RoomNumber + ",  rooms.room_floor = " + info.RoomFloor + ", rooms.room_facilities = '" + info.RoomFacility + "', rooms.room_comment = '" + info.RoomComment + "' WHERE rooms.room_id = " + info.RoomID + "; ";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
+                        // Close the connection after executing the query
                         conn.Close();
                         // Redirect to the GroupsAdmin/Profile page, with the GroupID of the current user
                         return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
@@ -156,8 +158,8 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
-
-                        conn.ConnectionString =
+                            // The connectionstring with the connection info to login to the server
+                            conn.ConnectionString =
                             "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
 
                         if (info.CurrentSensorID != "New")
@@ -201,6 +203,7 @@ namespace Reserveer.Controllers
                             conn.Close();
                         }
 
+                        // Redirect to GroupsAdmin/Profile
                         return RedirectToAction("Profile", "GroupsAdmin", test.GroupID);
                     }
                 }
@@ -222,6 +225,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
+                        // The connectionstring with the connection info to login to the server
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
                         conn.Open();
                         // Creates query to add all information taken from the filled in textboxes and creates a new entry in the 'rooms' table in database
@@ -229,6 +233,7 @@ namespace Reserveer.Controllers
                             "INSERT INTO rooms(room_name, room_number, group_id, room_floor, room_facilities,  available, room_comment) VALUES ('" + info.RoomName + "', " + info.RoomNumber + ", 1, " + info.RoomFloor + ", '" + info.RoomFacility + "', 0, '" + info.RoomComment + "'); ";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
+                        // Closes the connection after executing the query
                         conn.Close();
                         return RedirectToAction("Index", "GroupsAdmin");
                     }
@@ -251,6 +256,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
+                        // The connectionstring with the connection info to login to the server
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
                         conn.Open();
                         // Creates query to Update the Group name into the specified GroupName in the input field
@@ -258,6 +264,7 @@ namespace Reserveer.Controllers
                             "UPDATE `group` SET group_name = '" + info.GroupName + "' WHERE group_id = '" + info.GroupID + "';";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
+                        // Closes the connection after executing the query
                         conn.Close();
                         // Redirects to GroupsAdmin/Profile with the correct GroupID
                         return RedirectToAction("Profile", "GroupsAdmin", info.GroupID);
@@ -280,6 +287,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
+                        // The connectionstring with the connection info to login to the server
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
                         conn.Open();
                         // Creates query to deactivate a user
@@ -287,6 +295,7 @@ namespace Reserveer.Controllers
                             "UPDATE user SET user.active = '1' WHERE user.user_id = '" + userId + "';";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
+                        // Closes the connection after executing the query
                         conn.Close();
                         return RedirectToAction("Profile", "GroupsAdmin", groupId);
                     }
@@ -308,6 +317,7 @@ namespace Reserveer.Controllers
                 {
                     using (MySqlConnection conn = new MySqlConnection())
                     {
+                        // The connectionstring with the connection info to login to the server
                         conn.ConnectionString = "Server=drakonit.nl;Database=timbrrf252_roomreserve;Uid=timbrrf252_ictlab;Password=ictlabhro;SslMode=none";
                         conn.Open();
                         // Creates a query to set the specified reservation to invalid
@@ -315,7 +325,9 @@ namespace Reserveer.Controllers
                             "UPDATE reservations SET reservations.valid = '0'  WHERE reservations.reservation_id = " + reservationId + ";";
                         MySqlCommand command = new MySqlCommand(sql, conn);
                         command.ExecuteNonQuery();
+                        // Closes the connection after executing the query
                         conn.Close();
+                        // Redirects to GroupsAdmin/Profile
                         return RedirectToAction("Profile", "GroupsAdmin", groupId);
                     }
                 }
