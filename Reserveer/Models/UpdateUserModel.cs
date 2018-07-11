@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reserveer.Models
 {
-    public class UpdateUserModel
+    public class UpdateUserModel // Model to update have the user update their name and password
     {
         [Required(ErrorMessage = "This field is required.")]
         [MinLength(6, ErrorMessage = "Name has to be longer than 6 Characters.")]

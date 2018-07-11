@@ -1,7 +1,7 @@
 ﻿<script type="text/javascript">
     $(document).ready(function () {
 
-        // Creates new array to store the page data inside of
+        // Creates new array to store the page data taken from the controllers
         AdminGroupsArray = new Array();
         AdminGroupsArray = @Html.Raw(ViewData["results"]);
         console.log(AdminGroupsArray);
@@ -13,7 +13,8 @@
             $("#AdminGroupsCollapse").append(
 
               // Specifies all the info that goes into the AdminGroupsArray, such as clickable link, domain name etc
-                '<a href="GroupsAdmin/Profile?GroupId='+AdminGroupsArray[i][0]+'"><div class="col-sm-4"><div class="thumbnail "><img class="card-img-top " src="https://dummyimage.com/180x100/000/17a2b8 " alt="Card image cap" style="height: 200px; width: 100%; display: block;"/><div class= "caption" > <h3 class="card-title text-center">'+AdminGroupsArray[i][1]+'</h3> <h6 class="text-center">DOMAINS</h6> <div class="row"><div class="col-sm-4 "><span class="themeBGColor domains_admin">'+AdminGroupsArray[i][2]+'</span></div></div ><hr/><a href="GroupsAdmin/Profile?GroupId='+AdminGroupsArray[i][0]+'" class="btn btn-dark  center-block" style="margin-top:10px;">Profile</a></div><div class="footer themeBGColor" style="border-radius:5px;"><div style="padding:20px;" class="text-center">'+AdminGroupsArray[i][3]+' Users</div></div></div></div></a>'
+              '<a href="GroupsAdmin/Profile?GroupId=' + AdminGroupsArray[i][0]
+              + '"><div class="col-sm-4"><div class="thumbnail "><img class="card-img-top " src="https://dummyimage.com/180x100/000/17a2b8 " alt="Card image cap" style="height: 200px; width: 100%; display: block;"/><div class= "caption" > <h3 class="card-title text-center">' + AdminGroupsArray[i][1] + '</h3> <h6 class="text-center">DOMAINS</h6> <div class="row"><div class="col-sm-4 "><span class="themeBGColor domains_admin">' + AdminGroupsArray[i][2] + '</span></div></div ><hr/><a href="GroupsAdmin/Profile?GroupId=' + AdminGroupsArray[i][0] + '" class="btn btn-dark  center-block" style="margin-top:10px;">Profile</a></div><div class="footer themeBGColor" style="border-radius:5px;"><div style="padding:20px;" class="text-center">' + AdminGroupsArray[i][3] + ' Users</div></div></div></div></a>'
 
             );
         }

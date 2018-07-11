@@ -5,12 +5,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-      // Creates new array to store page data inside of
+      // Creates new array to store page data taken from the controllers
         GroupProfileArray = new Array();
       GroupProfileArray = @Html.Raw(ViewData["results"]);
         console.log(GroupProfileArray);
 
-      // Stores all data into GroupProfileArray
+      // Seperates all data into seperate variables and hands it to over the view
       $('#title').text(GroupProfileArray[0][1]);
         $('#groupI').val(GroupProfileArray[0][1]);
         $('#groupId').val(GroupProfileArray[0][0]);
