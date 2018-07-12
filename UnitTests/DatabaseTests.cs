@@ -30,32 +30,13 @@ namespace UnitTests
             Assert.NotNull(result);
 
         }
-        [Fact]
-        public void getGroupRoomReservation_ReturnsString_NotNull()
-        {
-            List<string[]> result = db.getGroupRoomReservation();
-            Assert.NotNull(result);
-
-        }
-        [Fact]
-        public void getGroupRooms_ReturnsString_NotNull()
-        {
-            List<string[]> result = db.getGroupRooms();
-            Assert.NotNull(result);
-
-        }
-        [Fact]
-        public void getGroupUser_ReturnsString_NotNull()
-        {
-            List<string[]> result = db.getGroupUser();
-            Assert.NotNull(result);
-
-        }
+ 
         [Fact]
         public void getLatestTemperature_ReturnsString_23()
         {
             string[] result = db.getLatestTemperature("1");
             Assert.Equal(result[0], "23.0");
+            // Input: id(1), expected output: 23.0, != null
 
 
 
@@ -65,13 +46,14 @@ namespace UnitTests
         {
             List<string[]> result = db.getReservations("1");
             Assert.NotNull(result);
-
+            // Input: id(1), expected output: some value, != null
         }
         [Fact]
         public void getRoomName_ReturnsString_H2312()
         {
             string result = db.getRoomName("1");
             Assert.Equal(result, "H2312");
+            //Input: id(1), expected output: H2312 
 
         }
         [Fact]
@@ -79,6 +61,7 @@ namespace UnitTests
         {
             List<string[]> result = db.getRoomReservation("1");
             Assert.NotNull(result);
+            //Input: id(1), expected output: some value, != null
 
         }
 
@@ -87,6 +70,7 @@ namespace UnitTests
         {
             List<string[]> result = db.getCurrentRoomSensors("1");
             Assert.NotNull(result);
+            //Input: id(1), expected output: some value, != null
 
         }
 
@@ -95,7 +79,7 @@ namespace UnitTests
         {
             List<string[]> result = db.getUserGroup();
             Assert.NotNull(result);
-
+            //Input: none just method call, expected output: some value, != null
         }
 
         [Fact]
@@ -103,6 +87,7 @@ namespace UnitTests
         {
             string result = db.getUserMail("42");
             Assert.Equal(result, "nee@Hotmail.com");
+            //Input : id(41), expected output: "nee@Hotmail.com"
         }
     }
 }

@@ -22,16 +22,9 @@ namespace UnitTests
             Assert.NotNull(returnedView.ViewData["results"]);
             Assert.NotNull(returnedView.ViewData["UserInfoResults"]);
             Assert.NotNull(returnedView.ViewData["UserReservationsResults"]);
+            //Input: nothing, just a method call. Output: 3x some value, != null
 
         }
 
-        [Fact]
-        public void Rooms_ReturnsView_NotNull()
-        {
-            var returnedView = grp.Rooms("TestNameUser") as ViewResult;
-            Assert.NotNull(returnedView);
-            Assert.NotNull(returnedView.ViewData["results"]);
-
-        }
     }
 }
