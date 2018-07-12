@@ -19,7 +19,7 @@ namespace UnitTests
         {
 
             string result = db.getDomainCheck("hr.nl");
-            Assert.Equal(result, "1");
+            Assert.Equal("1", result);
 
         }
 
@@ -77,7 +77,7 @@ namespace UnitTests
         [Fact]
         public void getRoomReservation_ReturnsString_NotNull()
         {
-            List<string[]> result = db.getRoomReservation();
+            List<string[]> result = db.getRoomReservation("1");
             Assert.NotNull(result);
 
         }
