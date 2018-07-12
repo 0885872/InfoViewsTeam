@@ -74,66 +74,76 @@
                     isWeekend = false; //var to express weekend
                     past = false; //var to express past
 
-                    if (moment(start).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD') || moment(end).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD')) { //check if selected timeslot(s) is in past
-                        alert("You can not book in past.");
-                        past = true;
-                        $('#calendar').fullCalendar('unselect');
-                    }
-
-                    if (startdate.isoWeekday() == 6 || startdate.isoWeekday() == 7 || enddate.isoWeekday() == 6 || enddate.isoWeekday() == 7) { //check if selected timeslots contain timeslots in weekend
-                        isWeekend = true;
-                        alert("You can not book a room on Saturday or Sunday.")
-                        $('#calendar').fullCalendar('unselect');
-                    }
-                    if (isWeekend == false && past == false) {
-                        var confirmed = confirm("Do you really want to book this room from " + moment(start).format('YYYY/MM/DD HH:mm') + " till " + moment(end).format('YYYY/MM/DD HH:mm') + "?"); //Ask for confirmation
-                        if (!confirmed) { //If booking declined
-                            $('#calendar').fullCalendar('unselect'); //delete event from calendar and dont save in database
-                        }
-                        else if (confirmed) { // if booking confirmed
-                            var title = "You have successfully booked this timeslot!"; //message to show in event box
-                            var eventData;
-                            if (title) {
-                                eventData = {
-                                    title: title,
-                                    start: start,
-                                    end: end
-                                };
-                                var startFormat = moment(start).format('YYYY/MM/DD HH:mm'); //format start datetime for database
-                                var endFormat = moment(end).format('YYYY/MM/DD HH:mm'); //format end datetime for database
-
-                                var urlParams = new URLSearchParams(window.location.search);
-                                var roomid = urlParams.get('RoomId'); //get roomid  parameter from url
-
-                                var reservation = new Object(); //Make js object with booking data
-                                reservation.title = title;
-                                reservation.start = startFormat;
-                                reservation.end = endFormat;
-                                reservation.roomid = roomid
-
-
-                                $.ajax({ //ajax post to post booking data to backend
-                                    url: '/Schedule/SetReservation', // /Controller/Method or route
-                                    type: 'POST', //type
-                                    dataType: "json",
-                                    contentType: "application/json; charset=utf-8",
-                                    data: JSON.stringify(reservation),
-                                    success: function (data) { //if successfully
-                                        alert(data);
-                                    },
-                                    failure: function (errMsg) {
-                                        alert("An error has occured. Please try again later"); //if not successfully
-                                        alert(errMsg);
-                                    }
-
-                                });
-
-                                $('#calendar').fullCalendar('renderEvent', eventData, true); // show in calendar
-                            }
+                    //If you have internet connection make it possible to create reservation
+                    if (navigator.onLine) {
+                        if (moment(start).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD') || moment(end).format('YYYY-MM-DD') < moment(today).format('YYYY-MM-DD')) { //check if selected timeslot(s) is in past
+                            alert("You can not book in past.");
+                            past = true;
                             $('#calendar').fullCalendar('unselect');
                         }
 
+                        if (startdate.isoWeekday() == 6 || startdate.isoWeekday() == 7 || enddate.isoWeekday() == 6 || enddate.isoWeekday() == 7) { //check if selected timeslots contain timeslots in weekend
+                            isWeekend = true;
+                            alert("You can not book a room on Saturday or Sunday.")
+                            $('#calendar').fullCalendar('unselect');
+                        }
+                        if (isWeekend == false && past == false) {
+                            var confirmed = confirm("Do you really want to book this room from " + moment(start).format('YYYY/MM/DD HH:mm') + " till " + moment(end).format('YYYY/MM/DD HH:mm') + "?"); //Ask for confirmation
+                            if (!confirmed) { //If booking declined
+                                $('#calendar').fullCalendar('unselect'); //delete event from calendar and dont save in database
+                            }
+                            else if (confirmed) { // if booking confirmed
+
+                                var title = "You have successfully booked this timeslot!"; //message to show in event box
+                                var eventData;
+                                if (title) {
+                                    eventData = {
+                                        title: title,
+                                        start: start,
+                                        end: end
+                                    };
+                                    var startFormat = moment(start).format('YYYY/MM/DD HH:mm'); //format start datetime for database
+                                    var endFormat = moment(end).format('YYYY/MM/DD HH:mm'); //format end datetime for database
+
+                                    var urlParams = new URLSearchParams(window.location.search);
+                                    var roomid = urlParams.get('RoomId'); //get roomid  parameter from url
+
+                                    var reservation = new Object(); //Make js object with booking data
+                                    reservation.title = title;
+                                    reservation.start = startFormat;
+                                    reservation.end = endFormat;
+                                    reservation.roomid = roomid
+
+
+                                    $.ajax({ //ajax post to post booking data to backend
+                                        url: '/Schedule/SetReservation', // /Controller/Method or route
+                                        type: 'POST', //type
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: JSON.stringify(reservation),
+                                        success: function (data) { //if successfully
+                                            alert(data);
+                                        },
+                                        failure: function (errMsg) {
+                                            alert("An error has occured. Please try again later"); //if not successfully
+                                            alert(errMsg);
+                                        }
+
+                                    });
+
+                                    $('#calendar').fullCalendar('renderEvent', eventData, true); // show in calendar
+                                }
+                                $('#calendar').fullCalendar('unselect');
+                            }
+
+                        }
+                    }//if there is no internet connection tell the user and do nothing
+                    else {
+                        alert('At this moment you have no internet connection. Try it later again');
+                        $('#calendar').fullCalendar('unselect');
                     }
+
+                    
 
                 },
                 editable: true, //make calendar editable
