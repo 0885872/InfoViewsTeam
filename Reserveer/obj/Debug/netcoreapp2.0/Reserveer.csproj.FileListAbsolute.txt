@@ -279,3 +279,4 @@ C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\R
 C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.AssemblyInfo.cs
 C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.dll
 C:\Users\0880606\Source\Repos\InfoViewsTeam2\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.pdb
+D:\School\Year 3\ICT-LAB 01\Complete\Reserveer\obj\Debug\netcoreapp2.0\Reserveer.csprojAssemblyReference.cache
