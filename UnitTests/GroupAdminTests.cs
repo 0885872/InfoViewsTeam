@@ -17,37 +17,21 @@ namespace UnitTests
     }
 
     [Fact]
-    public void Index_ReturnsView_NotNull()
-    {
-      var returnedView = ad.Index() as ViewResult;
-      Assert.NotNull(returnedView.ViewData["results"]);
-      Assert.NotNull(returnedView.ViewData["NumTimes"]);
-
-    }
-
-    [Fact]
     public void Addroom_ReturnsView_NotNull()
     {
       var result = ad.AddRoom();
       Assert.NotNull(result);
+            //Input: None, just a method call. Expected output: some value, != null
 
     }
 
-    [Fact]
-    public void Profile_ReturnsView_NotNull()
-    {
-      var returnedView = ad.Profile() as ViewResult;
-      Assert.NotNull(returnedView.ViewData["results"]);
-      Assert.NotNull(returnedView.ViewData["results2"]);
-      Assert.NotNull(returnedView.ViewData["results3"]);
-      Assert.NotNull(returnedView.ViewData["results4"]);
-    }
 
     [Fact]
     public void Deactivatuser_ReturnsString_NotNull()
     {
     var result = ad.DeactivateUser("1","42");
     Assert.NotNull(result);
+            //Input: 2x id(1,42), expected output: some value, != null
 
     }
 
@@ -56,8 +40,9 @@ namespace UnitTests
     {
     var result = ad.DeleteReservation("60" , "1");
     Assert.NotNull(result);
+            //Input: 2x id(60,1), expected output: some value, != null
 
-    } 
+        }
 
-  }
+    }
 }
