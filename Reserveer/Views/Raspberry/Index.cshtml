@@ -10,7 +10,7 @@
             eventArray = []; //Empty array for the events
 
             var today = new Date(); //JS Date object of current date/time
-            var dd = today.getDate(); // current day 
+            var dd = today.getDate(); // current day
             var mm = today.getMonth() + 1; //January is 0!
             var yyyy = today.getFullYear(); // get current year
             var hours = today.getHours(); //get current hour
@@ -64,7 +64,7 @@
                 defaultDate: today, //Shows default
                 navLinks: false, // can click day/week names to navigate views
                 selectable: true, //Possibility to drag in calendar
-                selectHelper: true, 
+                selectHelper: true,
                 editable: true, //Possibility to edit calendar
                 eventLimit: true, // Max time
                 events: events, //event feed
@@ -75,27 +75,24 @@
             $('#ScheduleTitle').text(test[0][5]); //Show the magic
     });
 
-    
+
 
 </script>
 
 <div id="calendar" class="opacityWhitebg"></div>
-
-@if (ViewBag.QRCodeImage != null)
-{
-    <img src="@ViewBag.QRCodeImage" alt="" style="height:150px;width:150px" /> <!--Show the QR-code-->
-}
-
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-        <div class="panel-heading themeBGColor cwhite" role="tab" id="headingOne">
-            <h4 id="temp" class="panel-title"></h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in" style="padding:20px;" role="tabpanel" aria-labelledby="headingOne">
-            <div class="row">
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-8">
+        <h4 id="temp" class="caption themeBGColor"></h4>
+    </div>
+    <div class="col-md-4">
+        @if (ViewBag.QRCodeImage != null)
+        {
+            <img src="@ViewBag.QRCodeImage" alt="" style="height:150px;width:150px" /> <!--Show the QR-code-->
+        }
     </div>
 </div>
+
+
+
 
 

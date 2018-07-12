@@ -977,7 +977,8 @@ namespace Reserveer.Controllers
                     }
                     using (MySqlCommand cmdd = connMysql.CreateCommand())
                     {
-                        cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name,  reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name, rooms.group_id FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.user_id = user_has_reservations.user_id and user_has_reservations.reservation_id = reservations.reservation_id AND reservations.room_id =" + group_id[0] + " AND reservations.valid = 1;"; //Sql query to execute
+                        cmdd.CommandText = "SELECT reservations.reservation_id, user.user_name, reservations.start, reservations.end, reservations.reservation_date, reservations.valid, rooms.room_id, rooms.room_name, rooms.group_id FROM `rooms`, `user_has_reservations`, `user`, `reservations` WHERE user.group_id = rooms.group_id AND reservations.room_id = rooms.room_id AND reservations.reservation_id = user_has_reservations.reservation_id AND user_has_reservations.user_id = user.user_id AND rooms.group_id = " + group_id[0] + " AND reservations.valid = 1"; //Sql query to execute
+                        
                         cmdd.CommandType = System.Data.CommandType.Text;
                         cmdd.Connection = connMysql;
 
