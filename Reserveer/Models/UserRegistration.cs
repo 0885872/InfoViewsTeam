@@ -11,7 +11,7 @@ namespace Reserveer.Models
     {
 
     [Required(ErrorMessage = "This field is required.")]
-    [MinLength(6, ErrorMessage = "Name has to be longer than 6 Characters.")]
+    [MinLength(3, ErrorMessage = "Name has to be longer than 3 Characters.")]
     [MaxLength(20, ErrorMessage = "Name cannot be longer than 20 characters.")]
     public string Name { get; set; }
 
